@@ -10,7 +10,7 @@
         <div class="w-[60%] p-6 border rounded-md ">
             <h5 class="font-bold text-2xl">Update a post</h5>
             <hr class="my-2">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{route('user_post.update', $data->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-4">

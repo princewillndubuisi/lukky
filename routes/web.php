@@ -32,8 +32,10 @@ Route::get('profiles', [BlogController::class, 'profiles'])->middleware('auth')-
 Route::get('user_post_del/{id}', [BlogController::class, 'user_post_del'])->middleware('auth')->name('user_post.del');
 
 Route::get('user_post_edit/{id}', [BlogController::class, 'user_post_edit'])->middleware('auth')->name('user_post.edit');
-// End User Routes
 
+Route::post('user_post_update/{id}', [BlogController::class, 'user_post_update'])->middleware('auth')->name('user_post.update');
+// End User Routes
+ 
 // Admin Routes
 Route::get('post_page', [AdminController::class, 'post_page'])->name('post.page');
 

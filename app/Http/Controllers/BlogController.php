@@ -127,4 +127,56 @@ class BlogController extends Controller
 
         return view('home.edit_post', compact('data'));
     }
+
+    public function user_post_update(Request $request, $id) {
+        $validate = $request->validate([
+            'title' => ['required'],
+            'description' => ['required'],
+            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
+            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
+        ]);
+
+        $data = Post::find($id);
+
+        $data->title = $request->title;
+        $data->description = $request->description;
+
+        //Image
+        $image = $request->image;
+
+        if($image) {
+            $imagename = time() . ' . ' . $image->getClientOriginalExtension();
+            $image->move('postimage', $imagename);
+
+            $data->image = $imagename;
+        }
+
+        // Video
+        $video = $request->video;
+
+        if($video) {
+            $videoname = time() . ' . ' . $video->getClientOriginalExtension();
+            $video->move('postvideo', $videoname);
+
+            $data->video = $videoname;
+        }
+
+        // For User
+        // $user = Auth::user();
+
+        // $user_id = $user->id;
+        // $name = $user->name;
+        // $usertype = $user->usertype;
+
+        // $post->user_id = $user_id;
+        // $post->name = $name;
+        // $post->usertype = $usertype;
+        // $post->post_status = 'pending';
+
+        $data->save();
+
+        Alert::success('Success!', 'Post added successfully');
+
+        return redirect()->back();
+    }
 }

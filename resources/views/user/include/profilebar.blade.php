@@ -47,9 +47,85 @@
                     $isToday = $date->isToday();
                     $formattedDate = $isToday ? 'Today' : $date->format('jS M, Y');
                     $relativeTime = $date->diffForHumans();
+                    $uniqueId = 'menu' . $data->id;
                 @endphp
 
-                {{-- Post with image --}}
+                @if ($data->image)
+                <!-- Post with Image -->
+                    <div class="flex">
+                        <div class="w-[80%] mx-10 border">
+                            <div class="flex bg-mary h-80 px-6 py-8 gap-x-4">
+                                <div class="flex flex-col items-center w-[9%] mt-4">
+                                    <img class="w-12 h-12 rounded-full" src="{{asset('images/brooks-leibee-27QcqVqgVg4-unsplash.jpg')}}" alt="">
+                                </div>
+
+                                <div class="w-[70%]">
+                                    <div class="flex items-center font-medium gap-2 text-gray-500">
+                                        <p>{{$data->name}}</p>
+                                        <p class="font-bold mb-4 text-2xl">.</p>
+                                        <p class="">{{$formattedDate}}</p>
+                                        <p class="font-bold mb-4 text-2xl">.</p>
+                                        <p>{{$relativeTime}}</p>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <a class="border rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Tech trends</a>
+                                        <a class="border rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Entertainment</a>
+                                    </div>
+
+                                    <div class="">
+                                        <a href="">
+                                            <h1 class="text-2xl text-black font-semibold mb-2">{{$data->title}}</h1>
+                                        </a>
+                                        <p class="text-sm font-medium text-gray-500 tracking-wide leading-relaxed">Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi Lorem ipsum dolor quas ducimus hgud</p>
+                                    </div>
+                                </div>
+
+                                <div class="w-[30%] bg-slate-50 mt-2">
+                                    <img class="w-full h-52" src="/postimage/{{$data->image}}" alt="">
+                                    <div class="flex items-center justify-around my-3">
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-thumbs-up text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-comments text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            data-ripple-dark="true" data-popover-target="{{$uniqueId}}">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                      
+                        <ul role="menu" data-popover="{{$uniqueId}}" data-popover-placement="bottom"
+                            class="absolute z-10 min-w-[120px] overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
+                            <li role="menuitem"
+                                class="active:text-violet-700 hover:text-base font-bold block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                <a href="{{route('user_post.edit', $data->id)}}">Update</a>
+                            </li>
+                            <li role="menuitem"
+                                class="active:text-violet-700 hover:text-base font-bold block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
+                                <a href="{{route('user_post.del', $data->id)}}" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr class="my-6 -ml-5 w-[1078px] ">
+
+                @elseif ($data->video) 
+                   <!-- Post with Video -->
                     <div class="flex">
                         <div class="w-[80%] mx-10">
                             <div class="flex border bg-mary px-6 py-8">
@@ -76,43 +152,39 @@
                                         <p class="text-sm font-medium text-gray-500 tracking-wide leading-loose mt-3"> dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi, dolore quos voluptas nemo nam tempore esse obcaecati. Officiis.</p>
                                     </div>
 
-                                    @if ($data->video)
-                                        <div class="w-full mt-4 bg-video pr-4">
-                                            <video class="bg-video_content rounded-md" autoplay muted loop>
-                                                <source src="/postvideo/{{$data->video}}" type="video/mp4">
-                                            </video>
-                                        </div>
+                                    <div class="w-full mt-4 bg-video pr-4">
+                                        <video class="bg-video_content rounded-md" autoplay muted loop>
+                                            <source src="/postvideo/{{$data->video}}" type="video/mp4">
+                                        </video>
+                                    </div>
 
-                                    @elseif ($data->image)
-                                        <img src="/postimage/{{$data->image}}" alt="">
-                                    @endif
-                                        <div class="flex items-center justify-end mt-5 gap-x-6 mr-4">
-                                            <div class="flex items-center">
-                                                <i class="fa-solid fa-thumbs-up text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <i class="fa-solid fa-comments text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
-                                            </div>
+                                    <div class="flex items-center justify-end mt-5 gap-x-6 mr-4">
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-thumbs-up text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-xs ml-2">10K</p>
                                         </div>
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-comments text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <button class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                            data-ripple-dark="true" data-popover-target="menu">
+                            data-ripple-dark="true" data-popover-target="{{$uniqueId}}">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                    
-                        <ul role="menu" data-popover="menu" data-popover-placement="bottom"
+                      
+                        <ul role="menu" data-popover="{{$uniqueId}}" data-popover-placement="bottom"
                             class="absolute z-10 min-w-[120px] overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
                             <li role="menuitem"
                                 class="active:text-violet-700 hover:text-base font-bold block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
@@ -124,12 +196,12 @@
                             </li>
                         </ul>
                     </div> 
-                    <p>jhsuh</p>
+
                     <hr class="my-6 -ml-5 w-[1078px] ">
-            @endforeach
-        </div>
-                {{--Post with text --}}
-                    {{-- <div class="flex">
+
+                @else
+                <!-- Post with Text -->
+                    <div class="flex">
                         <div class="w-[80%] mx-10">
                             <div class="flex border bg-white h-80 px-6 py-8">
                                 <div class="flex flex-col items-center w-[9%] mt-4">
@@ -177,23 +249,26 @@
                             </div>
                         </div>
                         <button class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                        data-ripple-dark="true" data-popover-target="menu">
+                        data-ripple-dark="true" data-popover-target="{{$uniqueId}}">
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
                   
-                        <ul role="menu" data-popover="menu" data-popover-placement="bottom"
+                        <ul role="menu" data-popover="{{$uniqueId}}" data-popover-placement="bottom"
                             class="absolute z-10 min-w-[120px] overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
                             <li role="menuitem"
                                 class="active:text-violet-700 hover:text-base font-bold block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
-                                <a href="">Update</a>
+                                <a href="{{route('user_post.edit', $data->id)}}">Update</a>
                             </li>
                             <li role="menuitem"
                                 class="active:text-violet-700 hover:text-base font-bold block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900">
                                 <a href="{{route('user_post.del', $data->id)}}" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
                             </li>
                         </ul>
-                    </div> --}}
-
+                    </div>
+                    <hr class="my-6 -ml-5 w-[1078px] ">
+                @endif
+            @endforeach
+        </div>
 
         {{--End Your posts --}}
 
