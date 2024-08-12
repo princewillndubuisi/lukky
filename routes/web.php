@@ -34,9 +34,14 @@ Route::get('user_post_del/{id}', [BlogController::class, 'user_post_del'])->midd
 Route::get('user_post_edit/{id}', [BlogController::class, 'user_post_edit'])->middleware('auth')->name('user_post.edit');
 
 Route::post('user_post_update/{id}', [BlogController::class, 'user_post_update'])->middleware('auth')->name('user_post.update');
+
+// Route::post('edit_user/{id}', [BlogController::class, 'edit_user'])->middleware('auth')->name('edit.user');
 // End User Routes
- 
+
+
 // Admin Routes
+
+// Post routes
 Route::get('post_page', [AdminController::class, 'post_page'])->name('post.page');
 
 Route::post('add_post', [AdminController::class, 'add_post'])->name('add.post');
@@ -48,7 +53,28 @@ Route::get('delete_post/{id}', [AdminController::class, 'delete_post'])->name('d
 Route::get('edit_page/{id}', [AdminController::class, 'edit_page'])->name('edit.page');
 
 Route::post('update_post/{id}', [AdminController::class, 'update_post'])->name('update.post');
+
+Route::get('accept_post/{id}', [AdminController::class, 'accept_post'])->name('accept.post');
+
+Route::get('reject_post/{id}', [AdminController::class, 'reject_post'])->name('reject.post');
+// End post routes
+
+// Category routes
+Route::get('show_category', [AdminController::class, 'show_category'])->name('show.category');
+
+Route::get('category_page', [AdminController::class, 'category_page'])->name('category.page');
+
+Route::post('add_category', [AdminController::class, 'add_category'])->name('add.category');
+
+Route::get('delete_category/{id}', [AdminController::class, 'delete_category'])->name('delete.category');
+
+Route::get('edit_category_page/{id}', [AdminController::class, 'edit_category_page'])->name('edit.category_page');
+
+Route::post('update_category/{id}', [AdminController::class, 'update_category'])->name('update.category');
+// End category routes
+
 // End Admin Routes
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

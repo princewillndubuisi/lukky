@@ -20,29 +20,42 @@
                     <h6 class="text-4xl font-medium text-gray-700">Trending News</h6>
                 </div>
 
-                <div class=" w-5/12 flex items-center justify-center">
-                    <input class="border-2 py-3.5 w-full px-8 rounded-full placeholder-gray-700 font-medium" type="text" placeholder="Search">
-                    <button class="text-2xl absolute right-16 py-2 border-l-2 border-inherit px-6"><i class="fa-solid fa-magnifying-glass mt-2.5"></i></button>
-                </div>
+            <livewire:search-box />
             </div>
 
             <div class="flex gap-x-6 items-center w-11/12 mx-auto mt-8">
+                @foreach ($ten as $ten)
                 <div class="w-80 h-80">
                     <a  href="">
                         <div class="h-full w-full">
-                            <img class="h-full rounded-md" src="{{asset('images/bench-accounting-nvzvOPQW0gc-unsplash.jpg')}}" alt="">
+                            @if ($ten->image)
+                                <img class="h-full w-full rounded-md" src="/postimage/{{$ten->image}}" alt="">
+                            @elseif ($ten->video)
+                                <video class="h-full w-full object-cover rounded-md" autoplay muted loop>
+                                    <source src="/postvideo/{{$ten->video}}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            @else
+                                {{-- <p>No media available</p> --}}
+                            @endif
                         </div>
                     </a>
                     <div class="mt-2">
-                        <a class="font-medium text-lg" href="">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                        <a class="font-medium text-lg hover:text-sky-400 hover:text-xl" href="{{route('read.post', $ten->id)}}">
+                            {{$ten->title}}
                         </a>
                     </div>
-                    <div class="w-24 rounded-full">
-                        <a class="rounded-full bg-white font-medium ml-44 absolute top-72 mt-4 px-6 py-1" href="">Politics</a>
+                    <div class="w-24 rounded-full -mt-[335px] ml-44">
+                        @if($ten->category)
+                            <a class="rounded-full bg-white font-medium px-6 py-1" href="">{{$ten->category->title}}</a>
+                        @else
+                            {{-- <a class="rounded-full bg-white font-medium px-6 py-1" href="#">noCategory</a> --}}
+                        @endif
                     </div>
                 </div>
-                <div class="w-80 h-80">
+                @endforeach
+
+                {{-- <div class="w-80 h-80">
                     <a  href="">
                         <div class="h-full w-full">
                             <img class="h-full rounded-md " src="{{asset('images/bench-accounting-nvzvOPQW0gc-unsplash.jpg')}}" alt="">
@@ -86,7 +99,7 @@
                     <div class="w-64.5 rounded-full flex items-end justify-end">
                         <a class="rounded-full bg-white font-medium mr-3 absolute top-72 mt-4 px-6 py-1" href="">Education</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
             {{--End Trending news section --}}
 
@@ -124,12 +137,12 @@
 
                                         <div class="mb-4">
                                             <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Tech trends</a>
-                                            <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Entertainment</a>
+                                            <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">{{$posts->category->title}}</a>
                                         </div>
 
                                         <div class="">
                                             <a href="{{route('read.post', $posts->id)}}">
-                                                <h1 class="text-xl font-semibold mb-2 hover:text-sky-400">{{$posts->title}}</h1>
+                                                <h1 class="text-xl font-semibold mb-2 hover:text-sky-400 hover:text-2xl">{{$posts->title}}</h1>
                                             </a>
                                             <p class="text-base font-medium text-gray-500 tracking-wide leading-relaxed">Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi Lorem ipsum dolor quas ducimus hgud</p>
                                         </div>
@@ -138,17 +151,14 @@
                                     <div class="w-[40%] h-52 bg-slate-50 mt-1">
                                         <img class="w-full h-full" src="/postimage/{{$posts->image}}" alt="">
                                         <div class="flex items-center justify-around my-3">
-                                            <div class="flex items-center">
-                                                <i class="fa-solid fa-thumbs-up text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
-                                            </div>
+                                           <livewire:like-button  :key="$posts->id" :posts="$posts"  />
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
                                                 <p class="text-slate-500 text-xs ml-2">10K</p>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-comments text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
+                                                <p class="text-slate-500 text-xs ml-2">{{$posts->comments()->count()}}</p>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
@@ -177,30 +187,27 @@
 
                                         <div class="mb-4">
                                             <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Tech trends</a>
-                                            <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Entertainment</a>
+                                            <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">{{$posts->category->title}}</a>
                                         </div>
 
                                         <div class="mt-2.5">
                                             <h1 class="text-xl font-semibold">{{$posts->title}}</h1>
                                             <p class="text-md font-medium text-gray-500 tracking-wide leading-loose">Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur </p>
                                         </div>
-                                        <div class="h w-full mt-4 bg-video">
-                                            <video class="bg-video_content" autoplay muted loop>
+                                        <div class="w-full mt-4 bg-video">
+                                            <video class="bg-video_content rounded-md" autoplay muted loop>
                                                 <source src="/postvideo/{{$posts->video}}" type="video/mp4">
                                             </video>
                                         </div>
                                         <div class="flex items-center justify-end mt-5 gap-x-6">
-                                            <div class="flex items-center">
-                                                <i class="fa-solid fa-thumbs-up text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
-                                            </div>
+                                           <livewire:like-button  :key="$posts->id" :posts="$posts" />
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
                                                 <p class="text-slate-500 text-xs ml-2">10K</p>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-comments text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
+                                                <p class="text-slate-500 text-xs ml-2">{{$posts->comments()->count()}}</p>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
@@ -228,7 +235,7 @@
 
                                         <div class="mb-4">
                                             <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Tech trends</a>
-                                            <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Entertainment</a>
+                                            <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">{{$posts->category->title}}</a>
                                         </div>
 
                                         <div class="mt-2.5">
@@ -237,17 +244,14 @@
                                         </div>
 
                                         <div class="flex items-center justify-end mt-5 gap-x-6 mr-4">
-                                            <div class="flex items-center">
-                                                <i class="fa-solid fa-thumbs-up text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
-                                            </div>
+                                           <livewire:like-button  :key="$posts->id" :posts="$posts" />
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
                                                 <p class="text-slate-500 text-xs ml-2">10K</p>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-comments text-xs text-slate-500"></i>
-                                                <p class="text-slate-500 text-xs ml-2">10K</p>
+                                                <p class="text-slate-500 text-xs ml-2">{{$posts->comments()->count()}}</p>
                                             </div>
                                             <div class="flex items-center">
                                                 <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
@@ -454,22 +458,25 @@
                         <div class="h-80 border bg-white flex justify-between px-6 py-8">
                             <div>
                                 <p class="font-medium">Categories</p>
-                                <div class="flex items-center gap-6 mt-6">
+                                {{-- <div class="flex items-center gap-6 mt-6">
                                     <input type="checkbox" class="w-5 h-5" name="" id="">
                                     <label for="" class="text-sm text-princess font-medium">All Contents</label>
-                                </div>
-                                <div class="flex items-center gap-6 mt-6">
-                                    <input type="checkbox" class="w-5 h-5" name="" id="">
-                                    <label for="" class="text-sm text-princess font-medium">Sport News</label>
-                                </div>
-                                <div class="flex items-center gap-6 mt-6">
+                                </div> --}}
+                                @foreach ($category as $category)
+                                    <div class="flex items-center gap-6 mt-6">
+                                        <input type="checkbox" class="w-5 h-5" name="" id="">
+                                        <label for="" class="text-sm text-princess font-medium">{{$category->title}}</label>
+                                    </div>
+                                @endforeach
+
+                                {{-- <div class="flex items-center gap-6 mt-6">
                                     <input type="checkbox" class="w-5 h-5" name="" id="">
                                     <label for="" class="text-sm text-princess font-medium">eSports</label>
                                 </div>
                                 <div class="flex items-center gap-6 mt-6">
                                     <input type="checkbox" class="w-5 h-5" name="" id="">
                                     <label for="" class="text-sm text-princess font-medium">Lorem ipsum</label>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="flex flex-col justify-between">
                                 <a class="font-medium text-gray-500" href="">Clear All</a>
@@ -550,9 +557,10 @@
 
                 <hr class="border border-slate-400 mt-8 w-[70%]">
 
+                {{-- Pagination --}}
                 <div class="w-[70%] h-10 my-6">
-                    <div class="flex items-center justify-between">
-                        <button class="text-slate-500 space-x-2 font-medium">
+                    <div class="flex  justify-between">
+                        {{-- <button class="text-slate-500 space-x-2 font-medium">
                             <i class="fa-solid fa-arrow-left"></i>
                             <span>Previous</span>
                         </button>
@@ -570,11 +578,14 @@
                         <button class="text-slate-500 space-x-2 font-medium">
                             <span>Next</span>
                             <i class="fa-solid fa-arrow-right"></i>
-                        </button>
+                        </button> --}}
+
+                    </div>
+                    <div class="pagination">
+                        {{ $post->onEachSide(1)->links() }}
                     </div>
 
                 </div>
-
             </div>
             {{-- @include('include.carousel') --}}
             {{--End Your timeline section --}}

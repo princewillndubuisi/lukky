@@ -1,8 +1,25 @@
-<nav x-data="{ open: false }" class="bg-white">
+<nav x-data="{ open: false }" class="-ms-5">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="flex justify-between h-16">
+            {{-- User --}}
             @if (Auth::user()->usertype == 'user')
+                <div class="flex items-center">
+                    <!-- Navigation Links -->
+                    {{-- <div class="">
+                        <a href="{{route('create.post')}}" class="text-fuchsia-950 py-3 px-4 bg-white rounded-lg border-2 border-fuchsia-400 font-semibold text-xl ">Do you want to create posts</a>
+                    </div> --}}
+
+                    <!-- Logo -->
+                    <div class="shrink-0 flex items-center ms-8 ">
+                        <a href="">
+                            <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500" src="{{asset('images/brooks-leibee-27QcqVqgVg4-unsplash.jpg')}}" alt="">
+                        </a>
+                    </div>
+                </div>
+
+            {{-- Editor --}}
+            @elseif (Auth::user()->usertype == 'editor')
                 <div class="flex items-center">
                     <!-- Navigation Links -->
                     <div class="">
@@ -17,8 +34,9 @@
                     </div>
                 </div>
 
+            {{-- Admin --}}
             @elseif (Auth::user()->usertype == 'admin')
-                <div class="shrink-0 flex items-center ms-8 ">
+                <div class="shrink-0 flex items-center ">
                     <img class="w-12 h-12 rounded-full" src="{{asset('images/brooks-leibee-27QcqVqgVg4-unsplash.jpg')}}" alt="">
                 </div>
             @endif

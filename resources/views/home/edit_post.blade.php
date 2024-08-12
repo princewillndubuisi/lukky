@@ -22,6 +22,16 @@
                     <textarea class="w-full bg-indigo-200 border border-white rounded-md focus:outline-none focus:ring-1 focus:border-gray-600" placeholder="Description" name="description" value="" id="" rows="3">{{$data->description}}</textarea>
                 </div>
                 <div class="mb-4">
+                    <label class="block my-1 font-bold" for="">Category</label>
+                    <select name="category_id" class="w-full" id="">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ $data->category_id == $category->id ? 'selected' : '' }}>
+                                {{ $category->title }}
+                            </option>
+                    @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
                     <label class="block my-1 font-bold" for="">Update old Image</label>
                     <img style="width: 120px" src="/postimage/{{$data->image}}" class="mb-2" alt="">
                     <input class="w-full bg-indigo-200 border border-white rounded-md focus:outline-none focus:ring-1 focus:border-gray-600" accept=".jpeg,.png,.jpg,.gif,.mp4,.mov,.ogg,.qt" name="image" value="{{$data->image}}" type="file" placeholder="">

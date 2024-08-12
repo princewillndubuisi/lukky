@@ -31,7 +31,7 @@
                 </svg>
                 <span class="sr-only">Info</span>
                 <div class="ms-3 text-sm font-medium">
-                    <strong>Success!</strong> {{Session('success')}}                
+                    <strong>Success!</strong> {{Session('success')}}
                 </div>
                   <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-1" aria-label="Close">
                     <span class="sr-only">Close</span>
@@ -62,7 +62,7 @@
                                 <div class="w-[70%]">
                                     <div class="flex items-center font-medium gap-2 text-gray-500">
                                         <p>{{$data->name}}</p>
-                                        <p class="font-bold mb-4 text-2xl">.</p>
+                                        <p class="font-bold mb-3 text-2xl">.</p>
                                         <p class="">{{$formattedDate}}</p>
                                         <p class="font-bold mb-4 text-2xl">.</p>
                                         <p>{{$relativeTime}}</p>
@@ -108,7 +108,7 @@
                             data-ripple-dark="true" data-popover-target="{{$uniqueId}}">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                      
+
                         <ul role="menu" data-popover="{{$uniqueId}}" data-popover-placement="bottom"
                             class="absolute z-10 min-w-[120px] overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
                             <li role="menuitem"
@@ -124,7 +124,7 @@
 
                     <hr class="my-6 -ml-5 w-[1078px] ">
 
-                @elseif ($data->video) 
+                @elseif ($data->video)
                    <!-- Post with Video -->
                     <div class="flex">
                         <div class="w-[80%] mx-10">
@@ -183,7 +183,7 @@
                             data-ripple-dark="true" data-popover-target="{{$uniqueId}}">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                      
+
                         <ul role="menu" data-popover="{{$uniqueId}}" data-popover-placement="bottom"
                             class="absolute z-10 min-w-[120px] overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
                             <li role="menuitem"
@@ -195,7 +195,7 @@
                                 <a href="{{route('user_post.del', $data->id)}}" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
                             </li>
                         </ul>
-                    </div> 
+                    </div>
 
                     <hr class="my-6 -ml-5 w-[1078px] ">
 
@@ -252,7 +252,7 @@
                         data-ripple-dark="true" data-popover-target="{{$uniqueId}}">
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                  
+
                         <ul role="menu" data-popover="{{$uniqueId}}" data-popover-placement="bottom"
                             class="absolute z-10 min-w-[120px] overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">
                             <li role="menuitem"

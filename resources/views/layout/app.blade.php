@@ -41,7 +41,7 @@
 
                 <div class="ml-8">
                     <ul class="font-semibold text-xl flex gap-x-14">
-                        <li><a href="">Home</a></li>
+                        <li><a href="{{url('/')}}">Home</a></li>
                         <li><a href="">Lorem ipsum </a></li>
                         <li><a href="">Lorem ipsum </a></li>
                         <li><a href="">Lorem ipsum </a></li>
@@ -126,14 +126,14 @@
     type="module"
     src="node_modules/@material-tailwind/html@latest/scripts/popover.js"
     ></script>
-    
+
     <!-- from cdn -->
         <script
         type="module"
         src="https://unpkg.com/@material-tailwind/html@latest/scripts/popover.js"
     ></script>
 
-    
+
 </body>
 </html>
 

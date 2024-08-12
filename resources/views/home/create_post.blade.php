@@ -7,7 +7,7 @@
 @section('content')
     <div class="flex items-center justify-center bg-indigo-200 h-screen">
         @include('sweetalert::alert')
-        <div class="w-[40%] p-6 border rounded-md">
+        <div class="w-[40%] p-6 border rounded-md"> 
             <h5 class="font-bold text-2xl">Create a post</h5>
             <hr class="my-2">
             <form action="{{route('user.post')}}" method="POST" enctype="multipart/form-data">
@@ -20,6 +20,14 @@
                 <div class="mb-6">
                     <label class="block my-2 font-bold" for="">Description</label>
                     <textarea class="w-full bg-indigo-200 border border-white rounded-md focus:outline-none focus:ring-1 focus:border-gray-600" placeholder="Description" name="description" id="" rows="3"></textarea>
+                </div>
+                <div class="mb-6">
+                    <label class="block my-2 font-bold" for="">Category</label>
+                    <select name="category_id"  class="w-full" id="">
+                    @foreach ($category as $category)
+                        <option value="{{$category->id}}">{{$category->title}}</option>
+                    @endforeach
+                    </select>
                 </div>
                 <div class="mb-6">
                     <label class="block my-2 font-bold" for="">Add Image</label>
