@@ -13,7 +13,7 @@
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center ms-8 ">
                         <div class="shrink-0 flex items-center ms-8 ">
-                            <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500 hover:w-14 hover:h-14" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
+                            <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
 
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center ms-8 ">
-                        <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500 hover:w-14 hover:h-14" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
+                        <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                     </div>
                 </div>
 
@@ -78,9 +78,11 @@
                             {{ __('Change Picture') }}
                         </x-dropdown-link>
 
-                        {{-- @if (Auth::user()->usertype == 'admin')
-
-                        @endif --}}
+                        @if (Auth::user()->usertype == 'admin')
+                            <x-dropdown-link :href="url('/')">
+                                {{ __('Home') }}
+                            </x-dropdown-link>
+                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
