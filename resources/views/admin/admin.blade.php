@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head> 
+  <head>
     @include('admin.include.css')
   </head>
   <body>
@@ -12,7 +12,7 @@
       @include('admin.include.sidebar')
       <!-- Sidebar Navigation end-->
 
-      <div class="page-content">
+      <div class="page-content w-[2000px]">
 
         <!-- Body-->
         @include('admin.include.body')

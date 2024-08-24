@@ -27,7 +27,7 @@ class EditProfile extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->description = $user->description;
-        // $this->image = $user->image;
+
     }
 
     public function update()

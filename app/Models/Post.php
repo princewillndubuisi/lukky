@@ -33,4 +33,9 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
+    // public function scopeWithCategory($query, $categories) {
+    //     $query->whereHas('category', function($query) use ($categories) {
+    //         $query->where('category_id', $this->categories);
+    //     });
+    // }
 }

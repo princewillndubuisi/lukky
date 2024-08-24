@@ -35,6 +35,8 @@ Route::get('user_post_edit/{id}', [BlogController::class, 'user_post_edit'])->mi
 
 Route::post('user_post_update/{id}', [BlogController::class, 'user_post_update'])->middleware('auth')->name('user_post.update');
 
+Route::post('update_picture', [BlogController::class, 'update_picture'])->middleware('auth')->name('update.picture');
+
 // Route::post('edit_user/{id}', [BlogController::class, 'edit_user'])->middleware('auth')->name('edit.user');
 // End User Routes
 
@@ -43,6 +45,8 @@ Route::post('user_post_update/{id}', [BlogController::class, 'user_post_update']
 
 // Post routes
 Route::get('post_page', [AdminController::class, 'post_page'])->name('post.page');
+
+Route::get('dashboard_page', [AdminController::class, 'dashboard_page'])->name('dashboard.page');
 
 Route::post('add_post', [AdminController::class, 'add_post'])->name('add.post');
 

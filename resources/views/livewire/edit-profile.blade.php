@@ -22,6 +22,15 @@
             <!-- Modal body -->
             <div class="p-4 md:p-5">
                 <form wire:submit.prevent='update' class="space-y-4">
+                    <div class="flex items-center ml-8 gap-12">
+
+                        <!-- Display the image using a temporary URL -->
+                        {{-- <img class="w-16 h-16 rounded-full shadow hover:shadow-lg hover:border-blue-500" src="{{ $photo->temporaryUrl() }}" alt="Selected Image"> --}}
+                        <!-- Default or previously saved image -->
+                        <img class="w-16 h-16 rounded-full shadow hover:shadow-lg hover:border-blue-500" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Profile Image">
+                        {{-- <input wire:model='photo' type="file"> --}}
+                        <input type="file" wire:model='photo' id="photo" class="text-sm rounded-lg  block w-full " />
+                    </div>
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
                         <input type="text" wire:model='name' id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name" required />

@@ -56,7 +56,7 @@
                         <div class="w-[80%] mx-10 border">
                             <div class="flex bg-mary h-80 px-6 py-8 gap-x-4">
                                 <div class="flex flex-col items-center w-[9%] mt-4">
-                                    <img class="w-12 h-12 rounded-full" src="{{asset('images/brooks-leibee-27QcqVqgVg4-unsplash.jpg')}}" alt="">
+                                    <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                                 </div>
 
                                 <div class="w-[70%]">

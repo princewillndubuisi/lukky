@@ -21,7 +21,7 @@
             <div class="w-[90%] mx-auto flex justify-center">
                 <div class="flex mt-24 w-full">
                     <div class="">
-                        <img class="w-32 h-32 rounded-full" src="{{asset('images/pexels-pixabay-220429.jpg')}}" alt="">
+                        <img class="w-32 h-32 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                     </div>
                     <div class="w-[70%] mx-auto space-y-2 ms-10">
                         <div class="flex gap-x-6">

@@ -12,9 +12,9 @@
 
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center ms-8 ">
-                        <a href="">
-                            <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500" src="{{asset('images/brooks-leibee-27QcqVqgVg4-unsplash.jpg')}}" alt="">
-                        </a>
+                        <div class="shrink-0 flex items-center ms-8 ">
+                            <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500 hover:w-14 hover:h-14" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
+                        </div>
                     </div>
                 </div>
 
@@ -28,17 +28,15 @@
 
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center ms-8 ">
-                        <a href="{{route('profiles')}}">
-                            <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500" src="{{asset('images/brooks-leibee-27QcqVqgVg4-unsplash.jpg')}}" alt="">
-                        </a>
+                        <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500 hover:w-14 hover:h-14" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                     </div>
                 </div>
 
             {{-- Admin --}}
             @elseif (Auth::user()->usertype == 'admin')
-                <div class="shrink-0 flex items-center ">
-                    <img class="w-12 h-12 rounded-full" src="{{asset('images/brooks-leibee-27QcqVqgVg4-unsplash.jpg')}}" alt="">
-                </div>
+            <div class="shrink-0 flex items-center ms-8 ">
+                <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500 hover:w-14 hover:h-14" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
+            </div>
             @endif
 
 
@@ -58,9 +56,31 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                        @if (Auth::user()->usertype == 'editor')
+                            <x-dropdown-link :href="route('profiles')">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+
+                        @elseif (Auth::user()->usertype == 'user')
+                            <x-dropdown-link :href="route('profile.edit')">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+                        @endif
+
+                        <!-- Change Picture Form (Visible only as the "Change Picture" link) -->
+                        <form method="POST" action="{{ route('update.picture') }}" enctype="multipart/form-data" style="display:none;" id="change-picture-form">
+                            @csrf
+                            <input type="file" id="profile-picture-input" name="photo" accept="image/*" onchange="document.getElementById('change-picture-form').submit();">
+                        </form>
+
+                        <!-- Change Picture Link -->
+                        <x-dropdown-link href="#" onclick="document.getElementById('profile-picture-input').click(); return false;">
+                            {{ __('Change Picture') }}
                         </x-dropdown-link>
+
+                        {{-- @if (Auth::user()->usertype == 'admin')
+
+                        @endif --}}
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

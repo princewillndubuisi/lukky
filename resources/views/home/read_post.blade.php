@@ -39,7 +39,7 @@
                     <img class="w-full h-full" src="/postimage/{{$post->image}}" alt="">
                 </div>
                 <div class="mt-8">
-                    <p class="text-xl leading-loose font-semibold">
+                    <p class="text-xl leading-loose font-semibold text-justify">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
@@ -52,7 +52,7 @@
                     <div class="mt-16 mb-12">
                         <img class="w-full h-96" src="{{asset('images/bench-accounting-nvzvOPQW0gc-unsplash.jpg')}}" alt="">
                     </div>
-                    <p class="text-xl leading-loose font-semibold">
+                    <p class="text-xl leading-loose font-semibold text-justify">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.

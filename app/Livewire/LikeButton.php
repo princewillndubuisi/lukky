@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Livewire\Component;
+use App\Models\Category;
 use Livewire\Attributes\Reactive;
 use Illuminate\Support\Facades\Auth;
 

@@ -3,12 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    public function dashboard_page() {
+        $users = User::count();
+
+        $user = User::get();
+
+        $blogs = Post::count();
+
+        return view('admin.admin', compact('users', 'blogs', 'user'));
+    }
+
     public function post_page() {
         $category = Category::all();
         return view('admin.post_page', compact('category'));

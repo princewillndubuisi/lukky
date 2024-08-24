@@ -15,11 +15,17 @@ class BlogController extends Controller
 
     public function home() {
         if (Auth::id()) {
-            $post = Post::where('post_status', '=', 'active')->paginate(3);
+            $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(3);
 
             $category = Category::all();
 
             $ten = Post::where('post_status', '=', 'active')->latest()->take(4)->get();
+
+            $user = User::get();
+
+            $users = User::count();
+
+            $blogs = Post::count();
 
             $usertype = Auth::user()->usertype;
 
@@ -27,7 +33,7 @@ class BlogController extends Controller
                 case 'user':
                     return view('welcome', compact('post', 'category', 'ten'));
                 case 'admin':
-                    return view('admin.admin');
+                    return view('admin.admin', compact('user','users', 'blogs'));
                 case 'editor':
                     return view('welcome', compact('post', 'category', 'ten'));
                 default:
@@ -56,7 +62,7 @@ class BlogController extends Controller
 
     // User show post
     public function welcome() {
-        $post = Post::where('post_status', '=', 'active')->paginate(3);
+        $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(3);
 
         $category = Category::all();
 
@@ -77,8 +83,8 @@ class BlogController extends Controller
             'title' => ['required'],
             'description' => ['required'],
             'category_id' => ['required', 'exists:categories,id'], // Use category_id
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
-            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
+            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:20480'],
+            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:20480'],
         ]);
 
         $post = new Post();
@@ -202,4 +208,23 @@ class BlogController extends Controller
     //    $userId = User::find($id);
     //     return view('user.profiles',['userId' => $id]);
     // }
+
+    // Picture Update
+    public function update_picture(Request $request) {
+        $validate = $request->validate([
+            'photo' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:2048'],
+        ]);
+
+        $user = Auth::user();
+
+        $photoPath = $request->file('photo')->storeAs('photos', time() . '.' . $request->file('photo')->getClientOriginalExtension(), 'public');
+
+        // Update the user's photo path in the database
+        $user->photo = $photoPath;
+        $user->save();
+
+        // Optionally, redirect back with a success message
+        return redirect()->back();
+
+    }
 }

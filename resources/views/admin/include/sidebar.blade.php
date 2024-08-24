@@ -6,11 +6,11 @@
     </div>
     <!-- Sidebar Navidation Menus-->
     <ul class="list-unstyled -mt-8">
-            {{-- <li class="{{ Request::is('post_page') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href=""> <i class="icon-grid"></i>Add Post </a></li> --}}
+            <li class="{{ Request::is('dashboard_page') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href="{{route('dashboard.page')}}"> <i class="icon-logout"></i>Dashboard </a></li>
             <li class="{{ Request::is('show_post') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href="{{route('show.post')}}"> <i class="fa fa-bar-chart"></i>Post </a></li>
-            <li class="{{ Request::is('home') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href="{{route('show.category')}}"> <i class="icon-home"></i>Category </a></li>
+            <li class="{{ Request::is('show_category') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href="{{route('show.category')}}"> <i class="icon-home"></i>Category </a></li>
             <li><a href="forms.html"> <i class="icon-padnote"></i>Forms </a></li>
-            <li><a href="login.html"> <i class="icon-logout"></i>Login page </a></li>
+
     </ul>
     {{-- <span class="heading">Extras</span> --}}
     {{-- <ul class="list-unstyled">
