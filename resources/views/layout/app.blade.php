@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    {{-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
     @vite('resources/css/app.css')
     @livewireStyles
@@ -41,7 +41,7 @@
 
                 <div class="ml-8">
                     <ul class="font-semibold text-xl flex gap-x-14">
-                        <li><a href="">Home</a></li>
+                        <li><a href="{{url('/')}}">Home</a></li>
                         <li><a href="">Lorem ipsum </a></li>
                         <li><a href="">Lorem ipsum </a></li>
                         <li><a href="">Lorem ipsum </a></li>
@@ -93,6 +93,8 @@
     </div>
     {{-- End Footer section --}}
 
+
+    @livewireScripts
     <script>
         document.querySelectorAll('.tab-link').forEach(tab => {
             tab.addEventListener('click', function(e) {
@@ -119,19 +121,12 @@
         });
     </script>
 
-    @livewireScripts
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
-        <script
-    type="module"
-    src="node_modules/@material-tailwind/html@latest/scripts/popover.js"
-    ></script>
-    
+    {{-- <script type="module" src="node_modules/@material-tailwind/html@latest/scripts/popover.js"></script> --}}
+
     <!-- from cdn -->
-        <script
-        type="module"
-        src="https://unpkg.com/@material-tailwind/html@latest/scripts/popover.js"
-    ></script>
+    <script type="module"src="https://unpkg.com/@material-tailwind/html@latest/scripts/popover.js"></script>
 
     
 </body>

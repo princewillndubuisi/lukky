@@ -46,6 +46,16 @@
                             <textarea class="form-control" name="description"id=""  rows="3">{{$post->description}}</textarea>
                         </div>
                         <div class="form-group">
+                            <label class="form-control-label text-white">Category</label>
+                            <select class="form-select form-control" name="category_id" aria-label="Default select example">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ $post->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label class="form-control-label text-white">Update old image</label>
                             <img style="width: 120px" src="/postimage/{{$post->image}}" class="mb-3" alt="">
                             <input type="file" name="image" value="{{$post->image}}" class="form-control">

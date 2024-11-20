@@ -15,7 +15,7 @@
       @include('admin.include.sidebar')
       <!-- Sidebar Navigation end-->
 
-      <div class="page-content">
+      <div class="page-content w-[2000px]">
         @if (Session()->has('success'))
             <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
                 <strong>Success!</strong> {{Session('success')}}
@@ -32,6 +32,9 @@
         </div>
 
         <div class="col-lg-12 mx-auto">
+            <div class="mb-4 flex justify-end">
+                <a class="btn btn-info" href="{{route('post.page')}}">Add Post</a>
+            </div>
             <div class="block">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
@@ -41,12 +44,15 @@
                                 <th class="h6">Title</th>
                                 <th class="h6">Description</th>
                                 <th class="h6">Post by</th>
+                                <th class="h6">Category</th>
                                 <th class="h6">Status</th>
                                 <th class="h6">Type</th>
                                 <th class="h6">Image</th>
                                 <th class="h6">Video</th>
                                 <th class="h6">Delete</th>
                                 <th class="h6">Edit</th>
+                                <th class="h6">Stat Accept</th>
+                                <th class="h6">Stat Reject</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,6 +62,7 @@
                                     <td>{{$posts->title}}</td>
                                     <td>{{$posts->description}}</td>
                                     <td>{{$posts->name}}</td>
+                                    <td>{{ $posts->category->title ?? 'No Category' }}</td>
                                     <td>{{$posts->post_status}}</td>
                                     <td>{{$posts->usertype}}</td>
                                     <td class="" style="width: 10px;"><img src="postimage/{{$posts->image}}" alt=""></td>
@@ -68,7 +75,13 @@
                                         <a href="{{route('delete.post', $posts->id)}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
                                     </td>
                                     <td>
-                                        <a href="{{route('edit.page', $posts->id)}}" class="btn btn-warning">edit</a>
+                                        <a href="{{route('edit.page', $posts->id)}}" class="btn btn-warning">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-secondary" href="{{route('accept.post', $posts->id)}}">Accept</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-secondary" href="{{route('reject.post', $posts->id)}}">Reject</a>
                                     </td>
                                 </tr>
                             @endforeach

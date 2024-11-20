@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('video')->nullable();
             $table->string('name')->nullable();
             $table->string('user_id')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade'); // Add this line
             $table->string('post_status')->nullable();
             $table->string('usertype')->nullable();
             $table->timestamps();

@@ -12,7 +12,7 @@
       @include('admin.include.sidebar')
       <!-- Sidebar Navigation end-->
 
-        <div class="page-content">
+        <div class="page-content w-[2000px]">
             @if (Session()->has('success'))
                 <div class="bg-yellow-100 border-t border-b border-yellow-500 text-yellow-700 px-4 py-3 mt-1 rounded relative" role="alert">
                     <strong class="font-bold">Success!</strong>
@@ -42,6 +42,14 @@
                             <div class="form-group ">
                                 <label class="form-control-label text-white">Post Description</label>
                                 <textarea class="form-control" name="description" id=""  rows="3"></textarea>
+                            </div>
+                            <div class="form-group ">
+                                <label class="form-control-label text-white">Category</label>
+                                <select class="form-select form-control" name="category_id" aria-label="Default select example">
+                                    @foreach ($category as $category)
+                                        <option value="{{ $category->id }}" selected>{{$category->title}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label text-white">Image</label>

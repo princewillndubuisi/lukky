@@ -39,7 +39,7 @@
                     <img class="w-full h-full" src="/postimage/{{$post->image}}" alt="">
                 </div>
                 <div class="mt-8">
-                    <p class="text-xl leading-loose font-semibold">
+                    <p class="text-xl leading-loose font-semibold text-justify">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
@@ -52,7 +52,7 @@
                     <div class="mt-16 mb-12">
                         <img class="w-full h-96" src="{{asset('images/bench-accounting-nvzvOPQW0gc-unsplash.jpg')}}" alt="">
                     </div>
-                    <p class="text-xl leading-loose font-semibold">
+                    <p class="text-xl leading-loose font-semibold text-justify">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
@@ -81,30 +81,7 @@
                 </div>
 
                 {{-- Start comments --}}
-                <div class="border border-tega flex items-center justify-center bg-white w-full h-20 mt-12 rounded">
-                    <a href="" class="text-princess text-xl font-semibold">Log in/Sign up to comment on or like this post</a>
-                </div>
-
-                <div class="mt-8 border border-tega rounded bg-white">
-                    <div class="my-6 w-[90%] mx-auto">
-                        <div class="flex items-center gap-4 font-medium text-xl text-black ">
-                            <p class="font-bold">Written by {{$post->name}}</p>
-                            <p class="font-bold mb-2.5 text-2xl">.</p>
-                            <p class="font-bold">{{$formattedDate}}</p>
-                        </div>
-                        <div class="font-medium text-white mt-2">
-                            <a class="mr-4 border border-orange-100 rounded-full py-2 px-8 font-medium text-sm bg-red-500" href="">
-                                Level 2
-                            </a>
-                            <span class="mr-4 text-4xl text-black">.</span>
-                            <a href="" class="text-blue-400 text-lg">Follow</a>
-                        </div>
-                        <p class="mt-8 text-xl text-princess  leading-loose font-semibold">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum a corporis mollitia cumque itaque ea nulla ipsam quo, ab magni quisquam hic omnis nostrum explicabo rerum numquam necessitatibus vero odit!
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum a corporis mollitia cumque itaque ea nulla ipsam quo, ab magni quisquam hic omnis nost
-                        </p>
-                    </div>
-                </div>
+                <livewire:post-comments :key="'comments' . $post->id" :$post/>
                 {{-- End comments --}}
             </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,22 +12,32 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class BlogController extends Controller
 {
+
     public function home() {
         if (Auth::id()) {
-            $post = Post::all();
+            $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(3);
+
+            $category = Category::all();
+
+            $ten = Post::where('post_status', '=', 'active')->latest()->take(4)->get();
+
+            $user = User::get();
+
+            $users = User::count();
+
+            $blogs = Post::count();
 
             $usertype = Auth::user()->usertype;
 
-            if ($usertype == 'user') {
-                return view('welcome', compact('post'));
-            }
-
-            elseif ($usertype == 'admin') {
-                return view('admin.admin');
-            }
-
-            else {
-                return redirect()->back();
+            switch ($usertype) {
+                case 'user':
+                    return view('welcome', compact('post', 'category', 'ten'));
+                case 'admin':
+                    return view('admin.admin', compact('user','users', 'blogs'));
+                case 'editor':
+                    return view('welcome', compact('post', 'category', 'ten'));
+                default:
+                    return redirect()->back();
             }
         }
     }
@@ -46,19 +57,24 @@ class BlogController extends Controller
 
         $data = Post::where('user_id', '=', $userid)->get();
 
-        return view('user.profiles', compact('data'));
+        return view('user.profiles', compact('data', 'user'));
     }
 
     // User show post
     public function welcome() {
-        $post = Post::all();
+        $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(3);
 
-        return view('welcome', compact('post'));
+        $category = Category::all();
+
+        $ten = Post::where('post_status', '=', 'active')->latest()->take(4)->get();
+
+        return view('welcome', compact('post', 'category', 'ten'));
     }
 
     // User Create postpage
     public function create_post(){
-        return view('home.create_post');
+        $category = Category::all();
+        return view('home.create_post', compact('category'));
     }
 
     // User post
@@ -66,17 +82,20 @@ class BlogController extends Controller
         $validate = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
-            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
+            'category_id' => ['required', 'exists:categories,id'], // Use category_id
+            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:20480'],
+            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:20480'],
         ]);
 
         $post = new Post();
 
         $post->title = $request->title;
         $post->description = $request->description;
+        $post->category_id = $request->category_id;
 
         //Image
         $image = $request->image;
+        $imagename = null;
 
         if($image) {
             $imagename = time() . ' . ' . $image->getClientOriginalExtension();
@@ -87,6 +106,7 @@ class BlogController extends Controller
 
         // Video
         $video = $request->video;
+        $imagename = null;
 
         if($video) {
             $videoname = time() . ' . ' . $video->getClientOriginalExtension();
@@ -125,13 +145,16 @@ class BlogController extends Controller
     public function user_post_edit($id) {
         $data = Post::find($id);
 
-        return view('home.edit_post', compact('data'));
+        $categories = Category::all();
+
+        return view('home.edit_post', compact('data', 'categories'));
     }
 
     public function user_post_update(Request $request, $id) {
         $validate = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
+            'category_id' => ['required', 'exists:categories,id'], // Use category_id
             'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
             'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
         ]);
@@ -140,6 +163,7 @@ class BlogController extends Controller
 
         $data->title = $request->title;
         $data->description = $request->description;
+        $data->category_id = $request->category_id;
 
         //Image
         $image = $request->image;
@@ -175,8 +199,32 @@ class BlogController extends Controller
 
         $data->save();
 
-        Alert::success('Success!', 'Post added successfully');
+        Alert::success('Success!', 'Post updated successfully');
 
         return redirect()->back();
+    }
+
+    // public function edit_user($id) {
+    //    $userId = User::find($id);
+    //     return view('user.profiles',['userId' => $id]);
+    // }
+
+    // Picture Update
+    public function update_picture(Request $request) {
+        $validate = $request->validate([
+            'photo' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:2048'],
+        ]);
+
+        $user = Auth::user();
+
+        $photoPath = $request->file('photo')->storeAs('photos', time() . '.' . $request->file('photo')->getClientOriginalExtension(), 'public');
+
+        // Update the user's photo path in the database
+        $user->photo = $photoPath;
+        $user->save();
+
+        // Optionally, redirect back with a success message
+        return redirect()->back();
+
     }
 }
