@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Click;
+use App\Models\Career;
+
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BlogController extends Controller
@@ -226,5 +229,56 @@ class BlogController extends Controller
         // Optionally, redirect back with a success message
         return redirect()->back();
 
+    }
+
+    // Career
+    public function career(Request $request)
+    {
+        // Start building the query
+        $query = Career::where('is_active', true)->with('tags')->latest();
+
+        // Apply search filter
+        if ($request->has('s')) {
+            $searchQuery = trim($request->get('s'));
+
+            $query->where(function ($builder) use ($searchQuery) {
+                $builder
+                    ->orWhere('title', 'like', "%{$searchQuery}%")
+                    ->orWhere('company', 'like', "%{$searchQuery}%")
+                    ->orWhere('location', 'like', "%{$searchQuery}%");
+            });
+        }
+
+        // Apply tag filter
+        if ($request->has('tag')) {
+            $tag = $request->get('tag');
+            $query->whereHas('tags', function ($builder) use ($tag) {
+                $builder->where('slug', $tag);
+            });
+        }
+
+        // Execute the query to get the results
+        $careers = $query->get();
+
+        // Pass the tags to the view (if needed)
+        $tags = Tag::all();
+
+        return view('career.index', compact('careers', 'tags'));
+    }
+
+    // Show Career
+    public function show_career(Career $career, Request $request) {
+        return view('career.show', compact('career'));
+    }
+
+    // Apply Career
+    public function apply_career(Career $career, Request $request) {
+        $career->clicks()
+            ->create([
+                'user_agent' => $request->userAgent(),
+                'ip' => $request->ip()
+            ]);
+
+        return redirect()->to($career->apply_link);
     }
 }

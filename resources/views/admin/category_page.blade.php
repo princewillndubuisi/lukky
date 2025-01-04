@@ -15,15 +15,7 @@
       @include('admin.include.sidebar')
       <!-- Sidebar Navigation end-->
 
-      <div class="page-content w-[2000px]">
-        @if (Session()->has('success'))
-            <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
-                <strong>Success!</strong> {{Session('success')}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
+    <div class="page-content w-[2000px]">
         <!-- Body-->
         <div class="page-header">
             <div class="container-fluid">
@@ -32,7 +24,15 @@
         </div>
 
         <div class="col-lg-12 mx-auto">
-            <div class="mb-4 flex justify-end">
+            <div class="mb-4 flex align-items-center justify-content-between">
+                @if (Session()->has('success'))
+                    <div class="col-lg-8 alert alert-warning alert-dismissible fade show mt-2" role="alert">
+                        <strong>Success!</strong> {{Session('success')}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 <a class="btn btn-danger" href="{{route('category.page')}}">Add Category</a>
             </div>
             <div class="block">

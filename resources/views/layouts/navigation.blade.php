@@ -111,33 +111,53 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+    <div :class="{'block': open, 'hidden': ! open}" class="flex shadow-2xl absolute top-0 right-0 rounded-md  w-[93px] h-[97px] mt-20 border sm:hidden ">
+        {{-- <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-        </div>
+        </div> --}}
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+            <div class="flex gap-4  px-4 border-b-2 border-gray-300 w-[81px] mx-2">
+                <i class='bx bxs-user-circle text-gray-400 mt-2' ></i>
+                <div>
+                    <div class="font-medium text-[10px] text-black">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-[10px] text-black">{{ Auth::user()->email }}</div>
+                </div>
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                @if (Auth::user()->usertype == 'editor')
+                    <x-responsive-nav-link :href="route('profiles')" class="text-black">
+                        <div class="flex gap-4 items-center font-medium text-[10px] border-b-2 border-gray-300">
+                            <i class='bx bx-user text-gray-400'></i>
+                            {{ __('Profile') }}
+                        </div>
+                    </x-responsive-nav-link>
+
+                @elseif (Auth::user()->usertype == 'user')
+                    <x-responsive-nav-link :href="route('profile.edit')" class="text-black">
+                        <div class="flex gap-4 items-center font-medium text-[10px]">
+                            <i class='bx bx-user text-gray-400'></i>
+                            {{ __('Profile') }}
+                        </div>
+                    </x-responsive-nav-link>
+                @endif
+                {{-- <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </x-responsive-nav-link> --}}
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-red-500">
+                        <div class="flex gap-4 items-center font-medium text-[10px]">
+                            <i class='bx bx-log-out-circle text-red-500'></i>
+                            {{ __('Log Out') }}
+                        </div>
                     </x-responsive-nav-link>
                 </form>
             </div>

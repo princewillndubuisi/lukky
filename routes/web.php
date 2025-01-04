@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AdminController;
@@ -17,6 +18,12 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', [BlogController::class, 'welcome']);
+
+Route::get('career', [BlogController::class, 'career'])->name('career');
+
+Route::get('career{career}', [BlogController::class, 'show_career'])->name('career.show');
+
+Route::get('career{career}/apply', [BlogController::class, 'apply_career'])->name('career.apply');
 
 // User Routes
 Route::get('read_post/{id}', [BlogController::class, 'read_post'])->name('read.post');
@@ -41,42 +48,59 @@ Route::post('update_picture', [BlogController::class, 'update_picture'])->middle
 // End User Routes
 
 
+
 // Admin Routes
+Route::middleware(['auth', Admin::class])->group(function(){
 
-// Post routes
-Route::get('post_page', [AdminController::class, 'post_page'])->name('post.page');
+    Route::get('dashboard_page', [AdminController::class, 'dashboard_page'])->name('dashboard.page');
 
-Route::get('dashboard_page', [AdminController::class, 'dashboard_page'])->name('dashboard.page');
+    // Post routes
+    Route::get('post_page', [AdminController::class, 'post_page'])->name('post.page');
 
-Route::post('add_post', [AdminController::class, 'add_post'])->name('add.post');
+    Route::post('add_post', [AdminController::class, 'add_post'])->name('add.post');
 
-Route::get('show_post', [AdminController::class, 'show_post'])->name('show.post');
+    Route::get('show_post', [AdminController::class, 'show_post'])->name('show.post');
 
-Route::get('delete_post/{id}', [AdminController::class, 'delete_post'])->name('delete.post');
+    Route::get('delete_post/{id}', [AdminController::class, 'delete_post'])->name('delete.post');
 
-Route::get('edit_page/{id}', [AdminController::class, 'edit_page'])->name('edit.page');
+    Route::get('edit_page/{id}', [AdminController::class, 'edit_page'])->name('edit.page');
 
-Route::post('update_post/{id}', [AdminController::class, 'update_post'])->name('update.post');
+    Route::post('update_post/{id}', [AdminController::class, 'update_post'])->name('update.post');
 
-Route::get('accept_post/{id}', [AdminController::class, 'accept_post'])->name('accept.post');
+    Route::get('accept_post/{id}', [AdminController::class, 'accept_post'])->name('accept.post');
 
-Route::get('reject_post/{id}', [AdminController::class, 'reject_post'])->name('reject.post');
-// End post routes
+    Route::get('reject_post/{id}', [AdminController::class, 'reject_post'])->name('reject.post');
+    // End post routes
 
-// Category routes
-Route::get('show_category', [AdminController::class, 'show_category'])->name('show.category');
+    // Category routes
+    Route::get('show_category', [AdminController::class, 'show_category'])->name('show.category');
 
-Route::get('category_page', [AdminController::class, 'category_page'])->name('category.page');
+    Route::get('category_page', [AdminController::class, 'category_page'])->name('category.page');
 
-Route::post('add_category', [AdminController::class, 'add_category'])->name('add.category');
+    Route::post('add_category', [AdminController::class, 'add_category'])->name('add.category');
 
-Route::get('delete_category/{id}', [AdminController::class, 'delete_category'])->name('delete.category');
+    Route::get('delete_category/{id}', [AdminController::class, 'delete_category'])->name('delete.category');
 
-Route::get('edit_category_page/{id}', [AdminController::class, 'edit_category_page'])->name('edit.category_page');
+    Route::get('edit_category_page/{id}', [AdminController::class, 'edit_category_page'])->name('edit.category_page');
 
-Route::post('update_category/{id}', [AdminController::class, 'update_category'])->name('update.category');
-// End category routes
+    Route::post('update_category/{id}', [AdminController::class, 'update_category'])->name('update.category');
+    // End category routes
 
+    // Career routes
+    Route::get('show_career', [AdminController::class, 'show_career'])->name('show.career');
+
+    Route::get('career_page', [AdminController::class, 'career_page'])->name('career.page');
+
+    Route::post('career_store', [AdminController::class, 'store_career'])->name('career.store');
+
+    Route::get('edit_career/{id}', [AdminController::class, 'edit_career'])->name('career.edit');
+
+    Route::put('update_career', [AdminController::class, 'update_career'])->name('career.update');
+
+    Route::get('delete_career/{id}', [AdminController::class, 'delete_career'])->name('career.delete');
+
+    // End career routes
+});
 // End Admin Routes
 
 

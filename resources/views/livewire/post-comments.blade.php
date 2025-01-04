@@ -12,8 +12,8 @@
         </div>
     </div>
     @else
-    <div class="border border-tega flex items-center justify-center bg-white w-full h-20 mt-12 rounded">
-        <a wire:navigate href="{{route('login')}}" class="text-princess text-xl font-semibold">Log in/Sign up to comment on or like this post</a>
+    <div class="border-2 border-gray-500 sm:border sm:border-tega  flex items-center justify-center bg-white w-full h-20 mt-12 rounded">
+        <a wire:navigate href="{{route('login')}}" class="text-gray-500 text-[10px] font-semibold sm:text-princess sm:text-xl sm:font-semibold">Log in/Sign up to comment on or like this post</a>
     </div>
     @endauth
 

@@ -1,7 +1,7 @@
 {{-- Start profilebar --}}
 <section class="w-[1077px] -ml-6">
     <div class="mb-4 border-b border-gray-200 mt-8">
-        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center justify-evenly" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-purple-600 hover:text-purple-600 border-purple-600" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 border-gray-100 hover:border-gray-300" role="tablist">
+        <ul class="flex flex-wrap w-[382px] -mb-px text-sm font-medium text-center justify-around sm:w-full sm:justify-evenly" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-purple-600 hover:text-purple-600 border-purple-600" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 border-gray-100 hover:border-gray-300" role="tablist">
             <li class="" role="presentation">
                 <button href="" class="inline-block p-4 border-b-2 border-gray-200 rounded-t-lg" id="profile-styled-tab" data-tabs-target="#styled-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Your posts</button>
             </li>
@@ -10,11 +10,11 @@
                 <button class="inline-block p-4 border-b-2 border-gray-200 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="dashboard-styled-tab" data-tabs-target="#styled-dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Likes and comments</button>
             </li>
 
-            <li class="" role="presentation">
+            <li class="hidden sm:block" role="presentation">
                 <button class="inline-block p-4 border-b-2 border-gray-200 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="settings-styled-tab" data-tabs-target="#styled-settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Bookmark</button>
             </li>
 
-            <li role="presentation">
+            <li class="hidden sm:block" role="presentation">
                 <button class="inline-block p-4 border-b-2 border-gray-200 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="contacts-styled-tab" data-tabs-target="#styled-contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Statics</button>
             </li>
         </ul>
@@ -23,7 +23,7 @@
 
     <div id="default-styled-tab-content">
         {{--Start Your posts--}}
-        <div class="hidden p-4 rounded-lg " id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="hidden sm:p-4 rounded-lg " id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
             @if (Session()->has('success'))
             <div id="alert-1" class="flex items-center w-[80%] mx-10 p-4 mb-4 text-blue-800 rounded-lg bg-sky-200 dark:bg-gray-800 dark:text-blue-400" role="alert">
                 <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -53,52 +53,79 @@
                 @if ($data->image)
                 <!-- Post with Image -->
                     <div class="flex">
-                        <div class="w-[80%] mx-10 border">
-                            <div class="flex bg-mary h-80 px-6 py-8 gap-x-4">
-                                <div class="flex flex-col items-center w-[9%] mt-4">
+                        <div class="border mx-6 sm:w-[80%] sm:mx-10 sm:border">
+                            <div class="flex flex-col w-[412px] h-[498px] bg-mary gap-x-4 sm:flex-row sm:w-full sm:h-80 sm:px-6 sm:py-8">
+                                <div class="w-[349px] sm:w-[70%]  sm:h-full ">
+                                    <div class=" h-[48px] flex items-center sm:-mt-4">
+
+                                        <div class="w-[48px] h-[48px] mr-4">
+                                            @if (Auth::user())
+                                                <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
+                                            @else
+                                                <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('images/anthony-tran-uM45BGGeync-unsplash.jpg') }}" alt="">
+                                            @endif
+                                        </div>
+
+                                        <div class="h-[48px]">
+                                            <div class="sm:h-[20px] flex items-center font-medium gap-2 text-gray-500">
+                                                <p class="text-[10px] font-medium sm:text-base">{{$data->name}}</p>
+                                                <p class="hidden sm:block font-medium mb-4 text-2xl">.</p>
+                                                <p class="hidden sm:block sm:text-base">{{$formattedDate}}</p>
+                                                <p class="text-[10px] font-medium mb-4 sm:text-2xl">.</p>
+                                                <p class="text-[10px] font-medium sm:text-base">{{$relativeTime}}</p>
+                                            </div>
+
+                                            <div class="mb-4 mt-3 sm:mt-1">
+                                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[10px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">Tech trends</a>
+                                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[10px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">{{$data->category->title}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{-- <div class="sm:flex sm:flex-col sm:items-center w-[9%] mt-4">
                                     <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
+                                </div> --}}
+
+                                    <div class="w-full sm:w-[80%] mt-4 sm:ml-16">
+                                        {{-- <div class="flex items-center font-medium gap-2 text-gray-500">
+                                            <p>{{$data->name}}</p>
+                                            <p class="font-bold mb-3 text-2xl">.</p>
+                                            <p class="">{{$formattedDate}}</p>
+                                            <p class="font-bold mb-4 text-2xl">.</p>
+                                            <p>{{$relativeTime}}</p>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <a class="border rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Tech trends</a>
+                                            <a class="border rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Entertainment</a>
+                                        </div> --}}
+
+                                        <div class="">
+                                            <a href="">
+                                                <h1 class="text-[14px] text-black font-semibold mb-2 sm:text-2xl">{{$data->title}}</h1>
+                                            </a>
+                                            <p class="text-[10px] leading-loose font-medium text-gray-500 tracking-wide sm:leading-relaxed sm:text-sm ">Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi Lorem ipsum dolor quas ducimus hgud</p>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="w-[70%]">
-                                    <div class="flex items-center font-medium gap-2 text-gray-500">
-                                        <p>{{$data->name}}</p>
-                                        <p class="font-bold mb-3 text-2xl">.</p>
-                                        <p class="">{{$formattedDate}}</p>
-                                        <p class="font-bold mb-4 text-2xl">.</p>
-                                        <p>{{$relativeTime}}</p>
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <a class="border rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Tech trends</a>
-                                        <a class="border rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Entertainment</a>
-                                    </div>
-
-                                    <div class="">
-                                        <a href="">
-                                            <h1 class="text-2xl text-black font-semibold mb-2">{{$data->title}}</h1>
-                                        </a>
-                                        <p class="text-sm font-medium text-gray-500 tracking-wide leading-relaxed">Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi Lorem ipsum dolor quas ducimus hgud</p>
-                                    </div>
-                                </div>
-
-                                <div class="w-[30%] bg-slate-50 mt-2">
-                                    <img class="w-full h-52" src="/postimage/{{$data->image}}" alt="">
+                                <div class="w-[381px] h-[274px] bg-slate-50 mt-8 sm:mt-2 sm:w-[30%]">
+                                    <img class="w-full h-full sm:h-52" src="/postimage/{{$data->image}}" alt="">
                                     <div class="flex items-center justify-around my-3">
                                         <div class="flex items-center">
-                                            <i class="fa-solid fa-thumbs-up text-xs text-slate-500"></i>
-                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                            <i class="fa-solid fa-thumbs-up text-[10px] sm:text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                                         </div>
                                         <div class="flex items-center">
-                                            <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
-                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                            <i class="fa-solid fa-thumbs-down text-[10px] sm:text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                                         </div>
                                         <div class="flex items-center">
-                                            <i class="fa-solid fa-comments text-xs text-slate-500"></i>
-                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                            <i class="fa-solid fa-comments text-[10px] sm:text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                                         </div>
                                         <div class="flex items-center">
-                                            <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
-                                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                                            <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
+                                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                                         </div>
                                     </div>
                                 </div>

@@ -45,6 +45,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // Like
     public function likes() {
         return $this->belongsToMany(Post::class, 'post_like')->withTimestamps();
     }
@@ -52,11 +53,19 @@ class User extends Authenticatable
     public function hasLiked(Post $posts) {
         return $this->likes()->where('post_id', $posts->id)->exists();
     }
+
+    // Comment
     public function comments() {
         return $this->hasMany(Comment::class);
     }
 
+    // Categories
     public function categories() {
         return $this->belongsToMany(Post::class)->withTimestamps();
+    }
+
+    // Career
+    public function careers() {
+        return $this->hasMany(Career::class);
     }
 }

@@ -6,12 +6,12 @@
 
 @section('content')
     {{-- Start Main post section --}}
-    <div class="w-11/12 mx-auto mt-10">
-        <div class="flex justify-between gap-10">
-            <div class="w-[65%] h-1080">
+    <div class="w-[420px] mx-auto  sm:w-11/12 sm:mx-auto mt-10">
+        <div class="flex justify-between gap-10 w-full">
+            <div class="w-[420px] mx-auto sm:w-[65%] sm:h-1080">
                 <div class="">
-                    <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-orange-100 mr-4" href="">Tech trends</a>
-                    <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-orange-100" href="">Entertainment</a>
+                    <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-[10px] bg-orange-100 mr-4 sm:text-sm" href="">Tech trends</a>
+                    <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-[10px] bg-orange-100 sm:text-sm" href="">Entertainment</a>
                 </div>
                 <div class="flex items-center font-medium gap-2 mt-2 text-gray-500">
                     @php
@@ -21,25 +21,25 @@
                     $relativeTime = $date->diffForHumans();
                     @endphp
 
-                    <p class="font-bold">Written by {{$post->name}}</p>
-                    <p class="font-bold mb-2.5 text-2xl">.</p>
-                    <p class="font-bold">{{$formattedDate}}</p>
-                    <p class="font-bold mb-2.5 text-2xl">.</p>
-                    <p class="font-bold">{{$relativeTime}}</p>
+                    <p class="font-bold text-[10px] sm:text-2xl">Written by {{$post->name}}</p>
+                    <p class="font-bold text-[10px] mb-2.5 sm:text-2xl">.</p>
+                    <p class="font-bold text-[10px] sm:text-2xl">{{$formattedDate}}</p>
+                    <p class="font-bold text-[10px] mb-2.5 sm:text-2xl">.</p>
+                    <p class="font-bold text-[10px] sm:text-2xl">{{$relativeTime}}</p>
                 </div>
-                <div class="flex items-center font-medium -mt-2 gap-4 text-black ">
-                    <a class="border border-orange-100 rounded-full px-6 font-medium text-sm bg-yellow-400" href="">Level 1</a>
+                <div class="flex items-center font-medium gap-4 text-black ">
+                    <a class="border border-orange-100 text-[10px] rounded-full px-6 font-medium sm:text-sm bg-slate-200 sm:py-1" href="">Level 1</a>
                     <p class="font-bold mb-4 text-3xl">.</p>
                     <a href="" class="text-blue-400 text-lg">Follow</a>
                 </div>
                 <div class="mt-2">
-                    <h1 class="text-4xl font-semibold">{{$post->title}}</h1>
+                    <h1 class="text-[16px] sm:text-4xl font-semibold">{{$post->title}}</h1>
                 </div>
-                <div class="mt-8 border border-yellow-400 w-[100%] h-[13%]">
+                <div class="w-[382px] h-[270px] mt-8 border sm:w-[862px] sm:h-[348px]">
                     <img class="w-full h-full" src="/postimage/{{$post->image}}" alt="">
                 </div>
-                <div class="mt-8">
-                    <p class="text-xl leading-loose font-semibold text-justify">
+                <div class="mt-8 w-[382px] sm:w-[862px]">
+                    <p class="text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
@@ -49,10 +49,10 @@
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                     </p>
-                    <div class="mt-16 mb-12">
+                    <div class="mt-16 mb-12 w-[382px] h-[270px] border border-yellow-400 sm:w-[100%] sm:h-[13%] sm:mt-16 sm:mb-12">
                         <img class="w-full h-96" src="{{asset('images/bench-accounting-nvzvOPQW0gc-unsplash.jpg')}}" alt="">
                     </div>
-                    <p class="text-xl leading-loose font-semibold text-justify">
+                    <p class="text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
@@ -63,7 +63,7 @@
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                     </p>
                 </div>
-                <div class="w-[90%] mx-auto mt-2">
+                <div class="w-[90%] mx-auto mt-8 sm:w-[90%] sm:mx-auto sm:mt-2">
                     <div class="flex justify-between items-center gap-4 px-3">
                         <div class="">
                             <i class="fa-solid fa-thumbs-up text-black text-3xl mr-5"></i>
@@ -86,7 +86,7 @@
             </div>
 
 
-            <div class="w-[28%] mt-40">
+            <div class="w-[28%] mt-40 hidden sm:block">
                 <div class="">
                     <h1 class="text-3xl font-semibold">Follow posts by creator</h1>
                 </div>
