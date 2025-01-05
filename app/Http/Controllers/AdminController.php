@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Career;
-use App\Models\Tag;
 use App\Models\Category;
+use App\Models\Application;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -343,6 +345,34 @@ class AdminController extends Controller
     // Delete Career
     public function delete_career($id) {
         $career = Career::find($id)->delete();
+
+        return redirect()->back()->with('success', 'Career deleted successfully');
+    }
+
+    // Applied career
+    public function applied_career() {
+        $careers = Application::orderBy('id', 'DESC')->paginate();
+
+        return view('admin.career_applied',compact('careers'));
+    }
+
+    public function downloadResume($id) {
+        $career = Application::findOrFail($id);
+
+        // Get the resume file path
+        $filePath = $career->resume;
+
+        // Check if the file exists
+        if (!Storage::disk('public')->exists($filePath)) {
+            return back()->with('error', 'Resume file not found.');
+        }
+
+        // Return the file as a download
+        return Storage::disk('public')->download($filePath);
+    }
+
+    public function delete_applied_career($id) {
+        $career = Application::find($id)->delete();
 
         return redirect()->back()->with('success', 'Career deleted successfully');
     }

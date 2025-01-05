@@ -7,10 +7,12 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Click;
 use App\Models\Career;
-
 use App\Models\Category;
+use App\Mail\VerifyEmail;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BlogController extends Controller
@@ -272,7 +274,7 @@ class BlogController extends Controller
     }
 
     // Apply Career
-    public function apply_career(Career $career, Request $request) {
+    public function link_career(Career $career, Request $request) {
         $career->clicks()
             ->create([
                 'user_agent' => $request->userAgent(),
@@ -280,5 +282,43 @@ class BlogController extends Controller
             ]);
 
         return redirect()->to($career->apply_link);
+    }
+
+    // Apply Career
+    public function apply_career() {
+        return view ('career.apply');
+    }
+
+    // Save application
+    public function save_application(Request $request ) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'resume' => 'required|file|mimes:pdf|max:2048',
+            'phone' => 'nullable|string|max:20',
+            'cover_letter' => 'nullable|string',
+        ]);
+
+        // Handle file upload
+        $resumePath = $request->file('resume')->store('resumes', 'public');
+
+        // Save the application
+        $career = new Application();
+
+        $career->user_id = auth()->id();
+        $career->name = $request->name;
+        $career->email = $request->email;
+        $career->phone = $request->phone;
+        $career->cover_letter = $request->cover_letter;
+        $career->resume = $resumePath;
+
+        $career->save();
+
+        $name = $request->name;
+        $email = $request->email;
+
+        Mail::to($request->email)->send(new VerifyEmail($name, $email));
+
+        return redirect()->back()->with('success', 'Your application has been submitted successfully.');
     }
 }

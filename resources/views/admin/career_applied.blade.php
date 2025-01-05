@@ -19,7 +19,7 @@
         <!-- Body-->
         <div class="page-header">
             <div class="container-fluid">
-                <h2 class="h5 no-margin-bottom">All Career</h2>
+                <h2 class="h5 no-margin-bottom">All Career Applied</h2>
             </div>
         </div>
 
@@ -33,7 +33,6 @@
                         </button>
                     </div>
                 @endif
-                <a class="btn btn-info" href="{{route('career.page')}}">Add Career</a>
             </div>
             <div class="block">
                 <div class="table-responsive">
@@ -41,17 +40,12 @@
                         <thead class="bg-black">
                             <tr>
                                 <th>#</th>
-                                <th class="h6">Title</th>
-                                <th class="h6">Slug</th>
-                                <th class="h6">Company</th>
-                                <th class="h6">Location</th>
-                                <th class="h6">Logo</th>
-                                <th class="h6">Is_highlighted</th>
-                                <th class="h6">Is_active</th>
-                                <th class="h6">Content</th>
-                                <th class="h6">Apply_link</th>
+                                <th class="h6">Name</th>
+                                <th class="h6">Email</th>
+                                <th class="h6">Phone</th>
+                                <th class="h6">Cover Letter</th>
+                                <th class="h6">Resume</th>
                                 <th class="h6">Delete</th>
-                                <th class="h6">Edit</th>
                                 <th class="h6">Stat Accept</th>
                                 <th class="h6">Stat Reject</th>
                             </tr>
@@ -60,22 +54,17 @@
                             @foreach ($careers as $career)
                                 <tr>
                                     <th scope="row">{{$career->id}}</th>
-                                    <td>{{$career->title}}</td>
-                                    <td>{{$career->slug}}</td>
-                                    <td>{{$career->company}}</td>
-                                    <td>{{$career->location}}</td>
-                                    <td class="" style="width: 10px;"><img src="{{ asset('storage/' . $career->logo) }}" alt="Career Logo"></td>
-                                    <td>{{$career->is_highlighted}}</td>
-                                    <td>{{$career->is_active}}</td>
-                                    <td class="overflow-hidden" style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
-                                        {{$career->content}}
-                                    </td>
-                                    <td>{{$career->apply_link}}</td>
+                                    <td>{{$career->name}}</td>
+                                    <td>{{$career->email}}</td>
+                                    <td>{{$career->phone}}</td>
+                                    <td>{{$career->cover_letter}}</td>
                                     <td>
-                                        <a href="{{route('career.delete', ['id' => $career->id])}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
+                                        <a href="{{route('admin.download.resume', ['id' => $career->id])}}" class="btn btn-primary">
+                                            Download Resume
+                                        </a>
                                     </td>
                                     <td>
-                                        <a href="{{route('career.edit', ['id' => $career->id])}}" class="btn btn-warning">Edit</a>
+                                        <a href="{{route('admin.delete.resume', ['id' => $career->id])}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
                                     </td>
                                     <td>
                                         <a class="btn btn-secondary" href="">Accept</a>

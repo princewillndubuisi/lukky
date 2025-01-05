@@ -50,7 +50,7 @@
                             <div class="flex justify-between">
                                 <div class="form-group col-5">
                                     <label class="form-control-label text-white">Company Logo</label>
-                                    <input type="file" name="logo"  class="form-control">
+                                    <input type="file" name="logo"  class="form-control dark:border-gray-600 dark:placeholder-gray-400">
                                 </div>
                                 <div class="form-group col-5">
                                     <label class="form-control-label text-white">Location <span>(e.g. Remote, United States)</span></label>

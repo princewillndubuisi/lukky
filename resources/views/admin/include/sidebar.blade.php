@@ -10,6 +10,7 @@
             <li class="{{ Request::is('show_post') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href="{{route('show.post')}}"> <i class="fa fa-bar-chart"></i>Post </a></li>
             <li class="{{ Request::is('show_category') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href="{{route('show.category')}}"> <i class="icon-home"></i>Category </a></li>
             <li class="{{ Request::is('show_career') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href="{{route('show.career')}}"> <i class="icon-home"></i>Career </a></li>
+            <li class="{{ Request::is('applied_career') ? ' bg-secondary text-white' : 'bg-dark bg-gradient' }}"><a href="{{route('career.applied')}}"> <i class="icon-home"></i>Job </a></li>
     </ul>
     {{-- <span class="heading">Extras</span> --}}
     {{-- <ul class="list-unstyled">

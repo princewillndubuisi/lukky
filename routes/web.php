@@ -19,11 +19,16 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', [BlogController::class, 'welcome']);
 
+// Career Routes
 Route::get('career', [BlogController::class, 'career'])->name('career');
 
 Route::get('career{career}', [BlogController::class, 'show_career'])->name('career.show');
 
-Route::get('career{career}/apply', [BlogController::class, 'apply_career'])->name('career.apply');
+Route::get('career{career}/link', [BlogController::class, 'link_career'])->name('career.link');
+
+Route::get('career/apply', [BlogController::class, 'apply_career'])->middleware('auth')->name('career.apply');
+
+Route::post('career/apply/store', [BlogController::class, 'save_application'])->name('career.save');
 
 // User Routes
 Route::get('read_post/{id}', [BlogController::class, 'read_post'])->name('read.post');
@@ -43,6 +48,7 @@ Route::get('user_post_edit/{id}', [BlogController::class, 'user_post_edit'])->mi
 Route::post('user_post_update/{id}', [BlogController::class, 'user_post_update'])->middleware('auth')->name('user_post.update');
 
 Route::post('update_picture', [BlogController::class, 'update_picture'])->middleware('auth')->name('update.picture');
+
 
 // Route::post('edit_user/{id}', [BlogController::class, 'edit_user'])->middleware('auth')->name('edit.user');
 // End User Routes
@@ -98,6 +104,13 @@ Route::middleware(['auth', Admin::class])->group(function(){
     Route::put('update_career', [AdminController::class, 'update_career'])->name('career.update');
 
     Route::get('delete_career/{id}', [AdminController::class, 'delete_career'])->name('career.delete');
+
+    Route::get('applied_career', [AdminController::class, 'applied_career'])->name('career.applied');
+
+    Route::get('/admin/download-resume/{id}', [AdminController::class, 'downloadResume'])->name('admin.download.resume');
+
+    Route::get('/admin/delete-resume/{id}', [AdminController::class, 'delete_applied_career'])->name('admin.delete.resume');
+
 
     // End career routes
 });

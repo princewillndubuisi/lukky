@@ -32,7 +32,7 @@
                             <strong>Location: </strong>{{ $career->location }}<br>
                             <strong>Company: </strong>{{ $career->company }}
                         </p>
-                        <a href="{{route('career.apply', $career->slug)}}" class="block text-center my-4 tracking-wide bg-white text-indigo-500 text-sm font-medium title-font py-2 border border-indigo-500 hover:bg-indigo-500 hover:text-white uppercase">Apply Now</a>
+                        <a href="{{route('career.link', $career->slug)}}" class="block text-center my-4 tracking-wide bg-white text-indigo-500 text-sm font-medium title-font py-2 border border-indigo-500 hover:bg-indigo-500 hover:text-white uppercase">Apply Now</a>
                     </div>
                 </div>
             </div>

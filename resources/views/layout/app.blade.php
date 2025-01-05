@@ -51,8 +51,8 @@
                     <ul class="font-semibold text-xl flex gap-x-14">
                         <li><a href="{{url('/')}}" class="hover:text-sky-500">Home</a></li>
                         <li><a href="{{route('career')}}" class="hover:text-sky-500">Career </a></li>
-                        <li><a href="">Lorem ipsum </a></li>
-                        <li><a href="">Lorem ipsum </a></li>
+                        <li><a href="">About </a></li>
+                        {{-- <li><a href="">Lorem ipsum </a></li> --}}
                     </ul>
                 </div>
             </div>
