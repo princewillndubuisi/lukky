@@ -2,7 +2,9 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <div><p class="text-center mt-20 text-lg  ">LOG IN TO YOUR ACCOUNT</p></div>
+
+    <form method="POST" action="{{ route('login') }}" class="sm:w-full">
         @csrf
 
         <!-- Email Address -->
@@ -25,23 +27,32 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
+        <!-- <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
                 <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
             </label>
-        </div>
+        </div> -->
 
-        <div class="flex items-center justify-end mt-4">
+        <div class=" flex flex-col items-center  mt-4 sm:w-[400px]">
+          
+
+            <x-primary-button class=" py-5 flex justify-center sm:w-full bg-green-500">
+                {{ __('Log in') }}
+            </x-primary-button>
+
+            <x-primary-button class="mt-4 py-5 flex border border-black-500 justify-center sm:w-full">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                <a class=" text-sm text-white  rounded-md " href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
             </x-primary-button>
+            
         </div>
     </form>
+    <div><p class="text-center mt-4">Terms and Conditions Applied</p></div>
+    <div class="mt-52 text-center"><a href="{{url('register')}}">Dont have an account? Click here to Create one</a></div>
 </x-guest-layout>
+
+

@@ -28,6 +28,7 @@ Route::get('create_post', [BlogController::class, 'create_post'])->middleware('a
 Route::post('user_post', [BlogController::class, 'user_post'])->middleware('auth')->name('user.post');
 
 Route::get('profiles', [BlogController::class, 'profiles'])->middleware('auth')->name('profiles');
+    
 
 Route::get('user_post_del/{id}', [BlogController::class, 'user_post_del'])->middleware('auth')->name('user_post.del');
 
@@ -89,5 +90,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// back button on login pages
+// Route::get('/back', function () {
+//     return view('');
+// });
+
+
+
+
 
 require __DIR__.'/auth.php';
