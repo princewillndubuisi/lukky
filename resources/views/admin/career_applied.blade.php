@@ -15,11 +15,11 @@
       @include('admin.include.sidebar')
       <!-- Sidebar Navigation end-->
 
-      <div class="page-content w-[2000px]">
+      <div class="page-content w-[2000px] overflow-hidden">
         <!-- Body-->
         <div class="page-header">
             <div class="container-fluid">
-                <h2 class="h5 no-margin-bottom">All Post</h2>
+                <h2 class="h5 no-margin-bottom">All Career Applied</h2>
             </div>
         </div>
 
@@ -33,7 +33,6 @@
                         </button>
                     </div>
                 @endif
-                <a class="btn btn-info" href="{{route('post.page')}}">Add Post</a>
             </div>
             <div class="block">
                 <div class="table-responsive">
@@ -41,50 +40,41 @@
                         <thead class="bg-black">
                             <tr>
                                 <th>#</th>
-                                <th class="h6">Title</th>
-                                <th class="h6">Description</th>
-                                <th class="h6">Post by</th>
-                                <th class="h6">Category</th>
-                                <th class="h6">Status</th>
-                                <th class="h6">Type</th>
-                                <th class="h6">Image</th>
-                                <th class="h6">Video</th>
+                                <th class="h6">Name</th>
+                                <th class="h6">Email</th>
+                                <th class="h6">Phone</th>
+                                <th class="h6">Cover Letter</th>
+                                <th class="h6">Resume</th>
                                 <th class="h6">Delete</th>
-                                <th class="h6">Edit</th>
                                 <th class="h6">Stat Accept</th>
                                 <th class="h6">Stat Reject</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($post as $posts)
+                            @foreach ($careers as $career)
                                 <tr>
-                                    <th scope="row">{{$posts->id}}</th>
-                                    <td>{{$posts->title}}</td>
-                                    <td>{{$posts->description}}</td>
-                                    <td>{{$posts->name}}</td>
-                                    <td>{{ $posts->category->title ?? 'No Category' }}</td>
-                                    <td>{{$posts->post_status}}</td>
-                                    <td>{{$posts->usertype}}</td>
-                                    <td class="" style="width: 10px;"><img src="postimage/{{$posts->image}}" alt=""></td>
-                                    <td class="" style="width: 10px;">
-                                        <video class="bg-video_content" autoplay muted loop>
-                                            <source src="/postvideo/{{$posts->video}}" type="video/mp4">
-                                        </video>
+                                    <th scope="row">{{$career->id}}</th>
+                                    <td>{{$career->name}}</td>
+                                    <td>{{$career->email}}</td>
+                                    <td>{{$career->phone}}</td>
+                                    <td>{{$career->cover_letter}}</td>
+                                    <td>
+                                        <a href="{{route('admin.download.resume', ['id' => $career->id])}}" class="btn btn-primary">
+                                            Download Resume
+                                        </a>
                                     </td>
                                     <td>
-                                        <a href="{{route('delete.post', $posts->id)}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
+                                        <a href="{{route('admin.delete.resume', ['id' => $career->id])}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
                                     </td>
                                     <td>
-                                        <a href="{{route('edit.page', $posts->id)}}" class="btn btn-warning">Edit</a>
+                                        <a class="btn btn-secondary" href="">Accept</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-secondary" href="{{route('accept.post', $posts->id)}}">Accept</a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-outline-secondary" href="{{route('reject.post', $posts->id)}}">Reject</a>
+                                        <a class="btn btn-outline-secondary" href="">Reject</a>
                                     </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>

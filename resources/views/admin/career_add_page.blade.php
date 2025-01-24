@@ -25,48 +25,54 @@
             <!-- Body-->
             <div class="page-header">
                 <div class="container-fluid">
-                    <h2 class="h5 no-margin-bottom">Add Post</h2>
+                    <h2 class="h5 no-margin-bottom">Add Career</h2>
                 </div>
             </div>
 
             <div class="col-lg-10 mx-auto">
                 <div class="block">
                     <div class="block-body">
-                        <form method="POST" action="{{route('add.post')}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{route('career.store')}}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="flex justify-between my-4">
                                 <div class="form-group col-5">
-                                    <label class="form-control-label text-white">Post Title</label>
+                                    <label class="form-control-label text-white">Career Title</label>
                                     <input type="text" name="title" placeholder="Title" class="form-control bg-dark rounded">
                                 </div>
 
                                 <div class="form-group col-5">
-                                    <label class="form-control-label text-white">Category</label>
-                                    <select class="form-select form-control bg-dark rounded" name="category_id" aria-label="Default select example">
-                                        @foreach ($category as $category)
-                                            <option value="{{ $category->id }}" selected>{{$category->title}}</option>
-                                        @endforeach
-                                    </select>
+                                    <label class="form-control-label text-white">Company Name</label>
+                                    <input type="text" name="company" placeholder="Name" class="form-control bg-dark rounded">
                                 </div>
                             </div>
 
                             <div class="flex justify-between">
                                 <div class="form-group col-5">
-                                    <label class="form-control-label text-white">Image</label>
-                                    <input type="file" name="image"  class="form-control">
+                                    <label class="form-control-label text-white">Company Logo</label>
+                                    <input type="file" name="logo"  class="form-control dark:border-gray-600 dark:placeholder-gray-400">
                                 </div>
                                 <div class="form-group col-5">
-                                    <label class="form-control-label text-white">Video</label>
-                                    <input type="file" accept=".jpeg,.png,.jpg,.gif,.mp4,.mov,.ogg,.qt" name="video"  class="form-control">
+                                    <label class="form-control-label text-white">Location <span>(e.g. Remote, United States)</span></label>
+                                    <input type="text" name="location" placeholder="Location" class="form-control bg-dark rounded">
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between">
+                                <div class="form-group col-5">
+                                    <label class="form-control-label text-white">Apply Link</label>
+                                    <input type="text" name="apply_link"  class="form-control bg-dark rounded">
+                                </div>
+                                <div class="form-group col-5">
+                                    <label class="form-control-label text-white">Tags (Seperate by coma)</label>
+                                    <input type="text" name="tags"  class="form-control bg-dark rounded">
                                 </div>
                             </div>
 
                             <div class="form-group col-12">
-                                <label class="form-control-label text-white">Post Description</label>
-                                <textarea class="form-control rounded" name="description" id=""  rows="3"></textarea>
+                                <label class="form-control-label text-white">Content</label>
+                                <textarea class="form-control rounded" name="content" id=""  rows="3"></textarea>
                             </div>
-
 
                             <div class="form-group col-5">
                                 <input type="submit" value="Submit" class="btn btn-primary col-5">

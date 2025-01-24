@@ -1,4 +1,4 @@
-<div class="w-[75%]">
+<div class="w-[80%] ">
 
     @foreach ($this->post as $posts)
         @php
@@ -9,52 +9,66 @@
         @endphp
 
         @if ($posts->image)
-            <div class="border flex justify-center bg-white h-80 px-6 py-10 gap-x-4">
-                <div class="flex flex-col items-center w-[9%]">
+            <div class="w-[412px] h-[500px] grid grid-rows-3 border sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 py-10 gap-x-4">
+                {{-- <div class="flex flex-col items-center w-[9%]">
                     @if (Auth::user())
                         <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                     @else
                         <img class="w-12 h-12 rounded-full" src="{{ asset('images/anthony-tran-uM45BGGeync-unsplash.jpg') }}" alt="">
                     @endif
-                </div>
+                </div> --}}
 
-                <div class="w-[70%] -mt-4">
-                    <div class="flex items-center font-medium gap-2 text-gray-500">
-                        <p>{{$posts->name}}</p>
-                        <p class="font-bold mb-4 text-2xl">.</p>
-                        <p class="">{{$formattedDate}}</p>
-                        <p class="font-bold mb-4 text-2xl">.</p>
-                        <p>{{$relativeTime}}</p>
-                    </div>
+                <div class="w-[349px] sm:w-[70%]  sm:h-full ">
+                    <div class=" h-[48px] flex items-center -mt-4">
 
-                    <div class="mb-4">
-                        <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Tech trends</a>
-                        <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">{{$posts->category->title}}</a>
-                    </div>
+                        <div class="w-[48px] h-[48px] mr-4">
+                            @if (Auth::user())
+                                <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
+                            @else
+                                <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('images/anthony-tran-uM45BGGeync-unsplash.jpg') }}" alt="">
+                            @endif
+                        </div>
 
-                    <div class="">
+                        <div class="h-[48px]">
+                            <div class="sm:h-[20px] flex items-center font-medium gap-2 text-gray-500">
+                                <p class="text-[10px] font-medium sm:text-base">{{$posts->name}}</p>
+                                <p class="hidden sm:block font-medium mb-4 text-2xl">.</p>
+                                <p class="hidden sm:block sm:text-base">{{$formattedDate}}</p>
+                                <p class="text-[10px] font-medium mb-4 sm:text-2xl">.</p>
+                                <p class="text-[10px] font-medium sm:text-base">{{$relativeTime}}</p>
+                            </div>
+
+                            <div class="mb-4 mt-3 sm:mt-1">
+                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[10px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">Tech trends</a>
+                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[10px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">{{$posts->category->title}}</a>
+                            </div>
+                        </div>
+                    </div> 
+                           
+                    <div class="mt-8 sm:ml-16">
                         <a href="{{route('read.post', $posts->id)}}">
-                            <h1 class="text-xl font-semibold mb-2 hover:text-sky-400 hover:text-2xl">{{$posts->title}}</h1>
+                            <h1 class="text-3xl font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-4xl">{{$posts->title}}</h1>
                         </a>
-                        <p class="text-base font-medium text-gray-500 tracking-wide leading-relaxed">Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi Lorem ipsum dolor quas ducimus hgud</p>
+                        <p class="text-[10px] font-medium sm:text-base sm:font-medium text-gray-500 tracking-wide leading-relaxed sm:ml-0 ">Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi Lorem ipsum dolor quas ducimus hgud</p>
                     </div>
                 </div>
 
-                <div class="w-[40%] h-52 bg-slate-50 mt-1">
-                    <img class="w-full h-full" src="/postimage/{{$posts->image}}" alt="">
+
+                <div class="h-[300px] sm:w-[40%] sm:h-52 bg-slate-50 mt-1">
+                    <img class="w-full h-full sm:w-full sm:h-full" src="/postimage/{{$posts->image}}" alt="">
                     <div class="flex items-center justify-around my-3">
                        <livewire:like-button  :key="$posts->id" :posts="$posts"  />
                         <div class="flex items-center">
-                            <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
-                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                            <i class="fa-solid fa-thumbs-down text-[10px] sm:text-xs text-slate-500"></i>
+                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                         </div>
                         <div class="flex items-center">
-                            <i class="fa-solid fa-comments text-xs text-slate-500"></i>
-                            <p class="text-slate-500 text-xs ml-2">{{$posts->comments()->count()}}</p>
+                            <i class="fa-solid fa-comments text-[10px] sm:text-xs text-slate-500"></i>
+                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">{{$posts->comments()->count()}}</p>
                         </div>
                         <div class="flex items-center">
-                            <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
-                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                            <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
+                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                         </div>
                     </div>
                 </div>
@@ -97,16 +111,16 @@
                     <div class="flex items-center justify-end mt-5 gap-x-6">
                        <livewire:like-button  :key="$posts->id" :posts="$posts" />
                         <div class="flex items-center">
-                            <i class="fa-solid fa-thumbs-down text-xs text-slate-500"></i>
-                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                            <i class="fa-solid fa-thumbs-down text-[10px] sm:text-xs text-slate-500"></i>
+                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                         </div>
                         <div class="flex items-center">
-                            <i class="fa-solid fa-comments text-xs text-slate-500"></i>
-                            <p class="text-slate-500 text-xs ml-2">{{$posts->comments()->count()}}</p>
+                            <i class="fa-solid fa-comments text-[10px] sm:text-xs text-slate-500"></i>
+                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">{{$posts->comments()->count()}}</p>
                         </div>
                         <div class="flex items-center">
-                            <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
-                            <p class="text-slate-500 text-xs ml-2">10K</p>
+                            <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
+                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                         </div>
                     </div>
                 </div>
@@ -352,11 +366,11 @@
         </div> --}}
     @endforeach
 
-    <hr class="border my-8 border-slate-400 w-[full">
+    <hr class="w-[125%] border my-8 border-slate-400 sm:w-full">
 
     {{-- Pagination --}}
-    <div class="w-full h-10 mb-20">
-        <div class="pagination">
+    <div class="w-[125%] sm:w-full h-10 mb-20">
+        <div class="pagination ">
             {{ $this->post->onEachSide(1)->links() }}
         </div>
     </div>

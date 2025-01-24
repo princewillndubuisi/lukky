@@ -1,5 +1,5 @@
 {{-- Start Sidebar --}}
-<div class="w-[25%]">
+<div class="w-[25%] hidden sm:block">
     <ul class="flex-column w-full mt-10 space-y space-y-4 text-sm font-medium text-gray-500 md:me-4 mb-4 md:mb-0">
         <li>
             <a href="#" data-tab="profile" class="tab-link ml-9 inline-flex justify-center items-center px-4 py-3 text-white bg-blue-700 hover:bg-gray-100  hover:text-gray-900 rounded-lg active w-[80%]" aria-current="page">

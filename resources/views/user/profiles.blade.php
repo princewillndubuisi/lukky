@@ -9,7 +9,7 @@
 <div class="md:flex bg-gray-100">
     @include('user.include.sidebar')
 
-    <div class="w-[80%] border border-lucy">
+    <div class="w-[412px] sm:w-[80%] border border-lucy">
         @php
             $date = \Carbon\Carbon::parse(Auth::user()->created_at);
             $isToday = $date->isToday();
@@ -17,29 +17,29 @@
             $relativeTime = $date->diffForHumans();
         @endphp
         {{-- Start Username --}}
-        <div class="bg-mary w-[100%] h-60">
-            <div class="w-[90%] mx-auto flex justify-center">
-                <div class="flex mt-24 w-full">
+        <div class="bg-mary border  w-[100%] h-60">
+            <div class="w-[412px] mx-auto flex justify-center sm:w-[90%]">
+                <div class="flex mx-6 mt-24 w-full">
                     <div class="">
                         <img class="w-32 h-32 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                     </div>
                     <div class="w-[70%] mx-auto space-y-2 ms-10">
-                        <div class="flex gap-x-6">
-                            <p class="text-2xl -mt-1.5">{{Auth::user()->name}}</p>
-                            <a class="border bg-sky-200 rounded-2xl text-gray-500 font-bold text-xs py-0.5 px-4" href="">Level 2 creator</a>
+                        <div class="flex items-center gap-x-6">
+                            <p class="text-[16px] sm:text-2xl sm:-mt-1.5">{{Auth::user()->name}}</p>
+                            <a class="border bg-sky-200 text-[10px] rounded-2xl text-gray-500 font-bold sm:text-xs py-0.5 px-4" href="">Level 2 creator</a>
                         </div>
                         <div class="flex items-center text-xs font-bold space-x-3">
-                            <p>{{$formattedDate}}</p>
-                            <p class="mb-2">.</p>
-                            <p>12,500 followers</p>
+                            <p class="text-[10px] sm:text-[12px]">{{$formattedDate}}</p>
+                            <p class="mb-2 text-[10px] sm:text-[12px]">.</p>
+                            <p class="text-[10px] sm:text-[12px]">12,500 followers</p>
                         </div>
-                        <div class="">
-                            <p class="text-base font-medium">{{Auth::user()->description}}</p>
+                        <div class="mt-8">
+                            <p class="text-[10px] font-medium sm:text-base ">{{Auth::user()->description}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="mr-32 mt-24">
-                    <button type="button"  wire:click="loadUser" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal">
+                    <button type="button" class="text-blue-500"  wire:click="loadUser" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal">
                         <i class="fa-regular fa-pen-to-square text-xl"></i>
                     </button>
                 </div>

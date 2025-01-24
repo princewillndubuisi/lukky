@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Click;
+use App\Models\Career;
+use App\Models\Category;
+use App\Mail\VerifyEmail;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BlogController extends Controller
@@ -226,5 +231,94 @@ class BlogController extends Controller
         // Optionally, redirect back with a success message
         return redirect()->back();
 
+    }
+
+    // Career
+    public function career(Request $request)
+    {
+        // Start building the query
+        $query = Career::where('is_active', true)->with('tags')->latest();
+
+        // Apply search filter
+        if ($request->has('s')) {
+            $searchQuery = trim($request->get('s'));
+
+            $query->where(function ($builder) use ($searchQuery) {
+                $builder
+                    ->orWhere('title', 'like', "%{$searchQuery}%")
+                    ->orWhere('company', 'like', "%{$searchQuery}%")
+                    ->orWhere('location', 'like', "%{$searchQuery}%");
+            });
+        }
+
+        // Apply tag filter
+        if ($request->has('tag')) {
+            $tag = $request->get('tag');
+            $query->whereHas('tags', function ($builder) use ($tag) {
+                $builder->where('slug', $tag);
+            });
+        }
+
+        // Execute the query to get the results
+        $careers = $query->get();
+
+        // Pass the tags to the view (if needed)
+        $tags = Tag::all();
+
+        return view('career.index', compact('careers', 'tags'));
+    }
+
+    // Show Career
+    public function show_career(Career $career, Request $request) {
+        return view('career.show', compact('career'));
+    }
+
+    // Apply Career
+    public function link_career(Career $career, Request $request) {
+        $career->clicks()
+            ->create([
+                'user_agent' => $request->userAgent(),
+                'ip' => $request->ip()
+            ]);
+
+        return redirect()->to($career->apply_link);
+    }
+
+    // Apply Career
+    public function apply_career() {
+        return view ('career.apply');
+    }
+
+    // Save application
+    public function save_application(Request $request ) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'resume' => 'required|file|mimes:pdf|max:2048',
+            'phone' => 'nullable|string|max:20',
+            'cover_letter' => 'nullable|string',
+        ]);
+
+        // Handle file upload
+        $resumePath = $request->file('resume')->store('resumes', 'public');
+
+        // Save the application
+        $career = new Application();
+
+        $career->user_id = auth()->id();
+        $career->name = $request->name;
+        $career->email = $request->email;
+        $career->phone = $request->phone;
+        $career->cover_letter = $request->cover_letter;
+        $career->resume = $resumePath;
+
+        $career->save();
+
+        $name = $request->name;
+        $email = $request->email;
+
+        Mail::to($request->email)->send(new VerifyEmail($name, $email));
+
+        return redirect()->back()->with('success', 'Your application has been submitted successfully.');
     }
 }

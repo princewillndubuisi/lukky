@@ -15,11 +15,11 @@
       @include('admin.include.sidebar')
       <!-- Sidebar Navigation end-->
 
-      <div class="page-content w-[2000px]">
+      <div class="page-content w-[2000px] overflow-hidden">
         <!-- Body-->
         <div class="page-header">
             <div class="container-fluid">
-                <h2 class="h5 no-margin-bottom">All Post</h2>
+                <h2 class="h5 no-margin-bottom">All Career</h2>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
                         </button>
                     </div>
                 @endif
-                <a class="btn btn-info" href="{{route('post.page')}}">Add Post</a>
+                <a class="btn btn-info" href="{{route('career.page')}}">Add Career</a>
             </div>
             <div class="block">
                 <div class="table-responsive">
@@ -42,13 +42,14 @@
                             <tr>
                                 <th>#</th>
                                 <th class="h6">Title</th>
-                                <th class="h6">Description</th>
-                                <th class="h6">Post by</th>
-                                <th class="h6">Category</th>
-                                <th class="h6">Status</th>
-                                <th class="h6">Type</th>
-                                <th class="h6">Image</th>
-                                <th class="h6">Video</th>
+                                <th class="h6">Slug</th>
+                                <th class="h6">Company</th>
+                                <th class="h6">Location</th>
+                                <th class="h6">Logo</th>
+                                <th class="h6">Is_highlighted</th>
+                                <th class="h6">Is_active</th>
+                                <th class="h6">Content</th>
+                                <th class="h6">Apply_link</th>
                                 <th class="h6">Delete</th>
                                 <th class="h6">Edit</th>
                                 <th class="h6">Stat Accept</th>
@@ -56,35 +57,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($post as $posts)
+                            @foreach ($careers as $career)
                                 <tr>
-                                    <th scope="row">{{$posts->id}}</th>
-                                    <td>{{$posts->title}}</td>
-                                    <td>{{$posts->description}}</td>
-                                    <td>{{$posts->name}}</td>
-                                    <td>{{ $posts->category->title ?? 'No Category' }}</td>
-                                    <td>{{$posts->post_status}}</td>
-                                    <td>{{$posts->usertype}}</td>
-                                    <td class="" style="width: 10px;"><img src="postimage/{{$posts->image}}" alt=""></td>
-                                    <td class="" style="width: 10px;">
-                                        <video class="bg-video_content" autoplay muted loop>
-                                            <source src="/postvideo/{{$posts->video}}" type="video/mp4">
-                                        </video>
+                                    <th scope="row">{{$career->id}}</th>
+                                    <td>{{$career->title}}</td>
+                                    <td>{{$career->slug}}</td>
+                                    <td>{{$career->company}}</td>
+                                    <td>{{$career->location}}</td>
+                                    <td class="" style="width: 10px;"><img src="{{ asset('storage/' . $career->logo) }}" alt="Career Logo"></td>
+                                    <td>{{$career->is_highlighted}}</td>
+                                    <td>{{$career->is_active}}</td>
+                                    <td class="overflow-hidden" style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                                        {{$career->content}}
+                                    </td>
+                                    <td>{{$career->apply_link}}</td>
+                                    <td>
+                                        <a href="{{route('career.delete', ['id' => $career->id])}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
                                     </td>
                                     <td>
-                                        <a href="{{route('delete.post', $posts->id)}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
+                                        <a href="{{route('career.edit', ['id' => $career->id])}}" class="btn btn-warning">Edit</a>
                                     </td>
                                     <td>
-                                        <a href="{{route('edit.page', $posts->id)}}" class="btn btn-warning">Edit</a>
+                                        <a class="btn btn-secondary" href="">Accept</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-secondary" href="{{route('accept.post', $posts->id)}}">Accept</a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-outline-secondary" href="{{route('reject.post', $posts->id)}}">Reject</a>
+                                        <a class="btn btn-outline-secondary" href="">Reject</a>
                                     </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>

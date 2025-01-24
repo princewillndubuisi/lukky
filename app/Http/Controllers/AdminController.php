@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Career;
 use App\Models\Category;
+use App\Models\Application;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -84,7 +89,7 @@ class AdminController extends Controller
 
         $post->save();
 
-        return redirect()->back()->with('success', 'Post Added Successfully');
+        return redirect()->route('show.post')->with('success', 'Post Added Successfully');
     }
 
 
@@ -153,7 +158,7 @@ class AdminController extends Controller
 
         $data->save();
 
-        return redirect()->back()->with('success', 'Post updated successfully');
+        return redirect()->route('show.post')->with('success', 'Post updated successfully');
     }
 
     public function accept_post($id) {
@@ -202,7 +207,7 @@ class AdminController extends Controller
 
         $category->save();
 
-        return redirect()->back()->with('success', 'Category added successfully');
+        return redirect()->route('show.category')->with('success', 'Category added successfully');
     }
 
     // Delete category
@@ -232,6 +237,143 @@ class AdminController extends Controller
 
         $category->save();
 
-        return redirect()->back()->with('success', 'Category updated successfully');
+        return redirect()->route('show.category')->with('success', 'Category updated successfully');
+    }
+
+    // Career page
+    public function show_career() {
+        $careers = Career::orderBy('id', 'DESC')->paginate();
+
+        return view('admin.career_page', compact('careers'));
+    }
+
+    // Add Career
+    public function career_page() {
+        return view('admin.career_add_page');
+    }
+
+    // Store Career
+    public function store_career(Request $request) {
+        $request->validate([
+            'title' => 'required',
+            'company' => 'required',
+            'logo' => 'required|file|max:2048',
+            'location' => 'required',
+            'apply_link' => 'required|url',
+            'content' => 'required',
+        ]);
+
+        $career = new Career();
+
+        $career->user_id = auth()->id();
+        $career->title = $request->title;
+        $career->slug = Str::slug($request->title) . '-' . rand(1111, 9999);
+        $career->company = $request->company;
+        $career->logo = basename($request->file('logo')->store('public'));
+        $career->location = $request->location;
+        $career->apply_link = $request->apply_link;
+        $career->content = $request->content;
+        $career->is_active = true;
+        $career->is_highlighted = $request->filled('is_highlighted');
+
+        $career->save();
+
+        foreach(explode(',', $request->tags) as $requestTag) {
+            $tag = Tag::firstOrCreate([
+                'slug' => Str::slug(trim($requestTag))
+            ], [
+                'name' => ucwords(trim($requestTag))
+            ]);
+
+            $tag->careers()->attach($career->id);
+        }
+
+        return redirect()->route('show.career')->with('success', 'Career added successfully');
+    }
+
+    // Edit Career
+    public function edit_career($id) {
+        $career = Career::find($id);
+
+        return view('admin.career_edit_page', compact('career'));
+    }
+
+    // Update Career
+    public function update_career(Request $request) {
+        $request->validate([
+            'title' => 'required',
+            'company' => 'required',
+            'logo' => 'file|max:2048',
+            'location' => 'required',
+            'apply_link' => 'required|url',
+            'content' => 'required',
+        ]);
+
+        $career = Career::find($request->id);
+
+        $career->user_id = auth()->id();
+        $career->title = $request->title;
+        $career->slug = Str::slug($request->title) . '-' . rand(1111, 9999);
+        $career->company = $request->company;
+        $career->location = $request->location;
+        $career->apply_link = $request->apply_link;
+        $career->content = $request->content;
+        $career->is_active = true;
+        $career->is_highlighted = $request->filled('is_highlighted');
+
+        // Check if a new logo was uploaded
+        if ($request->hasFile('logo')) {
+            $career->logo = basename($request->file('logo')->store('public'));
+        }
+
+        $career->save();
+
+        $career->tags()->detach();
+        foreach(explode(',', $request->tags) as $requestTag) {
+            $tag = Tag::firstOrCreate([
+                'slug' => Str::slug(trim($requestTag))
+            ], [
+                'name' => ucwords(trim($requestTag))
+            ]);
+
+            $tag->careers()->attach($career->id);
+        }
+
+        return redirect()->route('show.career')->with('success', 'Career updated successfully');
+    }
+
+    // Delete Career
+    public function delete_career($id) {
+        $career = Career::find($id)->delete();
+
+        return redirect()->back()->with('success', 'Career deleted successfully');
+    }
+
+    // Applied career
+    public function applied_career() {
+        $careers = Application::orderBy('id', 'DESC')->paginate();
+
+        return view('admin.career_applied',compact('careers'));
+    }
+
+    public function downloadResume($id) {
+        $career = Application::findOrFail($id);
+
+        // Get the resume file path
+        $filePath = $career->resume;
+
+        // Check if the file exists
+        if (!Storage::disk('public')->exists($filePath)) {
+            return back()->with('error', 'Resume file not found.');
+        }
+
+        // Return the file as a download
+        return Storage::disk('public')->download($filePath);
+    }
+
+    public function delete_applied_career($id) {
+        $career = Application::find($id)->delete();
+
+        return redirect()->back()->with('success', 'Career deleted successfully');
     }
 }
