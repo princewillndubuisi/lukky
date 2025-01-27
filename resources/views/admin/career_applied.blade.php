@@ -45,6 +45,7 @@
                                 <th class="h6">Phone</th>
                                 <th class="h6">Cover Letter</th>
                                 <th class="h6">Resume</th>
+                                <th class="h6">Other Files</th>
                                 <th class="h6">Delete</th>
                                 <th class="h6">Stat Accept</th>
                                 <th class="h6">Stat Reject</th>
@@ -61,6 +62,11 @@
                                     <td>
                                         <a href="{{route('admin.download.resume', ['id' => $career->id])}}" class="btn btn-primary">
                                             Download Resume
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{route('admin.download.files', ['id' => $career->id])}}" class="btn btn-primary">
+                                            Download Files
                                         </a>
                                     </td>
                                     <td>

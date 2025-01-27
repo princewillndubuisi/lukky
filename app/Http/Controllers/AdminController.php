@@ -371,6 +371,40 @@ class AdminController extends Controller
         return Storage::disk('public')->download($filePath);
     }
 
+    public function downloadfiles($id) {
+        $career = Application::findOrFail($id);
+
+        // Decode the JSON-encoded file paths
+        $filePaths = json_decode($career->files, true);
+
+        if (empty($filePaths)) {
+            return back()->with('error', 'No files found for this application.');
+        }
+
+        // Create a temporary ZIP file
+        $zipFileName = 'application_files_' . $career->id . '.zip';
+        $zipPath = storage_path('app/public/' . $zipFileName);
+        $zip = new \ZipArchive();
+
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
+            return back()->with('error', 'Unable to create ZIP file.');
+        }
+
+        // Add files to the ZIP
+        foreach ($filePaths as $filePath) {
+            $fileFullPath = storage_path('app/public/' . $filePath);
+
+            if (file_exists($fileFullPath)) {
+                $zip->addFile($fileFullPath, basename($filePath));
+            }
+        }
+
+        $zip->close();
+
+        // Return the ZIP file as a download
+        return response()->download($zipPath)->deleteFileAfterSend(true);
+    }
+
     public function delete_applied_career($id) {
         $career = Application::find($id)->delete();
 

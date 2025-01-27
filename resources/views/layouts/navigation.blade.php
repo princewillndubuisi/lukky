@@ -119,7 +119,7 @@
         </div> --}}
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-gray-200 bg-white">
             <div class="flex gap-4  px-4 border-b-2 border-gray-300 w-[81px] mx-2">
                 <i class='bx bxs-user-circle text-gray-400 mt-2' ></i>
                 <div>

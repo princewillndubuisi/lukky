@@ -29,7 +29,7 @@ class VerifyEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('user@fridayblog.com', 'The Princeton Fashion'),
+            from: new Address('user@fridayblog.com', 'The Friday Blog'),
             subject: 'Email Identification'
         );
     }

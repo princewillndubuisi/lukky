@@ -294,13 +294,22 @@ class BlogController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
-            'resume' => 'required|file|mimes:pdf|max:2048',
+            'resume' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
             'phone' => 'nullable|string|max:20',
             'cover_letter' => 'nullable|string',
+            'files.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048', // Validation for multiple files
         ]);
 
         // Handle file upload
         $resumePath = $request->file('resume')->store('resumes', 'public');
+
+        // Handle multiple files upload
+        $uploadedFiles = [];
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+            $uploadedFiles[] = $file->store('multiplefiles', 'public');
+            }
+        }
 
         // Save the application
         $career = new Application();
@@ -311,6 +320,8 @@ class BlogController extends Controller
         $career->phone = $request->phone;
         $career->cover_letter = $request->cover_letter;
         $career->resume = $resumePath;
+        $career->files = json_encode($uploadedFiles);
+
 
         $career->save();
 

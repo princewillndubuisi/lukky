@@ -109,6 +109,8 @@ Route::middleware(['auth', Admin::class])->group(function(){
 
     Route::get('/admin/download-resume/{id}', [AdminController::class, 'downloadResume'])->name('admin.download.resume');
 
+    Route::get('/admin/download-files/{id}', [AdminController::class, 'downloadfiles'])->name('admin.download.files');
+
     Route::get('/admin/delete-resume/{id}', [AdminController::class, 'delete_applied_career'])->name('admin.delete.resume');
 
 
