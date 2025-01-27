@@ -10,8 +10,8 @@
         <div class="flex justify-between gap-10 w-full">
             <div class="w-[420px] mx-auto sm:w-[65%] sm:h-1080">
                 <div class="">
-                    <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-[10px] bg-orange-100 mr-4 sm:text-sm" href="">Tech trends</a>
-                    <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-[10px] bg-orange-100 sm:text-sm" href="">Entertainment</a>
+                    <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-orange-100 mr-4" href="">Tech trends</a>
+                    <a class="border border-orange-100 rounded-full  py-1 px-4 font-medium text-sm bg-orange-100" href="">Entertainment</a>
                 </div>
                 <div class="flex items-center font-medium gap-2 mt-2 text-gray-500">
                     @php

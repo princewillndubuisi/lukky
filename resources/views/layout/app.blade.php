@@ -37,22 +37,23 @@
     }
     </style>
 </head>
-<body class="font-sans overflow-hidden overflow-y-auto">
+<body class="font-sans">
+    
     {{-- Start Header section --}}
     <header class="bg-white sm:border border-judy">
         {{-- Start nav section --}}
         <nav class="w-11/12 mx-auto h-24 flex justify-between items-center">
             <div class="flex items-center justify-center">
-                <div class="w-20 border border-yellow-500">
-                    <img class="animate-bounce" src="{{asset('images/bird_2.jpg')}}" alt="">
+                <div class="w-20  border-yellow-500">
+                    <img class="" src="{{asset('images/academea 6.jpg')}}" alt="">
                 </div>
 
                 <div class="hidden sm:block sm:ml-8 ">
                     <ul class="font-semibold text-xl flex gap-x-14">
-                        <li><a href="{{url('/')}}" class="hover:text-sky-500">Home</a></li>
-                        <li><a href="{{route('career')}}" class="hover:text-sky-500">Career </a></li>
-                        <li><a href="">About </a></li>
-                        {{-- <li><a href="">Lorem ipsum </a></li> --}}
+                        <li><a href="{{url('/')}}">Home</a></li>
+                        <li><a href="">Contact </a></li>
+                        <li><a href="">About Us </a></li>
+                        <li><a href="">More</a></li>
                     </ul>
                 </div>
             </div>
