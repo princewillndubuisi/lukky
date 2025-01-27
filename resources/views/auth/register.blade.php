@@ -4,7 +4,7 @@
 
 
 
-        <div><p class="text-center mt-20 text-lg  ">CREATE YOUR ACCOUNT</p></div>
+        <div><p class="text-center mt-20 text-lg  mb-6">CREATE YOUR ACCOUNT</p></div>
 
         <!-- Name -->
         <div>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="flex flex-col items-center  mt-4">
-           
+
 
             <x-primary-button class="text-center py-5 w-full  text-lg justify-center sm:w-full bg-green-500 ">
                 {{ __('Register') }}

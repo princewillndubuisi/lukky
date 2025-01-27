@@ -111,7 +111,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="flex shadow-2xl absolute top-0 right-0 rounded-md  w-[93px] h-[97px] mt-20 border sm:hidden ">
+    <div :class="{'block': open, 'hidden': ! open}" class="flex shadow-2xl bg-white z-50 absolute top-0 right-0 rounded-md  w-[93px] h-[97px] mt-20 border sm:hidden ">
         {{-- <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
@@ -119,16 +119,16 @@
         </div> --}}
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 bg-white">
+        <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex gap-4  px-4 border-b-2 border-gray-300 w-[81px] mx-2">
                 <i class='bx bxs-user-circle text-gray-400 mt-2' ></i>
-                <div>
+                <div >
                     <div class="font-medium text-[10px] text-black">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-[10px] text-black">{{ Auth::user()->email }}</div>
                 </div>
             </div>
 
-            <div class="mt-3 space-y-1">
+            <div class="mt-3 space-y-1 bg-white">
                 @if (Auth::user()->usertype == 'editor')
                     <x-responsive-nav-link :href="route('profiles')" class="text-black">
                         <div class="flex gap-4 items-center font-medium text-[10px] border-b-2 border-gray-300">

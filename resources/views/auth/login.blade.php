@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div><p class="text-center mt-20 text-lg  ">LOG IN TO YOUR ACCOUNT</p></div>
+    <div><p class="text-center mt-20 text-lg  mb-6">LOG IN TO YOUR ACCOUNT</p></div>
 
     <form method="POST" action="{{ route('login') }}" class="sm:w-full">
         @csrf
@@ -35,20 +35,20 @@
         </div> -->
 
         <div class=" flex flex-col items-center  mt-4 sm:w-[400px]">
-          
 
-            <x-primary-button class=" py-5 flex justify-center sm:w-full bg-green-500">
+
+            <x-primary-button class=" py-5 flex justify-center w-full bg-green-500" sm:w-full >
                 {{ __('Log in') }}
             </x-primary-button>
 
-            <x-primary-button class="mt-4 py-5 flex border border-black-500 justify-center sm:w-full">
+            <x-primary-button class="mt-4 py-5 w-full flex border border-black-500 justify-center sm:w-full">
             @if (Route::has('password.request'))
                 <a class=" text-sm text-white  rounded-md " href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
             </x-primary-button>
-            
+
         </div>
     </form>
     <div><p class="text-center mt-4">Terms and Conditions Applied</p></div>
