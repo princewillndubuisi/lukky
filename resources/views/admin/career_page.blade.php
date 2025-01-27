@@ -33,7 +33,7 @@
                         </button>
                     </div>
                 @endif
-                <a class="btn btn-info" href="{{route('career.page')}}">Add Career</a>
+                <a class="btn btn-info" href="{{route('career.add')}}">Add Career</a>
             </div>
             <div class="block">
                 <div class="table-responsive">

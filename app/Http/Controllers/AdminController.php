@@ -248,7 +248,7 @@ class AdminController extends Controller
     }
 
     // Add Career
-    public function career_page() {
+    public function add_career_page() {
         return view('admin.career_add_page');
     }
 

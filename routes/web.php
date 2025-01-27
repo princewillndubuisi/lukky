@@ -40,7 +40,7 @@ Route::get('create_post', [BlogController::class, 'create_post'])->middleware('a
 Route::post('user_post', [BlogController::class, 'user_post'])->middleware('auth')->name('user.post');
 
 Route::get('profiles', [BlogController::class, 'profiles'])->middleware('auth')->name('profiles');
-    
+
 
 Route::get('user_post_del/{id}', [BlogController::class, 'user_post_del'])->middleware('auth')->name('user_post.del');
 
@@ -96,7 +96,7 @@ Route::middleware(['auth', Admin::class])->group(function(){
     // Career routes
     Route::get('show_career', [AdminController::class, 'show_career'])->name('show.career');
 
-    Route::get('career_page', [AdminController::class, 'career_page'])->name('career.page');
+    Route::get('add_career_page', [AdminController::class, 'add_career_page'])->name('career.add');
 
     Route::post('career_store', [AdminController::class, 'store_career'])->name('career.store');
 
