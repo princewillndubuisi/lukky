@@ -38,7 +38,7 @@
     </style>
 </head>
 <body class="font-sans">
-    
+
     {{-- Start Header section --}}
     <header class="bg-white sm:border border-judy">
         {{-- Start nav section --}}
@@ -51,9 +51,8 @@
                 <div class="hidden sm:block sm:ml-8 ">
                     <ul class="font-semibold text-xl flex gap-x-14">
                         <li><a href="{{url('/')}}">Home</a></li>
-                        <li><a href="">Contact </a></li>
+                        <li><a href="{{route('career')}}">Career </a></li>
                         <li><a href="">About Us </a></li>
-                        <li><a href="">More</a></li>
                     </ul>
                 </div>
             </div>
