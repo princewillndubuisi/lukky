@@ -43,8 +43,8 @@
                                 <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[10px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">{{$posts->category->title}}</a>
                             </div>
                         </div>
-                    </div> 
-                           
+                    </div>
+
                     <div class="mt-8 sm:ml-16">
                         <a href="{{route('read.post', $posts->id)}}">
                             <h1 class="text-3xl font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-4xl">{{$posts->title}}</h1>
@@ -55,7 +55,7 @@
 
 
                 <div class="h-[300px] sm:w-[40%] sm:h-52 bg-slate-50 mt-1">
-                    <img class="w-full h-full sm:w-full sm:h-full" src="/postimage/{{$posts->image}}" alt="">
+                    <img class="w-full h-full rounded-md sm:rounded-md sm:w-full sm:h-full" src="/postimage/{{$posts->image}}" alt="">
                     <div class="flex items-center justify-around my-3">
                        <livewire:like-button  :key="$posts->id" :posts="$posts"  />
                         <div class="flex items-center">
@@ -104,7 +104,7 @@
                         <p class="text-md font-medium text-gray-500 tracking-wide leading-loose">Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur </p>
                     </div>
                     <div class="w-full mt-4 bg-video">
-                        <video class="bg-video_content rounded-md" autoplay muted loop>
+                        <video class="bg-video_content rounded-md sm:rounded-md" autoplay muted loop>
                             <source src="/postvideo/{{$posts->video}}" type="video/mp4">
                         </video>
                     </div>
