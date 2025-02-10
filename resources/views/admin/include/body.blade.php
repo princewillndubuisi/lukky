@@ -72,11 +72,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user as $user)
+                    @foreach ($user as $users)
                         <tr>
-                            <th scope="row">{{$user->id}}</th>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
+                            <th scope="row">{{$users->id}}</th>
+                            <td>{{$users->name}}</td>
+                            <td>{{$users->email}}</td>
                             <td>
                                 <a href="" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
                             </td>

@@ -12,6 +12,7 @@ class Post extends Model
     protected $fillable = [
         'title',
         'description',
+        'body',
         'image',
         'video',
         'name',
@@ -20,6 +21,10 @@ class Post extends Model
         'usertype',
         'category_id',
     ];
+
+    // public function images() {
+    //     return $this->hasMany(images::class); // Adjust according to your actual model name
+    // }
 
     public function likes() {
         return $this->belongsToMany(User::class, 'post_like')->withTimestamps();

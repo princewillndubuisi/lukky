@@ -66,6 +66,8 @@ Route::middleware(['auth', Admin::class])->group(function(){
 
     Route::post('add_post', [AdminController::class, 'add_post'])->name('add.post');
 
+    Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('upload.image');
+
     Route::get('show_post', [AdminController::class, 'show_post'])->name('show.post');
 
     Route::get('delete_post/{id}', [AdminController::class, 'delete_post'])->name('delete.post');

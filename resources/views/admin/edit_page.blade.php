@@ -4,8 +4,46 @@
     <base href="/public">
 
     @include('admin.include.css')
+    <script src="editor-sdk.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   </head>
   <body>
+    <style>
+        /* .ck-editor__editable {
+            min-height: 450px !important;
+            border-color: #343a40 !important;
+        } */
+
+        /* Change toolbar background color */
+        .ck-toolbar {
+            background-color: #1a202c !important; /* Dark mode example */
+            border-color: #343a40 !important;
+        }
+
+        /* Change button colors */
+        .ck-button {
+            background-color: #33a40 !important; /* Dark Gray */
+            color: white !important; /* Text color */
+        }
+
+
+        /* Change editor content background and text color */
+        .ck-editor__editable {
+            background-color: #343a40 !important; /* Dark background */
+            color: white !important; /* Text color */
+            min-height: 450px !important; /* Set height */
+            border-color: #343a40 !important;
+            text-align: center;
+        }
+
+        /* Change placeholder text color */
+        .ck-placeholder {
+            color: #b0b0b0 !important;
+            border-color: #343a40 !important;
+        }
+
+    </style>
+
     @include('admin.include.header')
 
     <div class="d-flex align-items-stretch">
@@ -40,39 +78,49 @@
                         <div class="flex justify-between">
                             <div class="form-group col-5">
                                 <label class="form-control-label text-white">Post Title</label>
-                                <input type="text" name="title" value="{{$post->title}}" placeholder="Title" class="form-control bg-dark rounded">
+                                <input type="text" name="title" value="{{$post->title}}" placeholder="Title" class="form-control bg-dark rounded text-white">
+                                @error('title')
+                                    <span class="alert alert-danger mt-2">
+                                        <strong>{{$message}}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div class="form-group col-5">
                                 <label class="form-control-label text-white">Category</label>
-                                <select class="form-select form-control bg-dark rounded" name="category_id" aria-label="Default select example">
+                                <select class="form-select form-control bg-dark rounded text-white" name="category_id" aria-label="Default select example">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" {{ $post->category_id == $category->id ? 'selected' : '' }}>
                                             {{ $category->title }}
                                         </option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-between">
-                            <div class="form-group col-5">
-                                <label class="form-control-label text-white">Update old image</label>
-                                <img style="width: 120px" src="{{ asset('postimage/' . $post->image) }}" class="mb-3" alt="">
-                                <input type="file" name="image" value="{{$post->image}}" class="form-control">
-                            </div>
-                            <div class="form-group col-5">
-                                <label class="form-control-label text-white">Update old Video</label>
-                                <video class="bg-video_content rounded-md mb-2" style="width: 120px" autoplay muted loop>
-                                    <source src="{{ asset('storage/postvideo/' . $post->video) }}">
-                                </video>
-                                <input type="file" accept=".jpeg,.png,.jpg,.gif,.mp4,.mov,.ogg,.qt" name="video" value="{{$post->video}}"  class="form-control">
+                                @error('category_id')
+                                    <span class="alert alert-danger mt-2">
+                                        <strong>{{$message}}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="form-group col-12">
                             <label class="form-control-label text-white">Post Description</label>
-                            <textarea class="form-control bg-dark rounded" name="description"id=""  rows="3">{{$post->description}}</textarea>
+                            <textarea class="form-control bg-dark rounded text-white" name="description"  rows="2">{{$post->description}}</textarea>
+                            @error('description')
+                                <span class="alert alert-danger mt-2">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label class="form-control-label text-white">Post Body</label>
+                            <textarea class="form-control bg-dark rounded" name="body" id="editor">{{$post->body}}</textarea>
+                            @error('body')
+                                <span class="alert alert-danger mt-2">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="form-group col-5">
@@ -91,5 +139,52 @@
     </div>
     <!-- JavaScript files-->
     @include('admin.include.js')
+
+    <script>
+        var element = document.getElementById('editor');
+
+        ClassicEditor
+            .create(element, {
+                ckfinder: {
+                    uploadUrl: "{{ route('upload.image')}}?&_token={{ csrf_token() }}"
+                }
+            })
+            .then(editor => {
+                console.log("Editor is ready!");
+
+                // Custom integration with SquidexFormField
+                var field = new SquidexFormField();
+
+                // Handle value changes and set the text to the editor.
+                field.onValueChanged(function (value) {
+                    if (value) {
+                        editor.setData(value);
+                    }
+                });
+
+                // Disable the editor when needed.
+                field.onDisabled(function (disabled) {
+                    editor.isReadOnly = disabled;
+                });
+
+                editor.model.document.on('change', function () {
+                    var data = editor.getData();
+
+                    // Notify UI of the value change
+                    field.valueChanged(data);
+                });
+
+                editor.ui.focusTracker.on('change:isFocused', function (event, name, isFocused) {
+                    if (!isFocused) {
+                        // Notify UI that the field has been touched.
+                        field.touched();
+                    }
+                });
+
+            })
+            .catch(error => {
+                console.error("There was an error initializing CKEditor:", error);
+        });
+    </script>
   </body>
 </html>

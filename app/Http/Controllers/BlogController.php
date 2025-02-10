@@ -51,7 +51,13 @@ class BlogController extends Controller
     public function read_post($id) {
         $post = Post::find($id);
 
-        return view('home.read_post',compact('post'));
+        $otherPosts = Post::where('user_id', $post->user_id)
+                            ->where('id', '!=', $id)
+                            ->latest()
+                            ->take(5)
+                            ->get();
+
+        return view('home.read_post',compact('post', 'otherPosts'));
     }
 
     // User profile

@@ -8,6 +8,11 @@
             $relativeTime = $date->diffForHumans();
         @endphp
 
+        {{-- @php
+            $sentences = explode('.', strip_tags($posts->description));
+            $preview = implode('.', array_slice($sentences, 0, 3)) . '.';
+        @endphp --}}
+
         @if ($posts->image)
             <div class="w-[412px] h-[500px] grid grid-rows-3 border sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 py-10 gap-x-4">
                 {{-- <div class="flex flex-col items-center w-[9%]">
@@ -49,7 +54,7 @@
                         <a href="{{route('read.post', $posts->id)}}">
                             <h1 class="text-3xl font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-4xl">{{$posts->title}}</h1>
                         </a>
-                        <p class="text-[10px] font-medium sm:text-base sm:font-medium text-gray-500 tracking-wide leading-relaxed sm:ml-0 ">Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi Lorem ipsum dolor quas ducimus hgud</p>
+                        <p class="text-[10px] font-medium sm:text-base sm:font-medium text-gray-500 tracking-wide leading-relaxed sm:ml-0 ">{{$posts->description}}</p>
                     </div>
                 </div>
 
@@ -101,7 +106,7 @@
 
                     <div class="mt-2.5">
                         <h1 class="text-xl font-semibold">{{$posts->title}}</h1>
-                        <p class="text-md font-medium text-gray-500 tracking-wide leading-loose">Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur </p>
+                        <p class="text-md font-medium text-gray-500 tracking-wide leading-loose">{{$posts->description}} </p>
                     </div>
                     <div class="w-full mt-4 bg-video">
                         <video class="bg-video_content rounded-md sm:rounded-md" autoplay muted loop>

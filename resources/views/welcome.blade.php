@@ -41,15 +41,15 @@
 
             <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto sm:mt-8 sm:overflow-visible">
                 <div class="mt-12 h-[304px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:grid sm:grid-cols-4 sm:gap-x-6 sm:items-center sm:overflow-visible">
-                    @foreach ($ten as $ten)
+                    @foreach ($ten as $tens)
                         <div class="w-[267px] h-inherit sm:w-80 sm:h-80">
                             <a  href="">
                                 <div class="w-[267px] h-[256px] sm:h-full sm:w-full">
-                                    @if ($ten->image)
-                                        <img class="block w-full h-full object-cover rounded-[1rem] sm:h-full sm:w-full sm:rounded-[md]" src="/postimage/{{$ten->image}}" alt="">
-                                    @elseif ($ten->video)
+                                    @if ($tens->image)
+                                        <img class="block w-full h-full object-cover rounded-[1rem] sm:h-full sm:w-full sm:rounded-[md]" src="/postimage/{{$tens->image}}" alt="">
+                                    @elseif ($tens->video)
                                         <video class="h-full w-full rounded-[1rem] object-cover sm:rounded-md" autoplay muted loop>
-                                            <source src="/postvideo/{{$ten->video}}" type="video/mp4">
+                                            <source src="/postvideo/{{$tens->video}}" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>
                                     @else
@@ -58,13 +58,13 @@
                                 </div>
                             </a>
                             <div class="mt-2">
-                                <a class="font-medium text-[12px] hover:text-sky-400 hover:text-[14px] sm:font-medium sm:text-lg sm:hover:text-sky-400 sm:hover:text-xl" href="{{route('read.post', $ten->id)}}">
-                                    {{$ten->title}}
+                                <a class="font-medium text-[12px] hover:text-sky-400 hover:text-[14px] sm:font-medium sm:text-lg sm:hover:text-sky-400 sm:hover:text-xl" href="{{route('read.post', $tens->id)}}">
+                                    {{$tens->title}}
                                 </a>
                             </div>
                             <div class="w-[41px] h-[16px] ml-[155px] -mt-[259px] sm:w-24 sm:-mt-[335px] sm:ml-48">
-                                @if($ten->category)
-                                    <a class="text-[12px] font-medium rounded-full px-14 py-3 bg-white sm:rounded-full sm:text-[15px] sm:font-medium sm:px-6 sm:py-1" href="">{{$ten->category->title}}</a>
+                                @if($tens->category)
+                                    <a class="text-[12px] font-medium rounded-full px-14 py-3 bg-white sm:rounded-full sm:text-[15px] sm:font-medium sm:px-6 sm:py-1" href="">{{$tens->category->title}}</a>
                                 @else
                                     {{-- <a class="rounded-full bg-white font-medium px-6 py-1" href="#">noCategory</a> --}}
                                 @endif

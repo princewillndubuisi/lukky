@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use DOMDocument;
+use DOMElement;
 use App\Models\Tag;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Career;
@@ -12,6 +14,7 @@ use App\Models\Application;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -30,61 +33,77 @@ class AdminController extends Controller
         return view('admin.post_page', compact('category'));
     }
 
+    // Upload Image
+    public function upload_image(Request $request) {
+        if ($request->hasFile('upload')) {
+            $file = $request->file('upload');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $filename);
+
+            $url = asset('uploads/' . $filename);
+
+            return response()->json([
+                'uploaded' => 1,
+                'fileName' => $filename,
+                'url' => $url
+            ]);
+        }
+    }
+
     // Add Post
     public function add_post(Request $request) {
         $validate = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
-            'category_id' => ['required', 'exists:categories,id'], // Use category_id
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
-            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
-            // 'post_status' => ['required'],
+            'body' => ['required'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]);
 
         $post = new Post();
-
         $post->title = $request->title;
         $post->description = $request->description;
-        $post->category_id = $request->category_id; // Set the single category ID
+        $post->body = $request->body;
+        $post->category_id = $request->category_id;
         $post->post_status = 'active';
 
-        // For Category
-        // $category = Category::all();
-
-        // $categoryname = $category->categpry;
-        // $post->category = $categoryname;
-
-        // For User
         $user = Auth::user();
+        $post->user_id = $user->id;
+        $post->name = $user->name;
+        $post->usertype = $user->usertype;
 
-        $user_id = $user->id;
-        $name = $user->name;
-        $usertype = $user->usertype;
+        $post->save();
 
-        $post->user_id = $user_id;
-        $post->name = $name;
-        $post->usertype = $usertype;
+        // Extract Images and Store in `post.image` as a comma-separated string
+        $dom = new DOMDocument();
+        @$dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $images = $dom->getElementsByTagName('img');
 
-        // Image post
-        $image = $request->image;
-        $imagename = null;
-
-        if ($image) {
-            $imagename = time() . ' . ' . $image -> getClientOriginalExtension();
-            $image -> move('postimage', $imagename);
+        $imageArray = []; // Store multiple images
+        foreach ($images as $img) {
+            if ($img instanceof DOMElement) {
+                $src = $img->getAttribute('src');
+                if (strpos($src, 'uploads/') !== false) {
+                    $imageArray[] = $src;
+                }
+            }
+        }
+        if (!empty($imageArray)) {
+            $post->image = implode(',', $imageArray);
         }
 
-        $post->image = $imagename;
-        $videoname = null;
-
-        // Video
-        $video = $request->video;
-
-        if($video) {
-            $videoname = time() . ' . ' . $video->getClientOriginalExtension();
-            $video->move('postvideo', $videoname);
-
-            $post->video = $videoname;
+        // Extract Videos and Store in `post.video` as a comma-separated string
+        $videos = $dom->getElementsByTagName('iframe'); // Assuming YouTube/Vimeo embeds
+        $videoArray = []; // Store multiple videos
+        foreach ($videos as $video) {
+            if ($video instanceof DOMElement) {
+                $videoSrc = $video->getAttribute('src');
+                if (strpos($videoSrc, 'uploads/') !== false) {
+                    $videoArray[] = $videoSrc;
+                }
+            }
+        }
+        if (!empty($videoArray)) {
+            $post->video = implode(',', $videoArray);
         }
 
         $post->save();
@@ -95,15 +114,13 @@ class AdminController extends Controller
 
     // Show post
     public function show_post() {
-        $post = Post::with('category')->get();
+        $posts = Post::with('category')->orderBy('id', 'DESC')->paginate(10);
 
-        return view('admin.show_post', compact('post'));
-    }
+        // foreach ($posts as $post) {
+        //     $post->images = DB::table('images')->where('post_id', $post->id)->get(); // Fetch images for each post
+        // }
 
-    public function delete_post($id) {
-        $post = Post::find($id)->delete();
-
-        return redirect()->back()->with('success', 'Post Deleted Successfully');
+        return view('admin.show_post', compact('posts'));
     }
 
     // Edit post
@@ -120,47 +137,59 @@ class AdminController extends Controller
         $validate = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
-            'category_id' => ['required', 'exists:categories,id'], // Use category_id
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
-            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
-            // 'post_status' => ['required'],
+            'body' => ['required'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]);
 
-        $data = Post::find($id);
+        $post = Post::findOrFail($id);
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->body = $request->body;
+        $post->category_id = $request->category_id;
 
-        $data->title = $request->title;
-        $data->description = $request->description;
-        $data->category_id = $request->category_id; // Set the single category ID
+        // Extract Images and Update `post.image`
+        $dom = new DOMDocument();
+        @$dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $images = $dom->getElementsByTagName('img');
 
-
-        // Image Update post
-        $image = $request->image;
-        $imagename = null;
-
-        if ($image) {
-            $imagename = time() . ' . ' . $image -> getClientOriginalExtension();
-            $image -> move('postimage', $imagename);
+        $imageArray = []; // Store multiple images
+        foreach ($images as $img) {
+            if ($img instanceof DOMElement) {
+                $src = $img->getAttribute('src');
+                if (strpos($src, 'uploads/') !== false) {
+                    $imageArray[] = $src;
+                }
+            }
         }
+        $post->image = !empty($imageArray) ? implode(',', $imageArray) : null;
 
-        $data->image = $imagename;
-
-        // Video
-        $video = $request->video;
-        $videoname = null;
-
-        if($video) {
-            $videoname = time() . ' . ' . $video->getClientOriginalExtension();
-            $video->move('postvideo', $videoname);
-
-            $data->video = $videoname;
+        // Extract Videos and Update `post.video`
+        $videos = $dom->getElementsByTagName('iframe'); // Assuming YouTube/Vimeo embeds
+        $videoArray = []; // Store multiple videos
+        foreach ($videos as $video) {
+            if ($video instanceof DOMElement) {
+                $videoSrc = $video->getAttribute('src');
+                if (strpos($videoSrc, 'uploads/') !== false) {
+                    $videoArray[] = $videoSrc;
+                }
+            }
         }
+        $post->video = !empty($videoArray) ? implode(',', $videoArray) : null;
 
+        $post->save();
 
-        $data->save();
-
-        return redirect()->route('show.post')->with('success', 'Post updated successfully');
+        return redirect()->route('show.post')->with('success', 'Post Updated Successfully');
     }
 
+
+    // Delete post
+    public function delete_post($id) {
+        $post = Post::find($id)->delete();
+
+        return redirect()->back()->with('success', 'Post Deleted Successfully');
+    }
+
+    // Accept User Post
     public function accept_post($id) {
         $post = Post::find($id);
 
@@ -171,6 +200,8 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Status updated to active');
     }
 
+
+    // Reject User post
     public function reject_post($id) {
         $post = Post::find($id);
 
@@ -210,13 +241,6 @@ class AdminController extends Controller
         return redirect()->route('show.category')->with('success', 'Category added successfully');
     }
 
-    // Delete category
-    public function delete_category($id) {
-        $category = Category::find($id)->delete();
-
-        return redirect()->back()->with('success', 'Category deleted successfully');
-    }
-
 
     // Edit category
     public function edit_category_page($id) {
@@ -238,6 +262,13 @@ class AdminController extends Controller
         $category->save();
 
         return redirect()->route('show.category')->with('success', 'Category updated successfully');
+    }
+
+    // Delete category
+    public function delete_category($id) {
+        $category = Category::find($id)->delete();
+
+        return redirect()->back()->with('success', 'Category deleted successfully');
     }
 
     // Career page

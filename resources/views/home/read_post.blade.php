@@ -10,15 +10,15 @@
         <div class="flex justify-between gap-10 w-full">
             <div class="w-[420px] mx-auto sm:w-[65%] sm:h-1080">
                 <div class="">
-                    <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-orange-100 mr-4" href="">Tech trends</a>
-                    <a class="border border-orange-100 rounded-full  py-1 px-4 font-medium text-sm bg-orange-100" href="">Entertainment</a>
+                    {{-- <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-orange-100 mr-4" href="">Tech trends</a> --}}
+                    <a class="border border-orange-100 rounded-full  py-1 px-4 font-medium text-sm bg-orange-100" href="">{{$post->category->title}}</a>
                 </div>
                 <div class="flex items-center font-medium gap-2 mt-2 text-gray-500">
                     @php
-                    $date = \Carbon\Carbon::parse($post->created_at);
-                    $isToday = $date->isToday();
-                    $formattedDate = $isToday ? 'Today' : $date->format('jS F, Y');
-                    $relativeTime = $date->diffForHumans();
+                        $date = \Carbon\Carbon::parse($post->created_at);
+                        $isToday = $date->isToday();
+                        $formattedDate = $isToday ? 'Today' : $date->format('jS F, Y');
+                        $relativeTime = $date->diffForHumans();
                     @endphp
 
                     <p class="font-bold text-[10px] sm:text-2xl">Written by {{$post->name}}</p>
@@ -35,12 +35,12 @@
                 <div class="mt-2">
                     <h1 class="text-[16px] sm:text-4xl font-semibold">{{$post->title}}</h1>
                 </div>
-                <div class="w-[382px] h-[270px] mt-8 border sm:w-[862px] sm:h-[348px]">
-                    <img class="w-full h-full" src="/postimage/{{$post->image}}" alt="">
+                <div class="w-[382px] h-[270px] mt-8 border sm:w-[862px] sm:h-[548px]">
+                    <img class="w-full h-full sm:rounded-md" src="{{$post->image}}" alt="">
                 </div>
-                <div class="mt-8 w-[382px] sm:w-[862px]">
+                <div class="mt-8 w-[382px] text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify sm:w-[862px] ">
                     <p class="text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify">
-                        {{$post->description}}
+                        {!! preg_replace('/<img[^>]+\>/i', '', $post->body) !!}
                     </p>
                     {{-- <div class="mt-16 mb-12 w-[382px] h-[270px] border border-yellow-400 sm:w-[100%] sm:h-[13%] sm:mt-16 sm:mb-12">
                         <img class="w-full h-96" src="{{asset('images/bench-accounting-nvzvOPQW0gc-unsplash.jpg')}}" alt="">
@@ -84,7 +84,7 @@
                     <h1 class="text-3xl font-semibold">Follow posts by creator</h1>
                 </div>
 
-                <div class="mt-8">
+                {{-- <div class="mt-8">
                     <div class="w-[100%] h-64">
                         <img class="w-full h-full" src="{{asset('images/ecommerce-2140604_1280.jpg')}}" alt="">
                     </div>
@@ -169,36 +169,44 @@
                             Entertainment
                         </a>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="mt-16">
-                    <div class="w-[100%] h-64">
-                        <img class="w-full h-full" src="{{asset('images/ecommerce-2140604_1280.jpg')}}" alt="">
-                    </div>
+                @foreach ($otherPosts as $otherPost)
+                    @php
+                        $otherdate = \Carbon\Carbon::parse($otherPost->created_at);
+                        // $Date = $NotToday ? 'Today' : $date->format('jS F, Y');
+                        $Time = $otherdate->diffForHumans();
+                    @endphp
 
-                    <div class="flex items-center gap-4 font-medium text-sm text-black ">
-                        <p class="font-bold">Written by {{$post->name}}</p>
-                        <p class="font-bold mb-3 text-2xl">.</p>
-                        <p class="font-bold">{{$formattedDate}}</p>
-                    </div>
+                    <div class="mt-16">
+                        <div class="w-[100%] h-64">
+                            <img class="w-full h-full" src="{{$otherPost->image}}" alt="">
+                        </div>
 
-                    <div class="text-xl font-semibold">
-                        Lorem, ipsum dolor sitted
-                    </div>
+                        <div class="flex items-center gap-4 font-medium text-sm text-black ">
+                            <p class="font-bold">Written by {{$otherPost->name}}</p>
+                            <p class="font-bold mb-3 text-2xl">.</p>
+                            <p class="font-bold">{{$Time}}</p>
+                        </div>
 
-                    <div class="mt-1">
-                        <p class="text-xl text-slate-600 leading-relaxed font-semibold">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, facere eos fugit aliquam ut modi optio earum facilis dolores sed nisi sit
-                        </p>
-                    </div>
+                        <div class="text-xl font-semibold">
+                            {{$otherPost->title}}
+                        </div>
 
-                    <div class="mt-2">
-                        <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">Tech trends</a>
-                        <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200 ml-2" href="">
-                            Entertainment
-                        </a>
+                        <div class="mt-1">
+                            <p class="text-xl text-slate-600 leading-relaxed font-semibold">
+                                {{$otherPost->description}}                            </p>
+                        </div>
+
+                        <div class="mt-2">
+                            <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">{{$otherPost->category->title}}</a>
+                            {{-- <a class="border border-sky-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200 ml-2" href="">
+                                Entertainment
+                            </a> --}}
+                        </div>
                     </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
 

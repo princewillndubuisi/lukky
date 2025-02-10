@@ -7,6 +7,7 @@
     @include('admin.include.css')
   </head>
   <body>
+
     @include('admin.include.header')
 
     <div class="d-flex align-items-stretch">
@@ -15,7 +16,7 @@
       @include('admin.include.sidebar')
       <!-- Sidebar Navigation end-->
 
-      <div class="page-content w-[2000px]">
+      <div class="page-content w-[1300px] overflow-hidden">
         <!-- Body-->
         <div class="page-header">
             <div class="container-fluid">
@@ -33,7 +34,7 @@
                         </button>
                     </div>
                 @endif
-                <a class="btn btn-info" href="{{route('post.page')}}">Add Post</a>
+                <a class="btn btn-info hover:text-black" href="{{route('post.page')}}">Add Post</a>
             </div>
             <div class="block">
                 <div class="table-responsive">
@@ -43,6 +44,7 @@
                                 <th>#</th>
                                 <th class="h6">Title</th>
                                 <th class="h6">Description</th>
+                                <th class="h6">Body</th>
                                 <th class="h6">Post by</th>
                                 <th class="h6">Category</th>
                                 <th class="h6">Status</th>
@@ -56,41 +58,55 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($post as $posts)
+                            @foreach ($posts as $post)
                                 <tr>
-                                    <th scope="row">{{$posts->id}}</th>
-                                    <td>{{$posts->title}}</td>
-                                    <td>{{$posts->description}}</td>
-                                    <td>{{$posts->name}}</td>
-                                    <td>{{ $posts->category->title ?? 'No Category' }}</td>
-                                    <td>{{$posts->post_status}}</td>
-                                    <td>{{$posts->usertype}}</td>
-                                    <td class="" style="width: 10px;"><img src="postimage/{{$posts->image}}" alt=""></td>
+                                    <th scope="row">{{$post->id}}</th>
+                                    <td>{{$post->title}}</td>
+                                    <td class="overflow-hidden" style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{$post->description}}</td>
+                                    <td class="overflow-hidden" style="max-width: 150px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{$post->body}}</td>
+                                    <td>{{$post->name}}</td>
+                                    <td>{{ $post->category->title ?? 'No Category' }}</td>
+                                    <td>{{$post->post_status}}</td>
+                                    <td>{{$post->usertype}}</td>
+
+                                    <td>
+                                        @if (Str::startsWith($post->image, 'http'))
+                                            <img src="{{ $post->image }}" alt="Image" width="100">
+                                        @else
+                                            <img src="/postimage/{{$post->image}}" alt="Image" width="100">
+                                        @endif
+                                    </td>
+
                                     <td class="" style="width: 10px;">
                                         <video class="bg-video_content" autoplay muted loop>
-                                            <source src="/postvideo/{{$posts->video}}" type="video/mp4">
+                                            <source src="/postvideo/{{$post->video}}" type="video/mp4">
                                         </video>
                                     </td>
                                     <td>
-                                        <a href="{{route('delete.post', $posts->id)}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
+                                        <a href="{{route('delete.post', $post->id)}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
                                     </td>
                                     <td>
-                                        <a href="{{route('edit.page', $posts->id)}}" class="btn btn-warning">Edit</a>
+                                        <a href="{{route('edit.page', $post->id)}}" class="btn btn-warning">Edit</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-secondary" href="{{route('accept.post', $posts->id)}}">Accept</a>
+                                        <a class="btn btn-secondary" href="{{route('accept.post', $post->id)}}">Accept</a>
                                     </td>
                                     <td>
-                                        <a class="btn btn-outline-secondary" href="{{route('reject.post', $posts->id)}}">Reject</a>
+                                        <a class="btn btn-outline-secondary" href="{{route('reject.post', $post->id)}}">Reject</a>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+                <div class="pagination text-center w-full font-medium mt-4 flex justify-center">
+                    {{ $posts->onEachSide(1)->links('pagination::bootstrap-5') }}
+                </div>
             </div>
+
         </div>
         <!-- Body end-->
+
 
         <!-- Footer-->
         @include('admin.include.footer')
