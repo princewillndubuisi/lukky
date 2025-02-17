@@ -6,9 +6,9 @@
             @if (Auth::user()->usertype == 'user')
                 <div class="flex items-center">
                     <!-- Navigation Links -->
-                    {{-- <div class="">
-                        <a href="{{route('create.post')}}" class="text-fuchsia-950 py-3 px-4 bg-white rounded-lg border-2 border-fuchsia-400 font-semibold text-xl ">Do you want to create posts</a>
-                    </div> --}}
+                    <div class="">
+                        <a href="{{route('career.apply')}}" class="text-fuchsia-950 py-3 px-4 bg-white rounded-lg border-2 border-fuchsia-400 font-semibold text-xl ">Do you want to create posts</a>
+                    </div>
 
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center ms-8 ">
@@ -23,7 +23,7 @@
                 <div class="flex items-center">
                     <!-- Navigation Links -->
                     <div class="">
-                        <a href="{{route('create.post')}}" class="text-fuchsia-950 py-3 px-4 bg-white rounded-lg border-2 border-fuchsia-400 font-semibold text-xl ">Do you want to create posts</a>
+                        <a href="{{route('create.post')}}" class="text-fuchsia-950 py-3 px-4 bg-white rounded-lg border-2 border-fuchsia-400 font-semibold text-xl ">Create a post</a>
                     </div>
 
                     <!-- Logo -->
@@ -34,9 +34,9 @@
 
             {{-- Admin --}}
             @elseif (Auth::user()->usertype == 'admin')
-            <div class="shrink-0 flex items-center ms-8 ">
-                <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500 hover:w-14 hover:h-14" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
-            </div>
+                <div class="shrink-0 flex items-center ms-8 ">
+                    <img class="w-12 h-12 rounded-full shadow hover:shadow-lg hover:border-blue-500 hover:w-14 hover:h-14" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
+                </div>
             @endif
 
 
@@ -111,7 +111,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="flex shadow-2xl bg-white z-50 absolute top-0 right-0 rounded-md  w-[93px] h-[97px] mt-20 border sm:hidden ">
+    <div :class="{'block': open, 'hidden': ! open}" class="flex shadow-2xl bg-white z-50 absolute top-0 right-0 rounded-md  w-[93px] h-[97px] mt-20 border mr-4 sm:hidden ">
         {{-- <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
@@ -120,11 +120,11 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex gap-4  px-4 border-b-2 border-gray-300 w-[81px] mx-2">
-                <i class='bx bxs-user-circle text-gray-400 mt-2' ></i>
-                <div >
+            <div class="flex gap-4 px-4 border-b-2 border-gray-300 w-[81px] mx-2">
+                <i class='bx bxs-user-circle text-gray-400 mt-2'></i>
+                <div>
                     <div class="font-medium text-[10px] text-black">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-[10px] text-black">{{ Auth::user()->email }}</div>
+                    <div class="font-medium text-[10px] text-black overflow-hidden text-ellipsis whitespace-nowrap w-[63px]">{{ Auth::user()->email }}</div>
                 </div>
             </div>
 

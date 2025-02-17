@@ -9,7 +9,7 @@
 <div class="md:flex bg-gray-100">
     @include('user.include.sidebar')
 
-    <div class="w-[412px] sm:w-[80%] border border-lucy">
+    <div class="w-[412px] sm:w-[80%] sm:border sm:border-lucy">
         @php
             $date = \Carbon\Carbon::parse(Auth::user()->created_at);
             $isToday = $date->isToday();
@@ -17,7 +17,7 @@
             $relativeTime = $date->diffForHumans();
         @endphp
         {{-- Start Username --}}
-        <div class="bg-mary border  w-[100%] h-60">
+        <div class="bg-mary  w-[100%] h-60">
             <div class="w-[412px] mx-auto flex justify-center sm:w-[90%]">
                 <div class="flex mx-6 mt-24 w-full">
                     <div class="">
@@ -95,8 +95,8 @@
         </div>
 
         <div id="dashboard" class="tab-content p-6 bg-gray-50 text-medium text-gray-500 rounded-lg w-full hidden">
-            <h3 class="text-lg font-bold text-gray-900 mb-2">Dashboard Tab</h3>
-            <p class="mb-2">This is some placeholder content for the Dashboard tab's associated content. Clicking another tab will toggle the visibility of this one for the next.</p>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Hello Tab</h3>
+            <p class="mb-2">This is some placeholder content for the Settings tab's associated content. Clicking another tab will toggle the visibility of this one for the next.</p>
         </div>
         <div id="settings" class="tab-content p-6 bg-gray-50 text-medium text-gray-500 rounded-lg w-full hidden">
             <h3 class="text-lg font-bold text-gray-900 mb-2">Settings Tab</h3>

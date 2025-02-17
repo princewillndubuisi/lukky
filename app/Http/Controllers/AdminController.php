@@ -73,12 +73,12 @@ class AdminController extends Controller
 
         $post->save();
 
-        // Extract Images and Store in `post.image` as a comma-separated string
+        // Extract Images and Store in `post.image`
         $dom = new DOMDocument();
         @$dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $images = $dom->getElementsByTagName('img');
 
-        $imageArray = []; // Store multiple images
+        $imageArray = [];
         foreach ($images as $img) {
             if ($img instanceof DOMElement) {
                 $src = $img->getAttribute('src');
@@ -91,17 +91,36 @@ class AdminController extends Controller
             $post->image = implode(',', $imageArray);
         }
 
-        // Extract Videos and Store in `post.video` as a comma-separated string
-        $videos = $dom->getElementsByTagName('iframe'); // Assuming YouTube/Vimeo embeds
-        $videoArray = []; // Store multiple videos
-        foreach ($videos as $video) {
-            if ($video instanceof DOMElement) {
-                $videoSrc = $video->getAttribute('src');
-                if (strpos($videoSrc, 'uploads/') !== false) {
+        // Extract Videos from CKEditor (Handles <oembed> and <iframe>)
+        $videoArray = [];
+
+        // Extract from <oembed> (used by CKEditor for YouTube embeds)
+        $oembeds = $dom->getElementsByTagName('oembed');
+        foreach ($oembeds as $oembed) {
+            if ($oembed instanceof DOMElement) {
+                $videoSrc = $oembed->getAttribute('url');
+                if (!empty($videoSrc)) {
+                    // Convert YouTube URL to Embed Format
+                    if (strpos($videoSrc, 'youtube.com/watch?v=') !== false) {
+                        $videoSrc = str_replace("watch?v=", "embed/", $videoSrc);
+                    }
                     $videoArray[] = $videoSrc;
                 }
             }
         }
+
+        // Extract from <iframe> (some embeds use this format)
+        $iframes = $dom->getElementsByTagName('iframe');
+        foreach ($iframes as $iframe) {
+            if ($iframe instanceof DOMElement) {
+                $videoSrc = $iframe->getAttribute('src');
+                if (!empty($videoSrc)) {
+                    $videoArray[] = $videoSrc;
+                }
+            }
+        }
+
+        // Save extracted video URLs in `post.video`
         if (!empty($videoArray)) {
             $post->video = implode(',', $videoArray);
         }
@@ -110,6 +129,9 @@ class AdminController extends Controller
 
         return redirect()->route('show.post')->with('success', 'Post Added Successfully');
     }
+
+
+
 
 
     // Show post

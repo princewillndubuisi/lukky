@@ -78,9 +78,13 @@
                                     </td>
 
                                     <td class="" style="width: 10px;">
-                                        <video class="bg-video_content" autoplay muted loop>
-                                            <source src="/postvideo/{{$post->video}}" type="video/mp4">
-                                        </video>
+                                        @if($post->video)
+                                            @foreach(explode(',', $post->video) as $videoUrl)
+                                                <iframe width="100" height="50" src="{{ $videoUrl }}" frameborder="0" allowfullscreen></iframe>
+                                            @endforeach
+                                        @else
+                                            <p>No Video</p>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{route('delete.post', $post->id)}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>

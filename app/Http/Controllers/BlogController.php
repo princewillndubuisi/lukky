@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DOMDocument;
+use DOMElement;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
@@ -57,7 +59,7 @@ class BlogController extends Controller
                             ->take(5)
                             ->get();
 
-        return view('home.read_post',compact('post', 'otherPosts'));
+        return view('read_post',compact('post', 'otherPosts'));
     }
 
     // User profile
@@ -66,9 +68,14 @@ class BlogController extends Controller
 
         $userid = $user->id;
 
-        $data = Post::where('user_id', '=', $userid)->get();
+        $categories = Category::all();
 
-        return view('user.profiles', compact('data', 'user'));
+        $data = Post::where('user_id', '=', $userid)
+                        ->with('category')
+                        ->orderBy('id', 'DESC')
+                        ->paginate(5);
+
+        return view('user.profiles', compact('data', 'user', 'categories'));
     }
 
     // User show post
@@ -84,8 +91,25 @@ class BlogController extends Controller
 
     // User Create postpage
     public function create_post(){
-        $category = Category::all();
-        return view('home.create_post', compact('category'));
+        $categories = Category::all();
+        return view('user.create_post', compact('categories'));
+    }
+
+    // Upload Image
+    public function upload_image(Request $request) {
+        if ($request->hasFile('upload')) {
+            $file = $request->file('upload');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $filename);
+
+            $url = asset('uploads/' . $filename);
+
+            return response()->json([
+                'uploaded' => 1,
+                'fileName' => $filename,
+                'url' => $url
+            ]);
+        }
     }
 
     // User post
@@ -93,56 +117,80 @@ class BlogController extends Controller
         $validate = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
-            'category_id' => ['required', 'exists:categories,id'], // Use category_id
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:20480'],
-            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:20480'],
+            'body' => ['required'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]);
 
         $post = new Post();
-
         $post->title = $request->title;
         $post->description = $request->description;
+        $post->body = $request->body;
         $post->category_id = $request->category_id;
+        $post->post_status = 'active';
 
-        //Image
-        $image = $request->image;
-        $imagename = null;
-
-        if($image) {
-            $imagename = time() . ' . ' . $image->getClientOriginalExtension();
-            $image->move('postimage', $imagename);
-
-            $post->image = $imagename;
-        }
-
-        // Video
-        $video = $request->video;
-        $imagename = null;
-
-        if($video) {
-            $videoname = time() . ' . ' . $video->getClientOriginalExtension();
-            $video->move('postvideo', $videoname);
-
-            $post->video = $videoname;
-        }
-
-        // For User
         $user = Auth::user();
-
-        $user_id = $user->id;
-        $name = $user->name;
-        $usertype = $user->usertype;
-
-        $post->user_id = $user_id;
-        $post->name = $name;
-        $post->usertype = $usertype;
+        $post->user_id = $user->id;
+        $post->name = $user->name;
+        $post->usertype = $user->usertype;
         $post->post_status = 'pending';
 
         $post->save();
 
-        Alert::success('Success!', 'Post added successfully');
+        // Extract Images and Store in `post.image`
+        $dom = new DOMDocument();
+        @$dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $images = $dom->getElementsByTagName('img');
 
-        return redirect()->back();
+        $imageArray = [];
+        foreach ($images as $img) {
+            if ($img instanceof DOMElement) {
+                $src = $img->getAttribute('src');
+                if (strpos($src, 'uploads/') !== false) {
+                    $imageArray[] = $src;
+                }
+            }
+        }
+        if (!empty($imageArray)) {
+            $post->image = implode(',', $imageArray);
+        }
+
+        // Extract Videos from CKEditor (Handles <oembed> and <iframe>)
+        $videoArray = [];
+
+        // Extract from <oembed> (used by CKEditor for YouTube embeds)
+        $oembeds = $dom->getElementsByTagName('oembed');
+        foreach ($oembeds as $oembed) {
+            if ($oembed instanceof DOMElement) {
+                $videoSrc = $oembed->getAttribute('url');
+                if (!empty($videoSrc)) {
+                    // Convert YouTube URL to Embed Format
+                    if (strpos($videoSrc, 'youtube.com/watch?v=') !== false) {
+                        $videoSrc = str_replace("watch?v=", "embed/", $videoSrc);
+                    }
+                    $videoArray[] = $videoSrc;
+                }
+            }
+        }
+
+        // Extract from <iframe> (some embeds use this format)
+        $iframes = $dom->getElementsByTagName('iframe');
+        foreach ($iframes as $iframe) {
+            if ($iframe instanceof DOMElement) {
+                $videoSrc = $iframe->getAttribute('src');
+                if (!empty($videoSrc)) {
+                    $videoArray[] = $videoSrc;
+                }
+            }
+        }
+
+        // Save extracted video URLs in `post.video`
+        if (!empty($videoArray)) {
+            $post->video = implode(',', $videoArray);
+        }
+
+        $post->save();
+
+        return redirect()->route('profiles')->with('success', 'Post Added Successfully');
     }
 
     // User delete post
@@ -158,61 +206,55 @@ class BlogController extends Controller
 
         $categories = Category::all();
 
-        return view('home.edit_post', compact('data', 'categories'));
+        return view('user.edit_post', compact('data', 'categories'));
     }
 
     public function user_post_update(Request $request, $id) {
         $validate = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
-            'category_id' => ['required', 'exists:categories,id'], // Use category_id
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
-            'video' => ['file', 'mimes:jpeg,png,jpg,gif,mp4,mov,ogg,qt', 'max:204800'],
+            'body' => ['required'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]);
 
-        $data = Post::find($id);
-
+        $data = Post::findOrFail($id);
         $data->title = $request->title;
         $data->description = $request->description;
+        $data->body = $request->body;
         $data->category_id = $request->category_id;
 
-        //Image
-        $image = $request->image;
+        // Extract Images and Update `post.image`
+        $dom = new DOMDocument();
+        @$dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $images = $dom->getElementsByTagName('img');
 
-        if($image) {
-            $imagename = time() . ' . ' . $image->getClientOriginalExtension();
-            $image->move('postimage', $imagename);
-
-            $data->image = $imagename;
+        $imageArray = []; // Store multiple images
+        foreach ($images as $img) {
+            if ($img instanceof DOMElement) {
+                $src = $img->getAttribute('src');
+                if (strpos($src, 'uploads/') !== false) {
+                    $imageArray[] = $src;
+                }
+            }
         }
+        $data->image = !empty($imageArray) ? implode(',', $imageArray) : null;
 
-        // Video
-        $video = $request->video;
-
-        if($video) {
-            $videoname = time() . ' . ' . $video->getClientOriginalExtension();
-            $video->move('postvideo', $videoname);
-
-            $data->video = $videoname;
+        // Extract Videos and Update `post.video`
+        $videos = $dom->getElementsByTagName('iframe'); // Assuming YouTube/Vimeo embeds
+        $videoArray = []; // Store multiple videos
+        foreach ($videos as $video) {
+            if ($video instanceof DOMElement) {
+                $videoSrc = $video->getAttribute('src');
+                if (strpos($videoSrc, 'uploads/') !== false) {
+                    $videoArray[] = $videoSrc;
+                }
+            }
         }
-
-        // For User
-        // $user = Auth::user();
-
-        // $user_id = $user->id;
-        // $name = $user->name;
-        // $usertype = $user->usertype;
-
-        // $post->user_id = $user_id;
-        // $post->name = $name;
-        // $post->usertype = $usertype;
-        // $post->post_status = 'pending';
+        $data->video = !empty($videoArray) ? implode(',', $videoArray) : null;
 
         $data->save();
 
-        Alert::success('Success!', 'Post updated successfully');
-
-        return redirect()->back();
+        return redirect()->route('profiles')->with('success', 'Post Updated Successfully');
     }
 
     // public function edit_user($id) {

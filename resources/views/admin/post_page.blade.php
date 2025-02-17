@@ -96,11 +96,11 @@
                                             <option value="{{ $categorys->id }}">{{ $categorys->title }}</option>
                                         @endforeach
                                     </select>
-                                @error('category_id')
-                                    <span class="alert alert-danger">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                @enderror
+                                    @error('category_id')
+                                        <span class="alert alert-danger">
+                                            <strong>{{$message}}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 

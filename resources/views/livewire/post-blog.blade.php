@@ -52,7 +52,7 @@
 
                     <div class="mt-8 sm:ml-16">
                         <a href="{{route('read.post', $posts->id)}}">
-                            <h1 class="text-3xl font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-4xl">{{$posts->title}}</h1>
+                            <h1 class="text-3xl font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-2xl">{{$posts->title}}</h1>
                         </a>
                         <p class="text-[10px] font-medium sm:text-base sm:font-medium text-gray-500 tracking-wide leading-relaxed sm:ml-0 ">{{$posts->description}}</p>
                     </div>
@@ -60,7 +60,7 @@
 
 
                 <div class="h-[300px] sm:w-[40%] sm:h-52 bg-slate-50 mt-1">
-                    <img class="w-full h-full rounded-md sm:rounded-md sm:w-full sm:h-full" src="/postimage/{{$posts->image}}" alt="">
+                    <img class="w-full h-full rounded-md sm:rounded-md sm:w-full sm:h-full" src="{{$posts->image}}" alt="">
                     <div class="flex items-center justify-around my-3">
                        <livewire:like-button  :key="$posts->id" :posts="$posts"  />
                         <div class="flex items-center">
@@ -110,7 +110,7 @@
                     </div>
                     <div class="w-full mt-4 bg-video">
                         <video class="bg-video_content rounded-md sm:rounded-md" autoplay muted loop>
-                            <source src="/postvideo/{{$posts->video}}" type="video/mp4">
+                            <source src="{{$posts->video}}" type="video/mp4">
                         </video>
                     </div>
                     <div class="flex items-center justify-end mt-5 gap-x-6">

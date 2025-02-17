@@ -37,6 +37,8 @@ Route::get('home', [BlogController::class, 'home'])->middleware('auth')->name('h
 
 Route::get('create_post', [BlogController::class, 'create_post'])->middleware('auth')->name('create.post');
 
+Route::post('/upload_user_image', [AdminController::class, 'upload_image'])->name('upload.user.image');
+
 Route::post('user_post', [BlogController::class, 'user_post'])->middleware('auth')->name('user.post');
 
 Route::get('profiles', [BlogController::class, 'profiles'])->middleware('auth')->name('profiles');

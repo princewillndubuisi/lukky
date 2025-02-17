@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {{-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+    <script src="editor-sdk.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     @vite('resources/css/app.css')
     @livewireStyles
 
@@ -35,6 +37,14 @@
             font-size: 55%;
         }
     }
+
+    /* CKEditor */
+        .ck-editor__editable {
+            min-height: 350px !important;
+        }
+
+
+
     </style>
 </head>
 <body class="font-sans">
@@ -50,9 +60,9 @@
 
                 <div class="hidden sm:block sm:ml-8 ">
                     <ul class="font-semibold text-xl flex gap-x-14">
-                        <li><a href="{{url('/')}}">Home</a></li>
-                        <li><a href="{{route('career')}}">Career </a></li>
-                        <li><a href="">About Us </a></li>
+                        <li class="hover:text-slate-500"><a href="{{url('/')}}">Home</a></li>
+                        <li class="hover:text-slate-500"><a href="{{route('career')}}">Career </a></li>
+                        <li class="hover:text-slate-500"><a href="">About Us </a></li>
                     </ul>
                 </div>
             </div>
@@ -127,6 +137,78 @@
                 document.getElementById(this.getAttribute('data-tab')).classList.remove('hidden');
             });
         });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('[data-popover-target]').forEach(button => {
+                button.addEventListener('click', function () {
+                    let popoverId = this.getAttribute('data-popover-target');
+                    let popoverMenu = document.querySelector(`[data-popover="${popoverId}"]`);
+
+                    if (popoverMenu) {
+                        popoverMenu.classList.toggle('hidden');
+                    }
+                });
+            });
+
+            // Close the dropdown when clicking outside
+            document.addEventListener('click', function (event) {
+                document.querySelectorAll('[data-popover]').forEach(menu => {
+                    if (!menu.contains(event.target) && !event.target.closest('[data-popover-target]')) {
+                        menu.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+    {{-- CKEditor --}}
+    <script>
+        var element = document.getElementById('editor');
+
+        ClassicEditor
+            .create(element, {
+                ckfinder: {
+                    uploadUrl: "{{ route('upload.user.image')}}?&_token={{ csrf_token() }}"
+                }
+            })
+            .then(editor => {
+                console.log("Editor is ready!");
+
+                // Custom integration with SquidexFormField
+                var field = new SquidexFormField();
+
+                // Handle value changes and set the text to the editor.
+                field.onValueChanged(function (value) {
+                    if (value) {
+                        editor.setData(value);
+                    }
+                });
+
+                // Disable the editor when needed.
+                field.onDisabled(function (disabled) {
+                    editor.isReadOnly = disabled;
+                });
+
+                editor.model.document.on('change', function () {
+                    var data = editor.getData();
+
+                    // Notify UI of the value change
+                    field.valueChanged(data);
+                });
+
+                editor.ui.focusTracker.on('change:isFocused', function (event, name, isFocused) {
+                    if (!isFocused) {
+                        // Notify UI that the field has been touched.
+                        field.touched();
+                    }
+                });
+
+            })
+            .catch(error => {
+                console.error("There was an error initializing CKEditor:", error);
+            });
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

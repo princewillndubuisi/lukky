@@ -36,7 +36,7 @@
                     <h1 class="text-[16px] sm:text-4xl font-semibold">{{$post->title}}</h1>
                 </div>
                 <div class="w-[382px] h-[270px] mt-8 border sm:w-[862px] sm:h-[548px]">
-                    <img class="w-full h-full sm:rounded-md" src="{{$post->image}}" alt="">
+                    <img class="w-full h-full rounded-md sm:rounded-md" src="{{$post->image}}" alt="">
                 </div>
                 <div class="mt-8 w-[382px] text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify sm:w-[862px] ">
                     <p class="text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify">
@@ -56,6 +56,40 @@
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam repellat excepturi amet quod pariatur, ullam sed dolor nesciunt perspiciatis, quibusdam nisi officia enim dolorem beatae ut hic quidem sequi corrupti.
                     </p> --}}
                 </div>
+
+                <div class="">
+                    @if ($post->video)
+                        @php
+                            if (filter_var($post->video, FILTER_VALIDATE_URL)) {
+                                preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $post->video, $matches);
+                                $videoId = $matches[1] ?? null;
+                            } else {
+                                $videoId = null;
+                                $localVideo = asset('storage/videos/' . $post->video);
+                            }
+                        @endphp
+
+                        @if ($videoId)
+                            {{-- YouTube Video --}}
+                            <div class="w-[382px] h-[270px] mt-8 aspect-video sm:w-[862px] sm:h-[548px]  sm:rounded-md">
+                                <iframe class="w-full h-full rounded-md sm:rounded-md" src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        @elseif (!empty($post->video) && file_exists(public_path('storage/videos/' . $post->video)))
+                            {{-- Local Video --}}
+                            <div class="w-[382px] h-[270px] mt-8 aspect-video sm:w-[862px] sm:h-[548px] sm:rounded-md">
+                                <video class="w-full h-full rounded-md sm:rounded-md" controls>
+                                    <source src="{{ $localVideo }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        @endif
+                    @else
+                        <div class="my-4">
+                        </div>
+                    @endif
+                </div>
+
+
                 <div class="w-[90%] mx-auto mt-8 sm:w-[90%] sm:mx-auto sm:mt-2">
                     <div class="flex justify-between items-center gap-4 px-3">
                         <div class="">
@@ -189,13 +223,14 @@
                             <p class="font-bold">{{$Time}}</p>
                         </div>
 
-                        <div class="text-xl font-semibold">
+                        <a href="{{route('read.post', $otherPost->id)}}" class="text-xl font-semibold hover:text-slate-500">
                             {{$otherPost->title}}
-                        </div>
+                        </a>
 
                         <div class="mt-1">
                             <p class="text-xl text-slate-600 leading-relaxed font-semibold">
-                                {{$otherPost->description}}                            </p>
+                                {{$otherPost->description}}
+                            </p>
                         </div>
 
                         <div class="mt-2">

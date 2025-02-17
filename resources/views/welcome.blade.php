@@ -46,10 +46,10 @@
                             <a  href="">
                                 <div class="w-[267px] h-[256px] sm:h-full sm:w-full">
                                     @if ($tens->image)
-                                        <img class="block w-full h-full object-cover rounded-[1rem] sm:h-full sm:w-full sm:rounded-[md]" src="/postimage/{{$tens->image}}" alt="">
+                                        <img class="block w-full h-full object-cover rounded-[1rem] sm:h-full sm:w-full sm:rounded-[md]" src="{{$tens->image}}" alt="">
                                     @elseif ($tens->video)
                                         <video class="h-full w-full rounded-[1rem] object-cover sm:rounded-md" autoplay muted loop>
-                                            <source src="/postvideo/{{$tens->video}}" type="video/mp4">
+                                            <source src="{{$tens->video}}" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>
                                     @else
@@ -73,7 +73,7 @@
                     @endforeach
                 </div>
 
-                <div class="absolute inset-0 flex items-center justify-between p-6">
+                <div class="absolute inset-0 flex items-center justify-between p-6 sm:hidden">
                     <button id="leftButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white"><i class='bx bxs-chevron-left' ></i> </button>
                     <button id="rightButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white"><i class='bx bxs-chevron-right' ></i></button>
                 </div>
