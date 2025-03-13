@@ -16,7 +16,7 @@
         <!-- Email Address -->
         <div class="mt-4">
             <!-- <x-input-label for="email" :value="__('Email')" class="hidden sm:block" /> -->
-            <x-text-input id="email" class="block mt-1 w-full sm:w-full " type="email" name="Your email" :value="old('email')" placeholder="Email" required autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full sm:w-full " type="email" name="email" :value="old('email')" placeholder="Email" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 

@@ -7,12 +7,10 @@ use Livewire\Component;
 
 class SearchBox extends Component
 {
-
-    #[Url()]
     public $search = '';
 
-    public function updateSearch() {
-        $this->dispatch('search', search: $this->search);
+    public function updatedSearch() {
+        $this->dispatch('searchUpdated', search: $this->search);
     }
 
     public function render()

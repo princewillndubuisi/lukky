@@ -136,6 +136,8 @@
                     <livewire:post-blog />
                     {{-- End Post blog --}}
 
+
+
                     <div class="w-[28%] hidden sm:block">
                         <div class="h-80 border bg-white flex justify-between px-6 py-8">
                             <livewire:category-blog  />

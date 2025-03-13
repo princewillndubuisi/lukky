@@ -7,10 +7,12 @@ use Livewire\Component;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
+use Livewire\WithPagination;
 
 class PostBlog extends Component
 {
-    #[Url()]
+    use WithPagination;
+
     public $search = '';
 
     #[Url()]
@@ -19,7 +21,9 @@ class PostBlog extends Component
     #[Computed()]
     public function post() {
         return Post::where('post_status', '=', 'active')
-            ->where('title', 'like', "%{$this->search}%")
+            ->when($this->search, function ($query) {
+                $query->where('title', 'like', "%{$this->search}%");
+            })
             ->when(!empty($this->CheckCategories), function ($query) {
                 $query->whereIn('category_id', $this->CheckCategories);
             })
@@ -27,9 +31,10 @@ class PostBlog extends Component
             ->paginate(3);
     }
 
-    #[On('search')]
-    public function updatedSearch($search) {
+    #[On('searchUpdated')]
+    public function updateSearch($search) {
         $this->search = $search;
+        $this->resetPage();
     }
 
     #[On('categoriesUpdate')]
