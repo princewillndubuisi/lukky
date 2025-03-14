@@ -40,7 +40,7 @@
             </div>
 
             <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto sm:mt-8 sm:overflow-visible">
-                <div class="mt-12 h-[304px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:grid sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 sm:items-center sm:overflow-visible">
+                <div class="mt-12 h-[304px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:grid sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 md:w-[30px] lg:w-[30px] sm:gap-x-6 sm:items-center sm:overflow-visible">
                     @foreach ($ten as $tens)
                         <div class="w-[267px] h-inherit sm:w-80 sm:h-80">
                             <a  href="">
