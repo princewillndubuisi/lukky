@@ -17,7 +17,7 @@
             {{-- Start Trending news section --}}
             <div class="flex justify-between items-center w-11/12 mx-auto mt-12">
                 <div>
-                    <h6 class="text-[13px] font-medium text-black sm:text-4xl sm:text-black">Trending News</h6>
+                    <h6 class="text-[13px] font-medium text-black sm:text-4xl sm:text-black">Trending News Hello</h6>
                 </div>
 
                 <livewire:search-box />

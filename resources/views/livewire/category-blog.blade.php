@@ -1,23 +1,23 @@
-                            <div>
-                                <h1 class="text-[12px] font-medium sm:font-medium">Categories</h1>
-                                {{-- <div class="flex items-center gap-6 mt-6">
-                                    <input type="checkbox" class="w-5 h-5" name="" id="">
-                                    <label for="" class="text-sm text-princess font-medium">All Contents</label>
-                                </div> --}}
-                                @foreach ($this->category as $category)
-                                    <div class="flex items-center gap-2 mt-6 sm:gap-6">
-                                        <input type="checkbox" class="w-[16px] h-[15px] rounded-md sm:w-5 sm:h-5"  value="{{ $category->id }}" wire:model.defer='CheckCategories' wire:change='SelectedCategories'>
-                                        <label for="" class="text-[10px] ml-4 text-gray-500 font-medium sm:text-sm sm:text-princess sm:ml-0 sm:font-medium">{{ $category->title }}</label>
-                                    </div>
-                                @endforeach
+<div>
+<h1 class="text-[12px] font-medium sm:font-medium">Categories</h1>
+{{-- <div class="flex items-center gap-6 mt-6">
+    <input type="checkbox" class="w-5 h-5" name="" id="">
+    <label for="" class="text-sm text-princess font-medium">All Contents</label>
+</div> --}}
+@foreach ($this->category as $category)
+    <div class="flex items-center gap-2 mt-6 sm:gap-6">
+        <input type="checkbox" class="w-[16px] h-[15px] rounded-md sm:w-5 sm:h-5"  value="{{ $category->id }}" wire:model.defer='CheckCategories' wire:change='SelectedCategories'>
+        <label for="" class="text-[10px] ml-4 text-gray-500 font-medium sm:text-sm sm:text-princess sm:ml-0 sm:font-medium">{{ $category->title }}</label>
+    </div>
+@endforeach
 
 
-                                {{-- <div class="flex items-center gap-6 mt-6">
-                                    <input type="checkbox" class="w-5 h-5" name="" id="">
-                                    <label for="" class="text-sm text-princess font-medium">eSports</label>
-                                </div>
-                                <div class="flex items-center gap-6 mt-6">
-                                    <input type="checkbox" class="w-5 h-5" name="" id="">
-                                    <label for="" class="text-sm text-princess font-medium">Lorem ipsum</label>
-                                </div> --}}
-                            </div>
+{{-- <div class="flex items-center gap-6 mt-6">
+    <input type="checkbox" class="w-5 h-5" name="" id="">
+    <label for="" class="text-sm text-princess font-medium">eSports</label>
+</div>
+<div class="flex items-center gap-6 mt-6">
+    <input type="checkbox" class="w-5 h-5" name="" id="">
+    <label for="" class="text-sm text-princess font-medium">Lorem ipsum</label>
+</div> --}}
+</div>
