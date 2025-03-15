@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {{-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+    {{-- swiper link --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <script src="editor-sdk.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     @vite('resources/css/app.css')
     @livewireStyles
 
     <style>
-        /* CSS Code */
+    /* CSS Code */
       .swiper-wrapper {
       width: 100%;
       height: max-content !important;
@@ -31,7 +33,7 @@
       background: #D0CECD; !important;
       }
 
-      /* Breakpoints */
+    /* Breakpoints */
     @media screen and (max-width: 1200px) {
         html {
             font-size: 55%;
@@ -39,23 +41,22 @@
     }
 
     /* CKEditor */
-        .ck-editor__editable {
-            min-height: 350px !important;
-        }
+    .ck-editor__editable {
+        min-height: 350px !important;
+    }
 
 
 
     </style>
 </head>
 <body class="font-sans">
-
     {{-- Start Header section --}}
     <header class="bg-white sm:border border-judy">
         {{-- Start nav section --}}
         <nav class="w-11/12 mx-auto h-24 flex justify-between items-center">
             <div class="flex items-center justify-center">
-                <div class="w-20  border-yellow-500">
-                    <img class="" src="{{asset('images/academea 6.jpg')}}" alt="">
+                <div class="w-[150px] -ml-[20px] sm:w-[250px] sm:-ml-[40px]">
+                    <img class="" src="{{asset('images/1..jpg')}}" alt="">
                 </div>
 
                 <div class="hidden sm:block sm:ml-8 ">
@@ -218,6 +219,8 @@
     <!-- from cdn -->
     <script type="module"src="https://unpkg.com/@material-tailwind/html@latest/scripts/popover.js"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+    {{-- swiper js --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     @stack('script')
 </body>
 </html>
