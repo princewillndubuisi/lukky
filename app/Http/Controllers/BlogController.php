@@ -26,7 +26,7 @@ class BlogController extends Controller
 
             $category = Category::all();
 
-            $ten = Post::where('post_status', '=', 'active')->latest()->take(4)->get();
+            $ten = Post::where('post_status', '=', 'active')->latest()->take(8)->get();
 
             $user = User::get();
 
@@ -84,7 +84,7 @@ class BlogController extends Controller
 
         $category = Category::all();
 
-        $ten = Post::where('post_status', '=', 'active')->latest()->take(4)->get();
+        $ten = Post::where('post_status', '=', 'active')->latest()->take(8)->get();
 
         return view('welcome', compact('post', 'category', 'ten'));
     }

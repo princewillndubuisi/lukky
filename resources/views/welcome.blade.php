@@ -39,10 +39,10 @@
 
         </div>
 
-        <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto sm:mt-8 sm:overflow-visible">
-            <div class="mt-12 h-[304px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:grid sm:grid-cols-4 sm:gap-x-6 sm:items-center sm:overflow-visible">
+        <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto sm:mt-8 sm:overflow-visible swiper">
+            <div class="swiper-wrapper slider mt-12 h-[304px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:grid sm:grid-cols-4 sm:gap-x-6 sm:items-center sm:overflow-visible">
                 @foreach ($ten as $tens)
-                    <div class="w-[267px] h-inherit sm:w-80 sm:h-80">
+                    <div class="w-[267px] h-inherit sm:w-80 sm:h-80 swiper-slide">
                         <a  href="">
                             <div class="w-[267px] h-[256px] sm:h-full sm:w-full">
                                 @if ($tens->image)
@@ -72,11 +72,15 @@
                     </div>
                 @endforeach
             </div>
+            <div class="swiper-pagination"></div>
 
-            <div class="absolute inset-0 flex items-center justify-between p-6 sm:hidden">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            {{-- <div class="absolute inset-0 flex items-center justify-between p-6 sm:hidden">
                 <button id="leftButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white"><i class='bx bxs-chevron-left' ></i> </button>
                 <button id="rightButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white"><i class='bx bxs-chevron-right' ></i></button>
-            </div>
+            </div> --}}
             {{-- <div class="w-80 h-80">
                 <a  href="">
                     <div class="h-full w-full">
