@@ -55,7 +55,7 @@
         {{-- Start nav section --}}
         <nav class="w-11/12 mx-auto h-24 flex justify-between items-center">
             <div class="flex items-center justify-center">
-                <div class="w-20">
+                <div class="w-60">
                     <img class="" src="{{asset('images/1..jpg')}}" alt="">
                 </div>
 
