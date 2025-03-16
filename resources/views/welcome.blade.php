@@ -77,10 +77,10 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
 
-            {{-- <div class="absolute inset-0 flex items-center justify-between p-6 sm:hidden">
+            <div class="absolute inset-0 flex items-center justify-between p-6 sm:hidden">
                 <button id="leftButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white"><i class='bx bxs-chevron-left' ></i> </button>
                 <button id="rightButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white"><i class='bx bxs-chevron-right' ></i></button>
-            </div> --}}
+            </div>
             {{-- <div class="w-80 h-80">
                 <a  href="">
                     <div class="h-full w-full">
