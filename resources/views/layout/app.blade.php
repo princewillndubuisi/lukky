@@ -53,10 +53,10 @@
     {{-- Start Header section --}}
     <header class="bg-white sm:border border-judy">
         {{-- Start nav section --}}
-        <nav class="w-11/12 mx-auto h-24 flex justify-between items-center">
+        <nav class="w-[1450px] mx-auto h-24 flex justify-between items-center">
             <div class="flex items-center justify-center">
                 <div class="w-60">
-                    <img class="" src="{{asset('images/1..jpg')}}" alt="">
+                    <img class="" src="{{asset('images/2.jpg')}}" alt="">
                 </div>
 
                 <div class="hidden sm:block sm:ml-8 ">
@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="flex items-center">
+            <div class="flex items-center mr-8">
                 @if (Route::has('login'))
 
                 @auth
