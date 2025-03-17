@@ -42,7 +42,7 @@
         <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto sm:mt-8 sm:overflow-visible ">
             <div class="slider mt-12 h-[323px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:auto-cols-[25%] sm:gap-x-6 sm:items-center sm:overflow-hidden">
                 @foreach ($ten as $tens)
-                    <div class="w-[267px] h-inherit sm:w-80 sm:h-80">
+                    <div class="w-[267px]  h-inherit sm:w-80 sm:h-80">
                         <a  href="">
                             <div class="w-[267px] h-[256px] sm:h-full sm:w-full">
                                 @if ($tens->image)
