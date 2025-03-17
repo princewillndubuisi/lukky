@@ -39,16 +39,16 @@
 
         </div>
 
-        <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto sm:mt-8 sm:overflow-visible swiper">
-            <div class="swiper-wrapper slider mt-12 h-[304px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:grid sm:grid-cols-4 sm:gap-x-6 sm:items-center sm:overflow-visible">
+        <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto sm:mt-8 sm:overflow-visible ">
+            <div class="slider mt-12 h-[323px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:auto-cols-[25%] sm:gap-x-6 sm:items-center sm:overflow-hidden">
                 @foreach ($ten as $tens)
-                    <div class="w-[267px] h-inherit sm:w-80 sm:h-80 swiper-slide">
+                    <div class="w-[267px] h-inherit sm:w-80 sm:h-80">
                         <a  href="">
                             <div class="w-[267px] h-[256px] sm:h-full sm:w-full">
                                 @if ($tens->image)
-                                    <img class="block w-full h-full object-cover rounded-[1rem] sm:h-full sm:w-full sm:rounded-[md]" src="{{$tens->image}}" alt="">
+                                    <img class="block w-full h-full object-cover rounded-[1rem] sm:h-full sm:w-full sm:rounded-[1rem]" src="{{$tens->image}}" alt="">
                                 @elseif ($tens->video)
-                                    <video class="h-full w-full rounded-[1rem] object-cover sm:rounded-md" autoplay muted loop>
+                                    <video class="h-full w-full rounded-[1rem] object-cover sm:rounded-[1rem]" autoplay muted loop>
                                         <source src="{{$tens->video}}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
@@ -72,12 +72,8 @@
                     </div>
                 @endforeach
             </div>
-            <div class="swiper-pagination"></div>
 
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-
-            <div class="absolute inset-0 flex items-center justify-between p-6 sm:hidden">
+            <div class="absolute inset-0 flex items-center justify-between p-6">
                 <button id="leftButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white"><i class='bx bxs-chevron-left' ></i> </button>
                 <button id="rightButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white"><i class='bx bxs-chevron-right' ></i></button>
             </div>

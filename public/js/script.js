@@ -1,22 +1,30 @@
-const carousel = document.querySelector('.grid.grid-flow-col');
+const carousel = document.querySelector('.slider');
 const leftButton = document.getElementById('leftButton');
 const rightButton = document.getElementById('rightButton');
 
-const scrollAmount = 267;
+const autoScrollInterval = 4000; // Time in milliseconds (3 seconds)
+let autoScroll;
 
-// Initial state: hide the left button
-leftButton.style.opacity = '0';
-leftButton.style.pointerEvents = 'none';
+// Calculate scroll amount based on screen size
+function getScrollAmount() {
+    const itemWidth = carousel.querySelector('div').offsetWidth; // Width of one item
+    return itemWidth;
+}
 
-rightButton.addEventListener('click', () => {
+// Function to scroll the carousel to the right
+function scrollRight() {
+    const scrollAmount = getScrollAmount();
     carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     showLeftButton();
-});
+    checkIfEndReached();
+}
 
-leftButton.addEventListener('click', () => {
+// Function to scroll the carousel to the left
+function scrollLeft() {
+    const scrollAmount = getScrollAmount();
     carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     checkScrollPosition();
-});
+}
 
 // Show the left button
 function showLeftButton() {
@@ -32,17 +40,90 @@ function checkScrollPosition() {
     }
 }
 
-const swiper = new Swiper('.slider', {
-    loop: true,
+// Check if the end of the carousel is reached
+function checkIfEndReached() {
+    // Add a small buffer (e.g., 5px) to account for rounding errors
+    const buffer = 5;
+    if (carousel.scrollLeft + carousel.clientWidth + buffer >= carousel.scrollWidth) {
+        // Reset to the start
+        carousel.scrollTo({ left: 0, behavior: 'smooth' });
+        leftButton.style.opacity = '0';
+        leftButton.style.pointerEvents = 'none';
+    }
+}
 
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-    },
+// Automatic scrolling
+function startAutoScroll() {
+    autoScroll = setInterval(scrollRight, autoScrollInterval);
+}
 
-    // Navigation arrows
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
+// Pause auto-scroll on hover
+carousel.addEventListener('mouseenter', () => {
+    clearInterval(autoScroll);
+});
+
+// Resume auto-scroll when mouse leaves
+carousel.addEventListener('mouseleave', () => {
+    startAutoScroll();
+});
+
+// Manual scroll buttons
+rightButton.addEventListener('click', () => {
+    scrollRight();
+    resetAutoScroll();
+});
+
+leftButton.addEventListener('click', () => {
+    scrollLeft();
+    resetAutoScroll();
+});
+
+// Reset the auto-scroll interval
+function resetAutoScroll() {
+    clearInterval(autoScroll);
+    startAutoScroll();
+}
+
+// Hover-and-move functionality
+let isHovering = false;
+let previousX = 0;
+
+carousel.addEventListener('mousemove', (e) => {
+    if (!isHovering) return;
+
+    const currentX = e.pageX - carousel.offsetLeft;
+    const deltaX = currentX - previousX;
+
+    if (deltaX > 0) {
+        // Move right
+        carousel.scrollBy({ left: 10, behavior: 'auto' });
+    } else if (deltaX < 0) {
+        // Move left
+        carousel.scrollBy({ left: -10, behavior: 'auto' });
+    }
+
+    previousX = currentX;
+    checkScrollPosition();
+    checkIfEndReached();
+});
+
+carousel.addEventListener('mouseenter', () => {
+    isHovering = true;
+});
+
+carousel.addEventListener('mouseleave', () => {
+    isHovering = false;
+});
+
+// Initialize carousel functionality
+function initCarousel() {
+    leftButton.style.opacity = '0';
+    leftButton.style.pointerEvents = 'none';
+    startAutoScroll();
+}
+
+// Initialize on page load
+initCarousel();
+
+// Re-initialize on window resize
+window.addEventListener('resize', initCarousel);
