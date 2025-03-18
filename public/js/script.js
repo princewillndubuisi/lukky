@@ -2,13 +2,20 @@ const carousel = document.querySelector('.slider');
 const leftButton = document.getElementById('leftButton');
 const rightButton = document.getElementById('rightButton');
 
-const autoScrollInterval = 4000; // Time in milliseconds (3 seconds)
 let autoScroll;
 
 // Calculate scroll amount based on screen size
 function getScrollAmount() {
-    const itemWidth = carousel.querySelector('div').offsetWidth; // Width of one item
+    const itemWidth = carousel.querySelector('div')?.offsetWidth || 200; // fallback width
     return itemWidth;
+}
+
+// Calculate auto-scroll interval based on screen size
+function getAutoScrollInterval() {
+    const baseInterval = 4000; // Base interval for a standard screen size (e.g., 1920px)
+    const screenWidth = window.innerWidth;
+    const standardScreenWidth = 1920; // Reference screen width
+    return (baseInterval * screenWidth) / standardScreenWidth;
 }
 
 // Function to scroll the carousel to the right
@@ -54,7 +61,8 @@ function checkIfEndReached() {
 
 // Automatic scrolling
 function startAutoScroll() {
-    autoScroll = setInterval(scrollRight, autoScrollInterval);
+    const interval = getAutoScrollInterval();
+    autoScroll = setInterval(scrollRight, interval);
 }
 
 // Pause auto-scroll on hover

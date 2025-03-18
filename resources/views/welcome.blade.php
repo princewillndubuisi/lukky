@@ -39,10 +39,10 @@
 
         </div>
 
-        <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto sm:mt-8 sm:overflow-visible ">
-            <div class="slider mt-12 h-[323px] overflow-hidden grid grid-flow-col auto-cols-[80%] sm:auto-cols-[25%] sm:gap-x-6 sm:items-center sm:overflow-hidden">
+        <div class="w-11/12 mx-auto relative overflow-hidden sm:w-11/12 sm:mx-auto  sm:overflow-visible ">
+            <div class="slider h-[323px] mt-12 overflow-hidden grid grid-flow-col auto-cols-[80%] sm:h-[400px] sm:mt-0 sm:auto-cols-[25%] sm:gap-x-6 sm:items-center sm:overflow-hidden">
                 @foreach ($ten as $tens)
-                    <div class="w-[267px]  h-inherit sm:w-80 sm:h-80">
+                    <div class="w-[267px] h-inherit sm:w-80 sm:h-80">
                         <a  href="">
                             <div class="w-[267px] h-[256px] sm:h-full sm:w-full">
                                 @if ($tens->image)
@@ -126,7 +126,7 @@
         {{--End Trending news section --}}
 
         {{-- Start Your timeline section --}}
-        <div class="w-11/12 mx-auto mt-28">
+        <div class="w-11/12 mx-auto mt-20">
             <div>
                 <h6 class="text-4xl font-medium">Your Timeline</h6>
             </div>
