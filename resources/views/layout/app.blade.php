@@ -81,10 +81,10 @@
     {{-- Start Footer section --}}
     <div class="border bg-black h-24 mb-8">
         <div class="text-white font-medium text-3xl w-[70%] mx-auto mt-6 gap-4 flex items-center justify-center">
-            <p>© 2023</p>
-            <a href="">About us</a>
-            <a href="">Linkdln</a>
-            <a href="">Email</a>
+            <p>© 2025</p>
+            <a href=""><i class="fa-brands fa-square-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href=""><i class="fa-regular fa-envelope"></i></a>
             <a href="">Rss feed</a>
         </div>
     </div>
