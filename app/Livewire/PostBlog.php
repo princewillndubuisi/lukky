@@ -40,6 +40,7 @@ class PostBlog extends Component
     #[On('categoriesUpdate')]
     public function updatedCategories($CheckCategories) {
         $this->CheckCategories = $CheckCategories;
+        $this->resetPage(); 
     }
 
     public function render()

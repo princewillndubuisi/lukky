@@ -142,14 +142,14 @@
                     <div class="h-80 border bg-white flex justify-between px-6 py-8">
                         <livewire:category-blog  />
 
-                        <div class="flex flex-col justify-between">
+                        {{-- <div class="flex flex-col justify-between">
                             <a class="font-medium text-gray-500" href="">Clear All</a>
                             <a class="font-medium text-gray-500" href="">See All</a>
-                        </div>
+                        </div> --}}
                     </div>
 
 
-                    <div class="h-80 border bg-white flex justify-between px-6 py-8 mt-8">
+                    {{-- <div class="h-80 border bg-white flex justify-between px-6 py-8 mt-8">
                         <div>
                             <p class="font-medium">Viewers favourite</p>
                             <div class="flex items-center gap-6 mt-6">
@@ -210,7 +210,7 @@
                         <div class="flex justify-end mt-6">
                             <a class=" font-medium text-gray-500" href="">See More</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="flex justify-end items-center mt-4">
                         <a class="flex" href="">
                             <i class="fa-solid fa-angle-up text-black mt-1.5"></i>

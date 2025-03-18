@@ -43,7 +43,7 @@
     <header class="bg-white sm:border border-judy">
         {{-- Start nav section --}}
         <nav class="w-11/12 mx-auto h-24 flex justify-between items-center">
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center gap-12">
                 <div class="w-40">
                     <img class="" src="{{asset('images/3.jpg')}}" alt="">
                 </div>
