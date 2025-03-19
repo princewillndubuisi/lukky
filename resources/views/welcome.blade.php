@@ -126,7 +126,7 @@
         {{--End Trending news section --}}
 
         {{-- Start Your timeline section --}}
-        <div class="w-[11/12] mx-auto mt-20 sm:w-11/12">
+        <div class="w-11/12 mx-auto mt-20 sm:w-11/12">
             <div>
                 <h6 class="text-4xl font-medium">Your Timeline</h6>
             </div>
