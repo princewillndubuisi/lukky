@@ -14,7 +14,7 @@
         @endphp --}}
 
         @if ($posts->image)
-            <div class="w-full h-[500px] grid grid-rows-3 border  sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 py-10 gap-x-4">
+            <div class="w-full h-[550px] grid grid-rows-3 border sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 py-10 gap-x-4">
                 {{-- <div class="flex flex-col items-center w-[9%]">
                     @if (Auth::user())
                         <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
@@ -51,7 +51,7 @@
                     </div>
 
                     <a class="mt-8 sm:ml-16" href="{{route('read.post', $posts->id)}}">
-                        <div class="mt-4 sm:mt-0 ">
+                        <div class="mt-12 sm:mt-0 ">
                             <h1 class="text-3xl mt-4 font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-2xl">{{$posts->title}}</h1>
                         </div>
                         <p class="text-[12px] font-medium sm:text-base sm:font-medium md:text-lg text-gray-500 hover:text-gray-400 tracking-wide leading-relaxed sm:ml-0 ">{{$posts->description}}</p>
@@ -59,7 +59,7 @@
                 </div>
 
 
-                <div class="h-[300px] sm:w-[40%] sm:h-52 bg-slate-50 mt-1">
+                <div class="h-[300px] mt-10 sm:w-[40%] sm:h-52 bg-slate-50 sm:mt-1">
                     <img class="w-full h-full rounded-md sm:rounded-md sm:w-full sm:h-full" src="{{$posts->image}}" alt="">
                     <div class="flex items-center justify-around my-3">
                        <livewire:like-button  :key="$posts->id" :posts="$posts"  />
