@@ -20,6 +20,10 @@ export default {
             colors: {
                 'custom-gray': '#D9D9D9',
             },
+
+            screens: {
+                'xs': '360px', // Add an extra small breakpoint
+            },
         },
     },
 

@@ -36,26 +36,26 @@
 
                         <div class="h-[48px]">
                             <div class="sm:h-[20px] flex items-center font-medium gap-2 text-gray-500">
-                                <p class="text-[10px] font-medium sm:text-base">{{$posts->name}}</p>
-                                <p class="hidden sm:block font-medium mb-4 text-2xl">.</p>
+                                <p class="text-xs sm:text-sm md:text-base">{{$posts->name}}</p>
+                                <p class="hidden sm:block font-medium mb-4 text-lg sm:text-xl">.</p>
                                 <p class="hidden sm:block sm:text-base">{{$formattedDate}}</p>
-                                <p class="text-[10px] font-medium mb-4 sm:text-2xl">.</p>
-                                <p class="text-[10px] font-medium sm:text-base">{{$relativeTime}}</p>
+                                <p class="text-[10px] font-medium mb-4 text-lg sm:text-xl">.</p>
+                                <p class="text-xs sm:text-sm md:text-base">{{$relativeTime}}</p>
                             </div>
 
                             <div class="mb-4 mt-3 sm:mt-1">
-                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[10px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">Tech trends</a>
-                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[10px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">{{$posts->category->title}}</a>
+                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-xs sm:text-sm border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 bg-sky-200" href="">Tech trends</a>
+                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-xs sm:text-sm border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 bg-sky-200" href="">{{$posts->category->title}}</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-8 sm:ml-16">
-                        <a href="{{route('read.post', $posts->id)}}">
-                            <h1 class="text-3xl font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-2xl">{{$posts->title}}</h1>
-                        </a>
-                        <p class="text-[10px] font-medium sm:text-base sm:font-medium text-gray-500 tracking-wide leading-relaxed sm:ml-0 ">{{$posts->description}}</p>
-                    </div>
+                    <a class="mt-8 sm:ml-16"  href="{{route('read.post', $posts->id)}}">
+                        <div>
+                            <h1 class="text-lg font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-xl sm:hover:text-xl">{{$posts->title}}</h1>
+                        </div>
+                        <p class="text-sm font-medium sm:text-base md:text-lg sm:font-medium text-gray-500 tracking-wide leading-relaxed sm:ml-0 ">{{$posts->description}}</p>
+                    </a>
                 </div>
 
 
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <hr class="my-4 w-4 border border-slate-400 mx-auto">
+            <hr class="my-8 w-4 border border-slate-400 mx-auto sm:my-4">
 
         @elseif ($posts->video)
             <div class="flex border bg-white h-90 px-6 py-8">
@@ -156,11 +156,12 @@
                         <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">{{$posts->category->title}}</a>
                     </div>
 
-                    <div class="mt-2.5">
-                        <h1 class="text-xl font-semibold">{{$posts->title}}</h1>
-                        <p class="text-md font-medium text-gray-500 tracking-wide leading-loose">Lorem ipsum dolor Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi totam consectetur est soluta. Odio quis accusamus libero earum quas ducimus sequi, dolore quos voluptas nemo nam tempore esse obcaecati. Officiis.</p>
-                    </div>
-
+                    <a class="mt-8 sm:ml-16"  href="{{route('read.post', $posts->id)}}">
+                        <div>
+                            <h1 class="text-lg font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-xl sm:hover:text-xl">{{$posts->title}}</h1>
+                        </div>
+                        <p class="text-sm font-medium sm:text-base md:text-lg sm:font-medium text-gray-500 tracking-wide leading-relaxed sm:ml-0 ">{{$posts->description}}</p>
+                    </a>
                     <div class="flex items-center justify-end mt-5 gap-x-6 mr-4">
                        <livewire:like-button  :key="$posts->id" :posts="$posts" />
                         <div class="flex items-center">
