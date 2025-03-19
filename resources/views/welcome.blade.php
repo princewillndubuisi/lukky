@@ -126,12 +126,12 @@
         {{--End Trending news section --}}
 
         {{-- Start Your timeline section --}}
-        <div class="w-11/12 mx-auto mt-20">
+        <div class="w-[11/12] mx-auto mt-20 sm:w-11/12">
             <div>
                 <h6 class="text-4xl font-medium">Your Timeline</h6>
             </div>
 
-            <div class="w-full sm:flex sm:justify-between gap-x-10 mt-8">
+            <div class="w-full gap-x-10 mt-8 sm:flex sm:justify-between ">
                 {{-- Start Post blog --}}
                 <livewire:post-blog />
                 {{-- End Post blog --}}

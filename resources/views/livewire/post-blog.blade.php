@@ -1,4 +1,4 @@
-<div class="w-[80%] ">
+<div class=" w-full sm:w-[80%]">
 
     @foreach ($this->post as $posts)
         @php
@@ -14,7 +14,7 @@
         @endphp --}}
 
         @if ($posts->image)
-            <div class="w-[412px] h-[500px] grid grid-rows-3 border sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 py-10 gap-x-4">
+            <div class="w-full h-[500px] grid grid-rows-3 border  sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 py-10 gap-x-4">
                 {{-- <div class="flex flex-col items-center w-[9%]">
                     @if (Auth::user())
                         <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
@@ -23,7 +23,7 @@
                     @endif
                 </div> --}}
 
-                <div class="w-[349px] sm:w-[70%]  sm:h-full ">
+                <div class="w-full  sm:w-[70%]  sm:h-full ">
                     <div class=" h-[48px] flex items-center -mt-4">
 
                         <div class="w-[48px] h-[48px] mr-4">
@@ -182,10 +182,10 @@
         @endif
     @endforeach
 
-    <hr class="w-[125%] border my-8 border-slate-400 sm:w-full">
+    <hr class="w-fullborder my-8 border-slate-400 sm:w-full">
 
     {{-- Pagination --}}
-    <div class="w-[125%] sm:w-full h-10 mb-20">
+    <div class="w-fullsm:w-full h-10 mb-20">
         <div class="pagination ">
             {{ $this->post->onEachSide(1)->links() }}
         </div>
