@@ -50,9 +50,9 @@
                         </div>
                     </div>
 
-                    <a class="mt-8 sm:ml-16" href="{{route('read.post', $posts->id)}}">
-                        <div class="mt-4 sm:mt-0 ">
-                            <h1 class="text-3xl mt-4 font-semibold mb-2 hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-2xl">{{$posts->title}}</h1>
+                    <a class="sm:ml-16" href="{{route('read.post', $posts->id)}}">
+                        <div class="mt-8 mb-2 sm:mt-0 ">
+                            <h1 class="text-3xl font-semibold hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-2xl">{{$posts->title}}</h1>
                         </div>
                         <p class="text-[12px] font-medium sm:text-base sm:font-medium md:text-lg text-gray-500 hover:text-gray-400 tracking-wide leading-relaxed sm:ml-0 ">{{$posts->description}}</p>
                     </a>
