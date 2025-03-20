@@ -2,9 +2,9 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div><p class="text-center mt-20 text-lg  mb-6">LOG IN TO YOUR ACCOUNT</p></div>
+    <div><p class="text-center mt-20 text-lg mb-6">LOG IN TO YOUR ACCOUNT</p></div>
 
-    <form method="POST" action="{{ route('login') }}" class="sm:w-full">
+    <form method="POST" action="{{ route('login') }}" class="w-full sm:w-full">
         @csrf
 
         <!-- Email Address -->

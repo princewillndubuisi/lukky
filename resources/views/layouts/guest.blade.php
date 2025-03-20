@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-     
+
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
@@ -16,43 +16,43 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
- 
 
-     
+
+
     <body class="font-sans text-gray-900 antialiased">
 
-        
-        <div class="w-[412px] overflow-hidden sm:flex sm:w-[1440px] sm:h-[729px] sm:gap-x-80">
-            
+
+        <div class="w-11/12 overflow-hidden mx-auto sm:flex sm:w-11/12 sm:h-svh sm:gap-x-80 sm:mx-0">
+
             <div class="hidden sm:block">
-                <img src="{{asset('images/Rectangle 53.png')}}" class="w-[540px] max-h-full object-cover" alt="">  
+                <img src="{{asset('images/Rectangle 53.png')}}" class="w-[540px] max-h-full object-cover" alt="">
             </div>
 
-            
 
-            <div class="w-[327px]  mx-auto  sm:w-[400px] sm:mx-0">  
-                
-            
+
+            <div class="w-[327px] mx-auto sm:w-[400px] sm:mx-0">
+
+
                  <!-- back button -->
-                 <div class="hidden sm:block -ml-52  sn:flex pt-20"> 
+                 <div class="hidden sm:block -ml-52  sn:flex pt-20">
                     <a href="">
                     <i class="fa fa-angle-left pr-1 pt-1 icon-bold"></i>
                     <button class=" font-bold"><a href="{{url('')}}">back</a></button>
-                    </a>            
+                    </a>
                 </div>
 
 
-               
+
                 {{ $slot }}
-            </div> 
+            </div>
 
 
-            
 
-            
+
+
         </div>
     </body>
 
 
-    
+
 </html>
