@@ -38,8 +38,8 @@
                 <div class="w-full h-[270px] mt-8 border sm:w-full sm:h-[548px]">
                     <img class="w-full h-full rounded-md sm:rounded-md" src="{{$post->image}}" alt="">
                 </div>
-                <div class="mt-8 w-full text-[14px] text-slate-600 leading-9 font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-9 sm:font-semibold sm:text-justify sm:w-full ">
-                    <p class="text-[14px] text-slate-600 leading-9 font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-9 sm:font-semibold sm:text-justify">
+                <div class="mt-8 w-full text-[14px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify sm:w-full ">
+                    <p class="text-[14px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify">
                         {!! preg_replace('/<img[^>]+\>/i', '', $post->body) !!}
                     </p>
                     {{-- <div class="mt-16 mb-12 w-[382px] h-[270px] border border-yellow-400 sm:w-[100%] sm:h-[13%] sm:mt-16 sm:mb-12">
