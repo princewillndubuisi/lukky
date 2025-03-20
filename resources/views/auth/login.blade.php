@@ -52,7 +52,7 @@
         </div>
     </form>
     <div><p class="text-center mt-4">Terms and Conditions Applied</p></div>
-    <div class="mt-52 text-center"><a href="{{url('register')}}">Dont have an account? Click here to Create one</a></div>
+    <div class="mt-2 text-center"><a href="{{url('register')}}">Dont have an account? Click here to Create one</a></div>
 </x-guest-layout>
 
 
