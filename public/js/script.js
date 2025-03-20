@@ -12,7 +12,7 @@ function getScrollAmount() {
 
 // Calculate auto-scroll interval based on screen size
 function getAutoScrollInterval() {
-    const baseInterval = 4000; // Base interval for a standard screen size (e.g., 1920px)
+    const baseInterval = 10000; // Base interval for a standard screen size (e.g., 1920px)
     const screenWidth = window.innerWidth;
     const standardScreenWidth = 1920; // Reference screen width
     return (baseInterval * screenWidth) / standardScreenWidth;

@@ -6,9 +6,9 @@
 
 @section('content')
     {{-- Start Main post section --}}
-    <div class="w-[420px] mx-auto  sm:w-11/12 sm:mx-auto mt-10">
-        <div class="flex justify-between gap-10 w-full">
-            <div class="w-[420px] mx-auto sm:w-[65%] sm:h-1080">
+    <div class="w-11/12 mx-auto sm:w-11/12 sm:mx-auto mt-10">
+        <div class="flex justify-between  gap-10 w-full">
+            <div class="w-full sm:w-[65%] sm:h-1080">
                 <div class="">
                     {{-- <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-orange-100 mr-4" href="">Tech trends</a> --}}
                     <a class="border border-orange-100 rounded-full  py-1 px-4 font-medium text-sm bg-orange-100" href="">{{$post->category->title}}</a>
@@ -35,11 +35,11 @@
                 <div class="mt-2">
                     <h1 class="text-[16px] sm:text-4xl font-semibold">{{$post->title}}</h1>
                 </div>
-                <div class="w-[382px] h-[270px] mt-8 border sm:w-[862px] sm:h-[548px]">
+                <div class="w-full h-[270px] mt-8 border sm:w-full sm:h-[548px]">
                     <img class="w-full h-full rounded-md sm:rounded-md" src="{{$post->image}}" alt="">
                 </div>
-                <div class="mt-8 w-[382px] text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify sm:w-[862px] ">
-                    <p class="text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify">
+                <div class="mt-8 w-full text-[10px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify sm:w-full ">
+                    <p class="text-[12px] text-slate-600 leading-loose font-semibold text-justify sm:text-xl sm:text-slate-600 sm:leading-loose sm:font-semibold sm:text-justify">
                         {!! preg_replace('/<img[^>]+\>/i', '', $post->body) !!}
                     </p>
                     {{-- <div class="mt-16 mb-12 w-[382px] h-[270px] border border-yellow-400 sm:w-[100%] sm:h-[13%] sm:mt-16 sm:mb-12">
@@ -71,12 +71,12 @@
 
                         @if ($videoId)
                             {{-- YouTube Video --}}
-                            <div class="w-[382px] h-[270px] mt-8 aspect-video sm:w-[862px] sm:h-[548px]  sm:rounded-md">
+                            <div class="w-full h-[270px] mt-8 aspect-video sm:w-full sm:h-[548px]  sm:rounded-md">
                                 <iframe class="w-full h-full rounded-md sm:rounded-md" src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allowfullscreen></iframe>
                             </div>
                         @elseif (!empty($post->video) && file_exists(public_path('storage/videos/' . $post->video)))
                             {{-- Local Video --}}
-                            <div class="w-[382px] h-[270px] mt-8 aspect-video sm:w-[862px] sm:h-[548px] sm:rounded-md">
+                            <div class="w-full h-[270px] mt-8 aspect-video sm:w-full sm:h-[548px] sm:rounded-md">
                                 <video class="w-full h-full rounded-md sm:rounded-md" controls>
                                     <source src="{{ $localVideo }}" type="video/mp4">
                                     Your browser does not support the video tag.
@@ -94,15 +94,15 @@
                     <div class="flex justify-between items-center gap-4 px-3">
                         <div class="">
                             <i class="fa-solid fa-thumbs-up text-black text-3xl mr-5"></i>
-                            <span class="text-black text-xl font-semibold ml-1">10.0K Likes</span>
+                            <span class="text-black text-xl font-semibold ml-1">10.0K</span>
                         </div>
                         <div class="py-2 px-4">
                             <i class="fa-solid fa-comments text-black text-3xl mr-5"></i>
-                            <span class="text-black text-xl font-semibold ml-1">10.0K Comments</span>
+                            <span class="text-black text-xl font-semibold ml-1">10.0K </span>
                         </div>
                         <div class="py-2 px-4">
                             <i class="fa-solid fa-share-nodes text-black text-3xl mr-5"></i>
-                            <span class="text-black text-xl font-semibold ml-1">10.0K Shares</span>
+                            <span class="text-black text-xl font-semibold ml-1">10.0K </span>
                         </div>
                     </div>
                 </div>
