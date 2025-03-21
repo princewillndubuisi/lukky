@@ -4,7 +4,7 @@
 
 
 
-        <div><p class="text-center mt-20 text-lg  mb-6">CREATE YOUR ACCOUNT</p></div>
+        <div><p class="text-center mt-12 text-lg  mb-6">CREATE YOUR ACCOUNT</p></div>
 
         <!-- Name -->
         <div>
