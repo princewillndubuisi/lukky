@@ -19,7 +19,7 @@
                     @if (Auth::user())
                         <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                     @else
-                        <img class="w-12 h-12 rounded-full" src="{{ asset('images/anthony-tran-uM45BGGeync-unsplash.jpg') }}" alt="">
+                        <img class="w-12 h-12 rounded-full" src="{{ asset('images/user.jpg') }}" alt="">
                     @endif
                 </div> --}}
 
@@ -30,7 +30,7 @@
                             @if (Auth::user())
                                 <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                             @else
-                                <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('images/anthony-tran-uM45BGGeync-unsplash.jpg') }}" alt="">
+                                <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('images/user.jpg') }}" alt="">
                             @endif
                         </div>
 
@@ -86,7 +86,7 @@
                     @if (Auth::user())
                         <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                     @else
-                        <img class="w-12 h-12 rounded-full" src="{{ asset('images/anthony-tran-uM45BGGeync-unsplash.jpg') }}" alt="">
+                        <img class="w-12 h-12 rounded-full" src="{{ asset('images/user.jpg') }}" alt="">
                     @endif
                 </div>
 
@@ -138,7 +138,7 @@
                     @if (Auth::user())
                         <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                     @else
-                        <img class="w-12 h-12 rounded-full" src="{{ asset('images/anthony-tran-uM45BGGeync-unsplash.jpg') }}" alt="">
+                        <img class="w-12 h-12 rounded-full" src="{{ asset('images/user.jpg') }}" alt="">
                     @endif
                 </div>
 
