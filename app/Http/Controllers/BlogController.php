@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DOMDocument;
 use DOMElement;
 use App\Models\Tag;
+use Illuminate\Support\Str;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Click;
@@ -96,20 +97,51 @@ class BlogController extends Controller
     }
 
     // Upload Image
-    public function upload_image(Request $request) {
+    public function upload_image(Request $request)
+    {
         if ($request->hasFile('upload')) {
             $file = $request->file('upload');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads'), $filename);
-
-            $url = asset('uploads/' . $filename);
-
+    
+            // Validation
+            $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            $maxFileSize = 2 * 1024 * 1024; // 2MB
+    
+            $mimeType = $file->getMimeType();
+            $extension = strtolower($file->getClientOriginalExtension());
+    
+            if (!in_array($mimeType, $allowedMimeTypes) || !in_array($extension, $allowedExtensions)) {
+                return response()->json([
+                    'uploaded' => 0,
+                    'error' => ['message' => 'Only image files are allowed.']
+                ]);
+            }
+    
+            if ($file->getSize() > $maxFileSize) {
+                return response()->json([
+                    'uploaded' => 0,
+                    'error' => ['message' => 'Image size must be less than 2MB.']
+                ]);
+            }
+    
+            // Store in `storage/app/public/uploads`
+            $filename = time() . '_' . Str::random(10) . '.' . $extension;
+            $path = $file->storeAs('public/uploads', $filename); // saves in storage/app/public/uploads
+    
+            // Access URL via storage link (public/storage/uploads/...)
+            $url = asset('storage/uploads/' . $filename);
+    
             return response()->json([
                 'uploaded' => 1,
                 'fileName' => $filename,
                 'url' => $url
             ]);
         }
+    
+        return response()->json([
+            'uploaded' => 0,
+            'error' => ['message' => 'No image file was uploaded.']
+        ]);
     }
 
     // User post
@@ -145,7 +177,7 @@ class BlogController extends Controller
         foreach ($images as $img) {
             if ($img instanceof DOMElement) {
                 $src = $img->getAttribute('src');
-                if (strpos($src, 'uploads/') !== false) {
+                if (strpos($src, 'storage/uploads/') !== false) {
                     $imageArray[] = $src;
                 }
             }
@@ -232,7 +264,7 @@ class BlogController extends Controller
         foreach ($images as $img) {
             if ($img instanceof DOMElement) {
                 $src = $img->getAttribute('src');
-                if (strpos($src, 'uploads/') !== false) {
+                if (strpos($src, 'storage/uploads/') !== false) {
                     $imageArray[] = $src;
                 }
             }
