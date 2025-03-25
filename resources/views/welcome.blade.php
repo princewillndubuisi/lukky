@@ -23,8 +23,8 @@
             <livewire:search-box />
 
             <div class="sm:hidden">
-                <div id="category-toggle-btn" class="w-[44px] h-[37px] border flex items-center justify-center rounded-lg">
-                    <button  class="text-[13px]  text-gray-300" data-dropdown-toggle="category-menu" ><i class='bx bx-menu-alt-left' ></i> </button>
+                <div id="category-toggle-btn" class="w-[44px] h-[37px] border border-black flex items-center justify-center rounded-lg">
+                    <button  class="text-[13px] text-black" data-dropdown-toggle="category-menu" ><i class='bx bx-menu-alt-left' ></i> </button>
                 </div>
 
                 <div class="z-50 hidden w-[165px] h-[162px] overflow-y-auto max-h-[200px] border bg-white justify-between px-6 py-8" id="category-menu" style="scrollbar-width: none; -ms-overflow-style: none;">

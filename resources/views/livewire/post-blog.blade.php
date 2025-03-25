@@ -14,17 +14,10 @@
         @endphp --}}
 
         @if ($posts->image)
-            <div class="w-full h-[510px] border-yellow-600 py-10 grid grid-rows-3 border sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 gap-x-4">
-                {{-- <div class="flex flex-col items-center w-[9%]">
-                    @if (Auth::user())
-                        <img class="w-12 h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
-                    @else
-                        <img class="w-12 h-12 rounded-full" src="{{ asset('images/user.jpg') }}" alt="">
-                    @endif
-                </div> --}}
+            <div class="w-full h-[500px] border-yellow-600 py-10 grid grid-rows-3 border sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 gap-x-4">
 
-                <div class="w-full sm:w-[70%]  sm:h-full ">
-                    <div class=" h-[48px] flex items-center -mt-4">
+                <div class="w-full sm:w-[70%] border border-yellow-600  sm:h-full ">
+                    <div class=" h-[48px] flex items-center">
 
                         <div class="w-[48px] h-[48px] mr-4">
                             @if (Auth::user())
