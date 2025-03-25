@@ -7,7 +7,7 @@
 @section('content')
     {{-- Start main section --}}
     <main class="bg-prince h-full">
-        <div class="my-2 h-12 bg-white">
+        <div class="my-2 h-12 flex justify-center items-center bg-white">
             <div class="w-11/12 mx-auto flex justify-center items-center">
                 <p class="w-[92px] h-[28px] text-[12px] rounded-xl flex justify-center items-center text-white sm:w-32 sm:rounded-lg sm:py-1 font-semibold sm:text-xl bg-red-600">Live News</p>
                 <marquee class="text-[10px] ml-8 text-dark font-semibold sm:text-xl" behavior="" direction="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium hic nobis fugiat eaque inventore quo, neque saepe quaerat cumque nihil nostrum soluta, velit facere perspiciatis nisi in obcaecati, molestias dignissimos.</marquee>

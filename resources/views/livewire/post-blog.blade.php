@@ -44,18 +44,22 @@
                             </div>
 
                             <div class="mb-4 mt-3 sm:mt-1">
-                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[12px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">Tech trends</a>
-                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[12px] border border-sky-100 rounded-full sm:py-[.5px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">{{$posts->category->title}}</a>
+                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[12px] border border-sky-100 rounded-full sm:py-[3px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">Tech trends</a>
+                                <a class="w-[94px] h-[20px] px-4 py-[0.5px] font-medium text-[12px] border border-sky-100 rounded-full sm:py-[3px] sm:w-[113px] sm:h-[20px] sm:px-4 sm:font-medium sm:text-[12px] bg-sky-200" href="">{{$posts->category->title}}</a>
                             </div>
                         </div>
                     </div>
 
                     <a class="sm:ml-16" href="{{route('read.post', $posts->id)}}">
-                        <div class="mt-6 mb-2 sm:mt-0 ">
-                            <h1 class="text-3xl font-semibold hover:text-sky-400 hover:text-4xl sm:ml-0 sm:text-2xl sm:hover:text-2xl">{{$posts->title}}</h1>
+                        <div class="mt-6 mb-2 sm:mt-0">
+                            <h1 class="text-3xl font-semibold sm:text-2xl transition-all duration-300 ease-in-out hover:text-sky-400 hover:text-4xl sm:hover:text-2xl">
+                                {{$posts->title}}
+                            </h1>
                         </div>
-                        <p class="text-[12px] font-medium sm:text-base sm:font-medium md:text-lg text-gray-500 hover:text-gray-400 tracking-wide leading-relaxed sm:ml-0 ">{{$posts->description}}</p>
-                    </a>
+                        <p class="text-[12px] font-medium sm:text-base sm:font-medium md:text-lg text-gray-500 tracking-wide leading-relaxed sm:ml-0 transition-all duration-300 ease-in-out hover:text-gray-400">
+                            {{$posts->description}}
+                        </p>
+                    </a>                    
                 </div>
 
 

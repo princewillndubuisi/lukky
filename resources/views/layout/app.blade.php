@@ -12,6 +12,68 @@
     @livewireStyles
 
     <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #D3D9D4; /* Soft neutral background */
+            color: #212A31; /* Dark blue-black text */
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            color: #124E66; /* Deep Teal for headings */
+        }
+
+        /* 🔵 Navigation */
+        .header {
+            background-color: #212A31; /* Dark navy */
+        }
+        nav ul li a {
+            color: #D3D9D4;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #124E66;
+        }
+
+        /* ✨ Buttons */
+        .btn-login {
+            color: #124E66;
+            border: 2px solid #2E3944;
+            padding: 8px 18px;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-login:hover {
+            background-color: #2E3944;
+            color: #D3D9D4;
+        }
+        .btn-signup {
+            background-color: #124E66;
+            color: #D3D9D4;
+            border: 2px solid #124E66;
+            padding: 8px 18px;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-signup:hover {
+            background-color: #2E3944;
+        }
+
+        /* Footer */
+        .footer {
+            background: #212A31;
+            color: #D3D9D4;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 18px;
+        }
+        .footer a {
+            color: #D3D9D4;
+            margin: 0 10px;
+            transition: color 0.3s ease-in-out;
+        }
+        .footer a:hover {
+            color: #124E66;
+        }
+
         .swiper-wrapper {
             width: 100%;
             height: max-content !important;
