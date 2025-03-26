@@ -19,10 +19,10 @@
 
 
 
-    <body class="font-sans text-gray-900 antialiased">
+    <body class="font-sans bg-[#D3D9D4] text-gray-900 antialiased">
 
 
-        <div class="w-11/12 overflow-hidden mx-auto sm:flex sm:w-11/12 sm:h-svh sm:gap-x-80 sm:mx-0">
+        <div class="w-11/12 overflow-hidden  mx-auto sm:flex sm:w-11/12 sm:h-svh sm:gap-x-80 sm:mx-0">
 
             <div class="hidden sm:block">
                 <img src="{{asset('images/Rectangle 53.png')}}" class="w-[540px] max-h-full object-cover" alt="">

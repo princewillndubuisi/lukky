@@ -102,7 +102,7 @@
 </head>
 <body class="font-sans">
     {{-- Start Header section --}}
-    <header class="bg-white sm:border border-judy">
+    <header id="page-top" class="bg-white sm:border border-judy">
         {{-- Start nav section --}}
         <nav class="w-11/12 mx-auto h-24 flex justify-between items-center">
             <div class="flex items-center justify-center gap-12">

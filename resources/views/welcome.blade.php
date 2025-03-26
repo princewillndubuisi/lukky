@@ -212,7 +212,7 @@
                         </div>
                     </div> --}}
                     <div class="flex justify-end items-center mt-4">
-                        <a class="flex" href="">
+                        <a class="flex" href="#page-top">
                             <i class="fa-solid fa-angle-up text-black mt-1.5"></i>
                             <p class="ml-5 font-medium text-gray-500">Back to top</p>
                         </a>

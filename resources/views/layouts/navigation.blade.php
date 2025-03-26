@@ -7,7 +7,7 @@
                 <div class="flex items-center">
                     <!-- Navigation Links -->
                     <div class="">
-                        <a href="{{route('career.apply')}}" class="text-fuchsia-950 py-3 px-4 bg-white rounded-lg border-2 border-fuchsia-400 font-semibold text-xl ">Do you want to create posts</a>
+                        <a href="{{route('career.apply')}}" class="text-fuchsia-950 py-3 px-4 bg-white rounded-lg border-2 border-fuchsia-400 font-semibold text-xl ">Create a post?</a>
                     </div>
 
                     <!-- Logo -->
@@ -145,6 +145,11 @@
                         </div>
                     </x-responsive-nav-link>
                 @endif
+{{-- 
+                <form method="POST" action="{{ route('update.picture') }}" enctype="multipart/form-data" style="display:none;" id="change-picture-form">
+                    @csrf
+                    <input type="file" id="profile-picture-input" name="photo" accept="image/*" onchange="document.getElementById('change-picture-form').submit();">
+                </form> --}}
                 {{-- <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link> --}}
