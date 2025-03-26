@@ -14,9 +14,9 @@
         @endphp --}}
 
         @if ($posts->image)
-            <div class="w-full h-[500px] border-yellow-600 py-10 grid grid-rows-3 border sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 gap-x-4">
+            <div class="w-full h-[520px] py-10 flex flex-col border sm:flex sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 gap-x-4">
 
-                <div class="w-full sm:w-[70%] sm:h-full ">
+                <div class="w-full h-[180px] sm:w-[70%] sm:h-full ">
                     <div class=" h-[48px] flex items-center">
 
                         <div class="w-[48px] h-[48px] mr-4">
@@ -56,9 +56,9 @@
                 </div>
 
 
-                <div class="h-[300px] sm:w-[40%] sm:h-52 bg-slate-50 mt-1">
-                    <img class="w-full h-full rounded-md sm:rounded-md sm:w-full sm:h-full" src="{{$posts->image}}" alt="">
-                    <div class="flex items-center justify-around my-3">
+                <div class="w-full h-[280px] sm:mt-4 sm:w-[40%] sm:h-52 bg-slate-50 mt-1">
+                    <img class="w-full h-[280px] sm:mt-4 rounded-md sm:rounded-md sm:w-full sm:h-full" src="{{$posts->image}}" alt="">
+                    <div class="flex my-4 items-center justify-around sm:my-3">
                        <livewire:like-button  :key="$posts->id" :posts="$posts"  />
                         <div class="flex items-center">
                             <i class="fa-solid fa-thumbs-down text-[10px] sm:text-xs text-slate-500"></i>
@@ -153,7 +153,7 @@
                         <a class="border border-orange-100 rounded-full py-1 px-4 font-medium text-sm bg-sky-200" href="">{{$posts->category->title}}</a>
                     </div>
 
-                    <a class="mt-2.5" href="{{route('read.post', $posts->id)}}">
+                    <a class="mt-2.5 border border-yellow-500" href="{{route('read.post', $posts->id)}}">
                         <h1 class="text-3xl font-semibold hover:text-sky-400 hover:text-4xl sm:text-2xl sm:hover:text-2xl">{{$posts->title}}</h1>
                         <p class="text-md font-medium text-gray-500 hover:text-gray-400 tracking-wide leading-loose">{{$posts->description}}</p>
                     </a>
