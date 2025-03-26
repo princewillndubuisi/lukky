@@ -14,7 +14,7 @@
         @endphp --}}
 
         @if ($posts->image)
-            <div class="w-full h-[520px] py-10 flex flex-col gap-y-4 border border-yellow-400 sm:flex sm:flex-row sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 sm:gap-x-4">
+            <div class="w-full h-[520px] py-10 flex flex-col sm:flex sm:flex-row sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 sm:gap-x-4">
 
                 <div class="w-full h-[180px] sm:w-[70%] sm:h-full ">
                     <div class=" h-[48px] flex items-center">
@@ -56,8 +56,8 @@
                 </div>
 
 
-                <div class="w-full h-[280px] sm:w-[40%] sm:h-52 bg-slate-50 mt-1">
-                    <img class="w-full h-[280px] sm:mt- rounded-md sm:rounded-md sm:w-full sm:h-full" src="{{$posts->image}}" alt="">
+                <div class="w-full h-[280px] mt-4 sm:w-[40%] sm:h-52 bg-slate-50 sm:mt-1">
+                    <img class="w-full h-full mt-4 rounded-md sm:rounded-md sm:mt-1 sm:w-full sm:h-full" src="{{$posts->image}}" alt="">
                     <div class="flex my-4 items-center justify-around sm:my-3">
                        <livewire:like-button  :key="$posts->id" :posts="$posts"  />
                         <div class="flex items-center">
