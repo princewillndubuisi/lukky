@@ -14,7 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-dark-navy">
+    <body class="font-sans antialiased bg-light-grey">
         
 
         <div class="">
