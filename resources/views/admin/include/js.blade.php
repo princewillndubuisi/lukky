@@ -6,3 +6,5 @@
 <script src="admincss/vendor/jquery-validation/jquery.validate.min.js"></script>
 <script src="admincss/js/charts-home.js"></script>
 <script src="admincss/js/front.js"></script>
+<script src="editor-sdk.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>

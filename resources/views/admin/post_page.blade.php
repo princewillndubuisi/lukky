@@ -2,45 +2,45 @@
 <html>
   <head>
     @include('admin.include.css')
-
-    <script src="editor-sdk.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
   </head>
   <body>
 
     <style>
+        /* CKEditor Styling */
         .ck-editor__editable {
-            min-height: 450px !important;
-            border-color: #343a40 !important;
+            min-height: 450px;
+            background-color: #343a40 !important;
+            color: white !important;
+            border: 1px solid #495057 !important;
+            padding: 15px !important;
         }
 
-        /* Change toolbar background color */
         .ck-toolbar {
-            background-color: #1a202c !important; /* Dark mode example */
-            border-color: #343a40 !important;
+            background-color: #1a202c !important;
+            border: 1px solid #495057 !important;
+            border-bottom: none !important;
         }
 
-        /* Change button colors */
         .ck-button {
-            background-color: #33a40 !important; /* Dark Gray */
-            color: white !important; /* Text color */
+            color: white !important;
         }
 
-
-
-        /* Change editor content background and text color */
-        .ck-editor__editable {
-            background-color: #343a40 !important; /* Dark background */
-            color: white !important; /* Text color */
-            min-height: 450px !important; /* Set height */
+        .ck-button:not(.ck-disabled):hover {
+            background-color: #2d3748 !important;
         }
 
-        /* Change placeholder text color */
+        .ck-dropdown__panel {
+            background-color: #1a202c !important;
+            border: 1px solid #495057 !important;
+        }
+
+        .ck-list__item:hover {
+            background-color: #2d3748 !important;
+        }
+
         .ck-placeholder {
             color: #b0b0b0 !important;
-            border-color: #343a40 !important;
         }
-
     </style>
 
 
@@ -144,49 +144,45 @@
     @include('admin.include.js')
 
     <script>
-        var element = document.getElementById('editor');
-
         ClassicEditor
-            .create(element, {
+            .create(document.getElementById('editor'), {
+                toolbar: {
+                    items: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'strikethrough', '|',
+                        'bulletedList', 'numberedList', 'alignment', '|',
+                        'link', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
+                        'imageUpload', '|',  // Add image upload button
+                        'undo', 'redo'
+                    ]
+                },
+                image: {
+                    toolbar: [
+                        'imageTextAlternative', '|',
+                        'imageStyle:inline', 
+                        'imageStyle:block', 
+                        'imageStyle:side', '|',
+                        'toggleImageCaption'
+                    ],
+                    styles: [
+                        'inline',
+                        'block',
+                        'side'
+                    ]
+                },
                 ckfinder: {
-                    uploadUrl: "{{ route('upload.image')}}?&_token={{ csrf_token() }}"
+                    uploadUrl: "{{ route('upload.image') }}?_token={{ csrf_token() }}",
+                    // Optional: Add headers if needed
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    }
                 }
             })
             .then(editor => {
-                console.log("Editor is ready!");
-
-                // Custom integration with SquidexFormField
-                var field = new SquidexFormField();
-
-                // Handle value changes and set the text to the editor.
-                field.onValueChanged(function (value) {
-                    if (value) {
-                        editor.setData(value);
-                    }
-                });
-
-                // Disable the editor when needed.
-                field.onDisabled(function (disabled) {
-                    editor.isReadOnly = disabled;
-                });
-
-                editor.model.document.on('change', function () {
-                    var data = editor.getData();
-
-                    // Notify UI of the value change
-                    field.valueChanged(data);
-                });
-
-                editor.ui.focusTracker.on('change:isFocused', function (event, name, isFocused) {
-                    if (!isFocused) {
-                        // Notify UI that the field has been touched.
-                        field.touched();
-                    }
-                });
-
+                console.log('Editor ready');
             })
             .catch(error => {
-                console.error("There was an error initializing CKEditor:", error);
+                console.error('Error:', error);
             });
     </script>
 

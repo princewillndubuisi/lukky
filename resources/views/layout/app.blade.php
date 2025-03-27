@@ -98,6 +98,21 @@
         .ck-editor__editable {
             min-height: 350px !important;
         }
+
+        .post-content ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+            margin: 1em 0;
+        }
+        .post-content ol li {
+            margin-bottom: 0.5em;
+        }
+        .post-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 1em 0;
+        }
+  
     </style>
 </head>
 <body class="font-sans">

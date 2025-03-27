@@ -19,7 +19,7 @@
 
 
 
-    <body class="font-sans bg-light-grey text-gray-900 antialiased">
+    <body class="font-sans bg-[#D3D9D4] text-gray-900 antialiased">
 
 
         <div class="w-11/12 overflow-hidden  mx-auto sm:flex sm:w-11/12 sm:h-svh sm:gap-x-80 sm:mx-0">

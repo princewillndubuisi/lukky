@@ -71,11 +71,10 @@
 
                                     <td>
                                         @if (Str::startsWith($post->image, 'http'))
-                                        <img src="{{ $post->image }}" alt="Image" width="100">
-                                    @else
-                                        <img src="{{ asset('storage/uploads/' . $post->image) }}" alt="Image" width="100">
-                                    @endif
-                                    
+                                            <img src="{{ $post->image }}" alt="Image" width="100">
+                                        @else
+                                            <img src="/postimage/{{$post->image}}" alt="Image" width="100">
+                                        @endif
                                     </td>
 
                                     <td class="" style="width: 10px;">
