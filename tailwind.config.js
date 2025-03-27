@@ -19,6 +19,7 @@ export default {
             },
             colors: {
                 'custom-gray': '#D9D9D9',
+                'dark-navy': '#D3D9D4',
             },
 
             screens: {
