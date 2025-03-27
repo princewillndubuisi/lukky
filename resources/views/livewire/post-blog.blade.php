@@ -14,7 +14,7 @@
         @endphp --}}
 
         @if ($posts->image)
-            <div class="w-full h-[520px] py-10 flex flex-col border border-yellow-400 sm:flex sm:flex-row sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 sm:gap-x-4">
+            <div class="w-full h-[520px] py-10 flex flex-col border sm:flex sm:flex-row sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 sm:gap-x-4">
 
                 <div class="w-full h-[180px] sm:w-[70%] sm:h-full ">
                     <div class=" h-[48px] flex items-center">
