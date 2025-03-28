@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta property="og:title" content="{{ $post->title }}">
-    <meta property="og:description" content="Read this post on The Academia Blog">
-    <meta property="og:image" content="{{ asset('storage/' . $post->image) }}">
-    <meta property="og:url" content="{{ url('/read_post/' . $post->id) }}">
-    <meta property="og:type" content="article">
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
