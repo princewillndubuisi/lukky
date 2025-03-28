@@ -69,8 +69,8 @@
                             <p class="text-slate-500 text-[10px] sm:text-xs ml-2">{{$posts->comments()->count()}}</p>
                         </div>
                          <div class="flex items-center">
-                            <a href="#" onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ asset('storage/' . $posts->image) }}')">
-                                <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
+                            <a href="#" onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ $posts->image}}')">
+                                <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
                             </a>
                         </div>                       
                     </div>
@@ -192,19 +192,20 @@
 
 <script>
     function sharePost(postId, postTitle, postImage) {
-        const postUrl = window.location.origin + "/posts/" + postId;
-        
-        if (navigator.share) {
-            navigator.share({
-                title: postTitle,
-                text: postTitle,
-                url: postUrl
-            }).then(() => console.log('Post shared successfully'))
-              .catch((error) => console.error('Error sharing:', error));
-        } else {
-            alert("Your browser doesn't support native sharing. Try copying the link instead.");
-        }
+    const postUrl = "{{ url('/read_post') }}/" + postId;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: postTitle,
+            text: postTitle,
+            url: postUrl
+        }).then(() => console.log('Post shared successfully'))
+          .catch((error) => console.error('Error sharing:', error));
+    } else {
+        alert("Your browser doesn't support native sharing. Try copying the link: " + postUrl);
     }
+}
+
 </script>
 
 
