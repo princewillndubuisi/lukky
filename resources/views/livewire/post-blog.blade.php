@@ -68,11 +68,11 @@
                             <i class="fa-solid fa-comments text-[10px] sm:text-xs text-slate-500"></i>
                             <p class="text-slate-500 text-[10px] sm:text-xs ml-2">{{$posts->comments()->count()}}</p>
                         </div>
-                        <button onclick="sharePost()" class="flex items-center">
-                            <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
-                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">Share</p>
-                        </button>
-                                               
+                         <div class="flex items-center">
+                            <a href="#" onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ asset('storage/' . $posts->image) }}')">
+                                <i class="fa-solid fa-share-nodes text-xs text-slate-500"></i>
+                            </a>
+                        </div>                       
                     </div>
                 </div>
             </div>
@@ -191,19 +191,22 @@
 </div>
 
 <script>
-    function sharePost() {
+    function sharePost(postId, postTitle, postImage) {
+        const postUrl = window.location.origin + "/posts/" + postId;
+        
         if (navigator.share) {
             navigator.share({
-                title: document.title,
-                text: "Check out this post on TatDaily!",
-                url: window.location.href
-            })
-            .then(() => console.log('Post shared successfully'))
-            .catch((error) => console.error('Error sharing:', error));
+                title: postTitle,
+                text: postTitle,
+                url: postUrl
+            }).then(() => console.log('Post shared successfully'))
+              .catch((error) => console.error('Error sharing:', error));
         } else {
-            alert('Your browser does not support the share feature.');
+            alert("Your browser doesn't support native sharing. Try copying the link instead.");
         }
     }
 </script>
+
+
 
 
