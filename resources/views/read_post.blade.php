@@ -199,7 +199,7 @@
 
                     <div class="mt-16">
                         <div class="w-[100%] h-64">
-                            <img class="w-full h-full" src="{{$otherPost->image}}" alt="">
+                            <img class="w-full h-full rounded-md" src="{{$otherPost->image}}" alt="">
                         </div>
 
                         <div class="flex items-center gap-4 font-medium text-sm text-black ">

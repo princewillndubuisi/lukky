@@ -95,6 +95,42 @@
             }
         }
 
+         /* CKEditor Styling */
+         .ck-editor__editable {
+            min-height: 450px;
+            background-color: #343a40 !important;
+            color: white !important;
+            border: 1px solid #495057 !important;
+            padding: 15px !important;
+        }
+
+        .ck-toolbar {
+            background-color: #1a202c !important;
+            border: 1px solid #495057 !important;
+            border-bottom: none !important;
+        }
+
+        .ck-button {
+            color: white !important;
+        }
+
+        .ck-button:not(.ck-disabled):hover {
+            background-color: #2d3748 !important;
+        }
+
+        .ck-dropdown__panel {
+            background-color: #1a202c !important;
+            border: 1px solid #495057 !important;
+        }
+
+        .ck-list__item:hover {
+            background-color: #2d3748 !important;
+        }
+
+        .ck-placeholder {
+            color: #b0b0b0 !important;
+        }
+
         .ck-editor__editable {
             min-height: 350px !important;
         }
@@ -174,5 +210,6 @@
     <script type="module" src="https://unpkg.com/@material-tailwind/html@latest/scripts/popover.js"></script>
     <script src="{{ asset('js/script.js') }}"></script>
     @stack('script')
+
 </body>
 </html>

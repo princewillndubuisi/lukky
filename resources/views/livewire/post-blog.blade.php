@@ -14,7 +14,7 @@
         @endphp --}}
 
         @if ($posts->image)
-            <div class="w-full h-[520px] py-10 flex flex-col border sm:flex sm:flex-row sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 sm:gap-x-4">
+            <div class="w-full h-[520px] rounded-md py-10 flex flex-col border sm:flex sm:flex-row sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 sm:gap-x-4">
 
                 <div class="w-full h-[180px] sm:w-[70%] sm:h-full ">
                     <div class=" h-[48px] flex items-center">
@@ -68,10 +68,11 @@
                             <i class="fa-solid fa-comments text-[10px] sm:text-xs text-slate-500"></i>
                             <p class="text-slate-500 text-[10px] sm:text-xs ml-2">{{$posts->comments()->count()}}</p>
                         </div>
-                        <div class="flex items-center">
+                        <button onclick="sharePost()" class="flex items-center">
                             <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
-                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
-                        </div>
+                            <p class="text-slate-500 text-[10px] sm:text-xs ml-2">Share</p>
+                        </button>
+                                               
                     </div>
                 </div>
             </div>
@@ -188,3 +189,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    function sharePost() {
+        if (navigator.share) {
+            navigator.share({
+                title: document.title,
+                text: "Check out this post on TatDaily!",
+                url: window.location.href
+            })
+            .then(() => console.log('Post shared successfully'))
+            .catch((error) => console.error('Error sharing:', error));
+        } else {
+            alert('Your browser does not support the share feature.');
+        }
+    }
+</script>
+
+
