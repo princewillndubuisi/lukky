@@ -69,7 +69,7 @@
                             <p class="text-slate-500 text-[10px] sm:text-xs ml-2">{{$posts->comments()->count()}}</p>
                         </div>
                          <div class="flex items-center">
-                            <a href="#" onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ $posts->image}}')">
+                            <a href="#" onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ asset('storage/' . $posts->image) }}')">
                                 <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
                             </a>
                         </div>                       
