@@ -4,6 +4,10 @@
     Home
 @endsection
 
+@section('og_title', $post->first()?->title ?? 'Default Title')
+@section('og_image', asset('storage/' . ($post->first()?->image ?? 'default.jpg')))
+
+
 @section('content')
     {{-- Start main section --}}
     <main class="bg-prince h-full">
