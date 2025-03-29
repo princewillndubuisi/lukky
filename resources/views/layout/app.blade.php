@@ -205,7 +205,8 @@
             <a href=""><i class="fa-brands fa-square-facebook"></i></a>
             <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
             <a href=""><i class="fa-regular fa-envelope"></i></a>
-            <a href="">Rss feed</a>
+            <a href=""><i class="fa-brands fa-whatsapp"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
         </div>
     </div>
     {{-- End Footer section --}}
