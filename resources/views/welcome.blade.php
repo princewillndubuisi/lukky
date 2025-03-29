@@ -9,7 +9,7 @@
     <main class="bg-prince h-full">
         <div class="my-2 h-12 flex justify-center items-center">
             <div class="w-11/12 mx-auto flex justify-center items-center">
-                <p class="w-[92px] h-[28px] text-[12px] rounded-xl flex justify-center items-center text-gray-500 sm:w-32 sm:rounded-lg sm:py-1 font-semibold sm:text-xl ">Live News</p>
+                <p class="w-[92px] h-[28px] text-[12px] rounded-xl bg-red-500 flex justify-center items-center text-white sm:w-32 sm:rounded-lg sm:py-1 font-semibold sm:text-xl ">Live News</p>
                 <marquee class="text-[10px] ml-8 text-dark font-semibold sm:text-xl" behavior="" direction="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium hic nobis fugiat eaque inventore quo, neque saepe quaerat cumque nihil nostrum soluta, velit facere perspiciatis nisi in obcaecati, molestias dignissimos.</marquee>
             </div>
         </div>
@@ -43,7 +43,7 @@
             <div class="slider h-[323px] mt-12 overflow-hidden grid grid-flow-col auto-cols-[80%] xs:gap-x-6 sm:h-[400px] sm:mt-0 sm:auto-cols-[25%] sm:gap-x-6 sm:items-center sm:overflow-hidden">
                 @foreach ($ten as $tens)
                     <div class="w-[267px] h-inherit sm:w-80 sm:h-80">
-                        <a  href="">
+                        <a  href="{{route('read.post', $tens->id)}}">
                             <div class="w-[267px] h-[256px] sm:h-full sm:w-full">
                                 @if ($tens->image)
                                     <img class="block w-full h-full object-cover rounded-[1rem] sm:h-full sm:w-full sm:rounded-[1rem]" src="{{$tens->image}}" alt="">

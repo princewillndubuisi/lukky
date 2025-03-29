@@ -149,6 +149,12 @@
             padding-left: 20px;
             margin: 1em 0;
         }
+
+        a {
+            pointer-events: auto;
+            position: relative;
+            z-index: 10;
+        }
   
     </style>
 </head>
@@ -164,9 +170,9 @@
 
                 <div class="hidden sm:block sm:ml-10">
                     <ul class="font-semibold text-xl flex gap-x-14">
-                        <li class="hover:text-slate-500"><a href="{{url('/')}}">Home</a></li>
-                        <li class="hover:text-slate-500"><a href="{{route('career')}}">Career</a></li>
-                        <li class="hover:text-slate-500"><a href="">About Us</a></li>
+                        <li class="text-gray-500 hover:text-slate-500"><a href="{{url('/')}}">Home</a></li>
+                        <li class="text-gray-500 hover:text-slate-500"><a href="{{route('career')}}">Career</a></li>
+                        <li class="text-gray-500 hover:text-slate-500"><a href="">About Us</a></li>
                     </ul>
                 </div>
             </div>
