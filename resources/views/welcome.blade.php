@@ -81,28 +81,6 @@
             </div>
         </div>
         
-        <style>
-            /* Add this CSS without changing your JS */
-            .slider a {
-                position: relative;
-                z-index: 10; /* Higher than buttons */
-            }
-            
-            /* Make sure slider items can be clicked */
-            .slider > div {
-                pointer-events: auto;
-            }
-            
-            /* Buttons container doesn't block clicks */
-            .pointer-events-none {
-                pointer-events: none;
-            }
-            
-            /* Buttons themselves are clickable */
-            .pointer-events-auto {
-                pointer-events: auto;
-            }
-        </style>
         {{--End Trending news section --}}
 
         {{-- Start Your timeline section --}}
@@ -162,11 +140,11 @@
                         @else
                             <div class="flex items-center justify-center h-full bg-red-50">
                                 <p class="text-red-500 font-bold">NO ADVERTS FOUND! Check:</p>
-                                <ul class="list-disc ml-6 text-red-500">
+                                {{-- <ul class="list-disc ml-6 text-red-500">
                                     <li>Database records exist</li>
                                     <li>Files are in storage/app/public</li>
                                     <li>Storage is linked (php artisan storage:link)</li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         @endif
                     </div>
