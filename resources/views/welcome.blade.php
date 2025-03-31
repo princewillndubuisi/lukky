@@ -139,7 +139,7 @@
                             <x-advert-card :adverts="$adverts" />
                         @else
                             <div class="flex items-center justify-center h-full bg-red-50">
-                                <p class="text-red-500 font-bold">NO ADVERTS FOUND! Check:</p>
+                                <p class="text-red-500 font-bold">NO ADVERTS FOUND!</p>
                                 {{-- <ul class="list-disc ml-6 text-red-500">
                                     <li>Database records exist</li>
                                     <li>Files are in storage/app/public</li>

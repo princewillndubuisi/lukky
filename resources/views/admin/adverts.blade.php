@@ -78,7 +78,7 @@
                                         <a href="{{route('advert.edit', ['id' => $advert->id])}}" class="btn btn-warning">Edit</a>
                                     </td>
                                     <td>
-                                        <a href="" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
+                                        <a href="{{route('advert.delete', ['id' => $advert->id])}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

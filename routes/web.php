@@ -96,7 +96,8 @@ Route::middleware(['auth', Admin::class])->group(function(){
     Route::get('add_advert', [AdvertController::class, 'add_advert'])->name('add.advert');
     Route::post('store_advert', [AdvertController::class, 'store_advert'])->name('advert.store');
     Route::get('edit_advert/{id}', [AdvertController::class, 'edit_advert'])->name('advert.edit');
-    Route::put('update_advert{id}', [AdvertController::class, 'update_advert'])->name('advert.update');
+    Route::put('update_advert/{id}', [AdvertController::class, 'update_advert'])->name('advert.update');
+    Route::get('delete_advert/{id}', [AdvertController::class, 'delete_advert'])->name('advert.delete');
 });
 
 

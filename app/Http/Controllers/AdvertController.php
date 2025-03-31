@@ -88,4 +88,10 @@ class AdvertController extends Controller
 
         return redirect()->route('show.advert')->with('success', 'Advert created successfully');
     }
+
+    public function delete_advert($id) {
+        $advert = Advert::find($id)->delete();
+
+        return redirect()->back()->with('success', 'Career deleted successfully');
+    }
 }
