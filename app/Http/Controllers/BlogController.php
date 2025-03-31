@@ -6,6 +6,7 @@ use DOMDocument;
 use DOMElement;
 use App\Models\Tag;
 use Illuminate\Support\Str;
+use App\Models\Advert;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Click;
@@ -29,6 +30,8 @@ class BlogController extends Controller
 
             $ten = Post::where('post_status', '=', 'active')->latest()->take(8)->get();
 
+            $adverts = Advert::where('is_active', true)->get();
+
             $user = User::get();
 
             $users = User::count();
@@ -39,11 +42,11 @@ class BlogController extends Controller
 
             switch ($usertype) {
                 case 'user':
-                    return view('welcome', compact('post', 'category', 'ten'));
+                    return view('welcome', compact('post', 'category', 'ten', 'adverts'));
                 case 'admin':
                     return view('admin.admin', compact('user','users', 'blogs'));
                 case 'editor':
-                    return view('welcome', compact('post', 'category', 'ten'));
+                    return view('welcome', compact('post', 'category', 'ten', 'adverts'));
                 default:
                     return redirect()->back();
             }
@@ -85,9 +88,11 @@ class BlogController extends Controller
 
         $category = Category::all();
 
+        $adverts = Advert::where('is_active', true)->get();
+
         $ten = Post::where('post_status', '=', 'active')->latest()->take(8)->get();
 
-        return view('welcome', compact('post', 'category', 'ten'));
+        return view('welcome', compact('post', 'category', 'ten', 'adverts'));
     }
 
     // User Create postpage

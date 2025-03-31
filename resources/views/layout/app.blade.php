@@ -95,6 +95,27 @@
                 font-size: 55%;
             }
         }
+        
+         /* Add this CSS without changing your JS */
+        .slider a {
+            position: relative;
+            z-index: 10; /* Higher than buttons */
+        }
+        
+        /* Make sure slider items can be clicked */
+        .slider > div {
+            pointer-events: auto;
+        }
+        
+        /* Buttons container doesn't block clicks */
+        .pointer-events-none {
+            pointer-events: none;
+        }
+        
+        /* Buttons themselves are clickable */
+        .pointer-events-auto {
+            pointer-events: auto;
+        }
 
          /* CKEditor Styling */
          .ck-editor__editable {

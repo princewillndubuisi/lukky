@@ -1,137 +1,180 @@
-const carousel = document.querySelector('.slider');
-const leftButton = document.getElementById('leftButton');
-const rightButton = document.getElementById('rightButton');
+document.addEventListener("DOMContentLoaded", function () {
+    const carousel = document.querySelector(".slider");
+    const leftButton = document.getElementById("leftButton");
+    const rightButton = document.getElementById("rightButton");
+    let autoScroll;
+    let isDragging = false;
+    let startX, scrollLeft;
+    let animationId;
+    let isScrolling = false;
 
-let autoScroll;
-
-// Calculate scroll amount based on screen size
-function getScrollAmount() {
-    const itemWidth = carousel.querySelector('div')?.offsetWidth || 200; // fallback width
-    return itemWidth;
-}
-
-// Calculate auto-scroll interval based on screen size
-function getAutoScrollInterval() {
-    const baseInterval = 10000; // Base interval for a standard screen size (e.g., 1920px)
-    const screenWidth = window.innerWidth;
-    const standardScreenWidth = 1920; // Reference screen width
-    return (baseInterval * screenWidth) / standardScreenWidth;
-}
-
-// Function to scroll the carousel to the right
-function scrollRight() {
-    const scrollAmount = getScrollAmount();
-    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    showLeftButton();
-    checkIfEndReached();
-}
-
-// Function to scroll the carousel to the left
-function scrollLeft() {
-    const scrollAmount = getScrollAmount();
-    carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    checkScrollPosition();
-}
-
-// Show the left button
-function showLeftButton() {
-    leftButton.style.opacity = '1';
-    leftButton.style.pointerEvents = 'auto';
-}
-
-// Check scroll position to hide the left button if at the start
-function checkScrollPosition() {
-    if (carousel.scrollLeft <= 0) {
-        leftButton.style.opacity = '0';
-        leftButton.style.pointerEvents = 'none';
-    }
-}
-
-// Check if the end of the carousel is reached
-function checkIfEndReached() {
-    // Add a small buffer (e.g., 5px) to account for rounding errors
-    const buffer = 5;
-    if (carousel.scrollLeft + carousel.clientWidth + buffer >= carousel.scrollWidth) {
-        // Reset to the start
-        carousel.scrollTo({ left: 0, behavior: 'smooth' });
-        leftButton.style.opacity = '0';
-        leftButton.style.pointerEvents = 'none';
-    }
-}
-
-// Automatic scrolling
-function startAutoScroll() {
-    const interval = getAutoScrollInterval();
-    autoScroll = setInterval(scrollRight, interval);
-}
-
-// Pause auto-scroll on hover
-carousel.addEventListener('mouseenter', () => {
-    clearInterval(autoScroll);
-});
-
-// Resume auto-scroll when mouse leaves
-carousel.addEventListener('mouseleave', () => {
-    startAutoScroll();
-});
-
-// Manual scroll buttons
-rightButton.addEventListener('click', () => {
-    scrollRight();
-    resetAutoScroll();
-});
-
-leftButton.addEventListener('click', () => {
-    scrollLeft();
-    resetAutoScroll();
-});
-
-// Reset the auto-scroll interval
-function resetAutoScroll() {
-    clearInterval(autoScroll);
-    startAutoScroll();
-}
-
-// Hover-and-move functionality
-let isHovering = false;
-let previousX = 0;
-
-carousel.addEventListener('mousemove', (e) => {
-    if (!isHovering) return;
-
-    const currentX = e.pageX - carousel.offsetLeft;
-    const deltaX = currentX - previousX;
-
-    if (deltaX > 0) {
-        // Move right
-        carousel.scrollBy({ left: 10, behavior: 'auto' });
-    } else if (deltaX < 0) {
-        // Move left
-        carousel.scrollBy({ left: -10, behavior: 'auto' });
+    // Enhanced scroll amount calculation
+    function getScrollAmount() {
+        const itemWidth = carousel.querySelector('div')?.offsetWidth || carousel.clientWidth / 2;
+        return Math.min(itemWidth, carousel.clientWidth * 0.8); // Never scroll more than 80% of viewport
     }
 
-    previousX = currentX;
-    checkScrollPosition();
-    checkIfEndReached();
-});
+    // Smoother scroll animation using easing function
+    function smoothScroll(targetPosition) {
+        if (isScrolling) return;
+        isScrolling = true;
+        
+        const startPosition = carousel.scrollLeft;
+        const distance = targetPosition - startPosition;
+        const duration = Math.min(800, 300 + Math.abs(distance) * 0.3); // Dynamic duration
+        let startTime = null;
 
-carousel.addEventListener('mouseenter', () => {
-    isHovering = true;
-});
+        // Easing function for smoother animation
+        function easeOutQuad(t) {
+            return t * (2 - t);
+        }
 
-carousel.addEventListener('mouseleave', () => {
-    isHovering = false;
-});
+        function animateScroll(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            const easedProgress = easeOutQuad(progress);
+            
+            carousel.scrollLeft = startPosition + distance * easedProgress;
+            
+            if (progress < 1) {
+                animationId = requestAnimationFrame(animateScroll);
+            } else {
+                isScrolling = false;
+                updateButtonVisibility();
+            }
+        }
 
-// Initialize carousel functionality
-function initCarousel() {
-    leftButton.style.opacity = '0';
-    leftButton.style.pointerEvents = 'none';
+        cancelAnimationFrame(animationId);
+        animationId = requestAnimationFrame(animateScroll);
+    }
+
+    // Improved button visibility with transitions
+    function updateButtonVisibility() {
+        const buffer = 10; // Small buffer to prevent flickering
+        const atStart = carousel.scrollLeft <= buffer;
+        const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - buffer;
+        
+        leftButton.style.transition = 'opacity 0.3s ease';
+        rightButton.style.transition = 'opacity 0.3s ease';
+        
+        leftButton.style.opacity = atStart ? "0" : "1";
+        rightButton.style.opacity = atEnd ? "0" : "1";
+        
+        leftButton.style.pointerEvents = atStart ? "none" : "auto";
+        rightButton.style.pointerEvents = atEnd ? "none" : "auto";
+    }
+
+    // Auto-scroll with pause on interaction
+    function startAutoScroll() {
+        clearInterval(autoScroll);
+        autoScroll = setInterval(() => {
+            if (isDragging || isScrolling) return;
+            
+            if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
+                smoothScroll(0); // Loop back to start
+            } else {
+                smoothScroll(carousel.scrollLeft + getScrollAmount());
+            }
+        }, 6000); // 6 second interval
+    }
+
+    // Handle button clicks
+    function handleButtonClick(direction) {
+        if (isScrolling) return;
+        
+        const currentScroll = carousel.scrollLeft;
+        const scrollAmount = getScrollAmount();
+        let targetPosition;
+        
+        if (direction === 'right') {
+            targetPosition = Math.min(currentScroll + scrollAmount, carousel.scrollWidth - carousel.clientWidth);
+        } else {
+            targetPosition = Math.max(currentScroll - scrollAmount, 0);
+        }
+        
+        smoothScroll(targetPosition);
+        resetAutoScroll();
+    }
+
+    rightButton.addEventListener("click", () => handleButtonClick('right'));
+    leftButton.addEventListener("click", () => handleButtonClick('left'));
+
+    // Enhanced dragging with momentum
+    carousel.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+        carousel.style.cursor = "grabbing";
+        carousel.style.scrollBehavior = "auto";
+        resetAutoScroll();
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+        if (isDragging) {
+            isDragging = false;
+            carousel.style.cursor = "grab";
+            updateButtonVisibility();
+            startAutoScroll();
+        }
+    });
+
+    carousel.addEventListener("mouseup", () => {
+        if (isDragging) {
+            isDragging = false;
+            carousel.style.cursor = "grab";
+            updateButtonVisibility();
+            startAutoScroll();
+        }
+    });
+
+    carousel.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 2.5; // Increased sensitivity
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+
+    // Touch support for mobile devices
+    carousel.addEventListener("touchstart", (e) => {
+        isDragging = true;
+        startX = e.touches[0].pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+        resetAutoScroll();
+    }, { passive: false });
+
+    carousel.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        
+        const x = e.touches[0].pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 2.5;
+        carousel.scrollLeft = scrollLeft - walk;
+    }, { passive: false });
+
+    carousel.addEventListener("touchend", () => {
+        isDragging = false;
+        updateButtonVisibility();
+        startAutoScroll();
+    });
+
+    // Initialize
+    carousel.addEventListener("scroll", () => {
+        if (!isDragging) {
+            updateButtonVisibility();
+        }
+    });
+
+    // Responsive adjustments
+    function handleResize() {
+        cancelAnimationFrame(animationId);
+        isScrolling = false;
+        updateButtonVisibility();
+    }
+
+    window.addEventListener("resize", handleResize);
+    updateButtonVisibility();
     startAutoScroll();
-}
-
-// Initialize on page load
-initCarousel();
-
-// Re-initialize on window resize
-window.addEventListener('resize', initCarousel);
+});
