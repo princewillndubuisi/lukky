@@ -26,7 +26,7 @@ class BlogController extends Controller
         if (Auth::id()) {
             $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(4);
 
-            $marq = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->take(10);
+            $marq = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->take(6);
 
             $category = Category::all();
 
@@ -88,7 +88,7 @@ class BlogController extends Controller
     public function welcome() {
         $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(4);
 
-        $marq = Post::where('post_status', '=', 'active')->orderBy('created_at', direction: 'desc')->take(10);
+        $marq = Post::where('post_status', '=', 'active')->orderBy('created_at', direction: 'desc')->take(6);
 
 
         $category = Category::all();
