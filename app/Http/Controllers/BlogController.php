@@ -24,7 +24,9 @@ class BlogController extends Controller
 
     public function home() {
         if (Auth::id()) {
-            $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(3);
+            $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(4);
+
+            $marq = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->get(10);
 
             $category = Category::all();
 
@@ -42,11 +44,11 @@ class BlogController extends Controller
 
             switch ($usertype) {
                 case 'user':
-                    return view('welcome', compact('post', 'category', 'ten', 'adverts'));
+                    return view('welcome', compact('post', 'category', 'ten', 'adverts', 'marq'));
                 case 'admin':
                     return view('admin.admin', compact('user','users', 'blogs'));
                 case 'editor':
-                    return view('welcome', compact('post', 'category', 'ten', 'adverts'));
+                    return view('welcome', compact('post', 'category', 'ten', 'adverts', 'marq'));
                 default:
                     return redirect()->back();
             }
@@ -84,7 +86,10 @@ class BlogController extends Controller
 
     // User show post
     public function welcome() {
-        $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(3);
+        $post = Post::where('post_status', '=', 'active')->orderBy('created_at', 'desc')->paginate(4);
+
+        $marq = Post::where('post_status', '=', 'active')->orderBy('created_at', direction: 'desc')->get(10);
+
 
         $category = Category::all();
 
@@ -92,7 +97,7 @@ class BlogController extends Controller
 
         $ten = Post::where('post_status', '=', 'active')->latest()->take(8)->get();
 
-        return view('welcome', compact('post', 'category', 'ten', 'adverts'));
+        return view('welcome', compact('post', 'category', 'ten', 'adverts', 'marq'));
     }
 
     // User Create postpage

@@ -10,7 +10,15 @@
         <div class="my-2 h-12 flex justify-center items-center">
             <div class="w-11/12 mx-auto flex justify-center items-center">
                 <p class="w-[92px] h-[28px] text-[12px] rounded-xl bg-red-500 flex justify-center items-center text-white sm:w-32 sm:rounded-lg sm:py-1 font-semibold sm:text-xl ">Live News</p>
-                <marquee class="text-[10px] ml-8 text-dark font-semibold sm:text-xl" behavior="" direction="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium hic nobis fugiat eaque inventore quo, neque saepe quaerat cumque nihil nostrum soluta, velit facere perspiciatis nisi in obcaecati, molestias dignissimos.</marquee>
+                <marquee class="text-[10px] ml-8 text-dark font-semibold sm:text-xl" behavior="" direction="">
+                    @foreach($marq as $marqs)
+                        <a href="{{route('read.post', $marqs->id)}}">
+                            <strong class="mr-8 underline">
+                                {{$marqs->title}}
+                            </strong>  
+                        </a>
+                    @endforeach
+                </marquee>
             </div>
         </div>
 
