@@ -78,16 +78,18 @@
                 <div class="w-[90%] mx-auto mt-8 sm:w-[90%] sm:mx-auto sm:mt-2">
                     <div class="flex justify-between items-center gap-4 px-3">
                         <div class="">
-                            <i class="fa-solid fa-thumbs-up text-black text-3xl mr-5"></i>
-                            <span class="text-black text-xl font-semibold ml-1">10.0K</span>
+                            <i class="fa-solid fa-thumbs-up text-black text-3xl mr-3"></i>
+                            <span class="text-black text-xl font-semibold ml-1">{{ $post->likes()->count() }}</span>
                         </div>
                         <div class="py-2 px-4">
-                            <i class="fa-solid fa-comments text-black text-3xl mr-5"></i>
-                            <span class="text-black text-xl font-semibold ml-1">10.0K </span>
+                            <i class="fa-solid fa-comments text-black text-3xl mr-3"></i>
+                            <span class="text-black text-xl font-semibold ml-1">{{$post->comments()->count()}}</span>
                         </div>
                         <div class="py-2 px-4">
-                            <i class="fa-solid fa-share-nodes text-black text-3xl mr-5"></i>
-                            <span class="text-black text-xl font-semibold ml-1">10.0K </span>
+                            <a href="#" onclick="sharePost('{{ $post->id }}', '{{ $post->title }}', '{{ asset('storage/' . $post->image) }}')">
+                                <i class="fa-solid fa-share-nodes text-black text-3xl mr-5"></i>
+                                {{-- <span class="text-black text-xl font-semibold ml-1">10.0K </span> --}}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -233,3 +235,22 @@
     </div>
     {{-- End Main post section --}}
 @endsection
+
+@push('script')
+    <script>
+        function sharePost(postId, postTitle, postImage) {
+            const postUrl = "{{ url('/read_post') }}/" + postId;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: postTitle,
+                    text: postTitle,
+                    url: postUrl
+                }).then(() => console.log('Post shared successfully'))
+                .catch((error) => console.error('Error sharing:', error));
+            } else {
+                alert("Your browser doesn't support native sharing. Try copying the link: " + postUrl);
+            }
+        }
+    </script>
+@endpush

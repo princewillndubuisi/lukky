@@ -192,20 +192,19 @@
 
 <script>
     function sharePost(postId, postTitle, postImage) {
-    const postUrl = "{{ url('/read_post') }}/" + postId;
-    
-    if (navigator.share) {
-        navigator.share({
-            title: postTitle,
-            text: postTitle,
-            url: postUrl
-        }).then(() => console.log('Post shared successfully'))
-          .catch((error) => console.error('Error sharing:', error));
-    } else {
-        alert("Your browser doesn't support native sharing. Try copying the link: " + postUrl);
+        const postUrl = "{{ url('/read_post') }}/" + postId;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: postTitle,
+                text: postTitle,
+                url: postUrl
+            }).then(() => console.log('Post shared successfully'))
+            .catch((error) => console.error('Error sharing:', error));
+        } else {
+            alert("Your browser doesn't support native sharing. Try copying the link: " + postUrl);
+        }
     }
-}
-
 </script>
 
 
