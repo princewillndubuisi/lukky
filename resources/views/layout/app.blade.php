@@ -188,7 +188,7 @@
             {{-- Logo and Links --}}
             <div class="flex items-center gap-6">
                 <div class="sm:w-90">
-                    <h1 class="text-[15px] font-medium text-black sm:text-[35px] ">THE ACADEMIC TIMES</h1>
+                    <h1 class="text-[15px] font-medium sm:font-medium text-black sm:font-medium sm:text-[35px] ">THE ACADEMIC TIMES</h1>
                 </div>
 
                 {{-- Desktop Navigation --}}
