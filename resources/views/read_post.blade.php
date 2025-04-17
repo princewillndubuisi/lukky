@@ -90,6 +90,7 @@
                                 <i class="fa-solid fa-share-nodes text-black text-3xl mr-5"></i>
                                 {{-- <span class="text-black text-xl font-semibold ml-1">10.0K </span> --}}
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -240,7 +241,7 @@
     <script>
         function sharePost(postId, postTitle, postImage) {
             const postUrl = "{{ url('/read_post') }}/" + postId;
-            
+
             if (navigator.share) {
                 navigator.share({
                     title: postTitle,

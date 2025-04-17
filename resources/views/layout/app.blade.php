@@ -18,10 +18,11 @@
             background-color: #D3D9D4; /* Soft neutral background */
             color: #212A31; /* Dark blue-black text */
         }
-        
+
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-            color: #124E66; /* Deep Teal for headings */
+            font-family: 'Inter', sans-serif;
+
+             /* Deep Teal for headings */
         }
 
         /* 🔵 Navigation */
@@ -29,7 +30,7 @@
             background-color: #212A31; /* Dark navy */
         }
         nav ul li a {
-            
+
             transition: color 0.3s ease;
         }
         nav ul li a:hover {
@@ -95,23 +96,23 @@
                 font-size: 55%;
             }
         }
-        
+
          /* Add this CSS without changing your JS */
         .slider a {
             position: relative;
             z-index: 10; /* Higher than buttons */
         }
-        
+
         /* Make sure slider items can be clicked */
         .slider > div {
             pointer-events: auto;
         }
-        
+
         /* Buttons container doesn't block clicks */
         .pointer-events-none {
             pointer-events: none;
         }
-        
+
         /* Buttons themselves are clickable */
         .pointer-events-auto {
             pointer-events: auto;
@@ -176,45 +177,82 @@
             position: relative;
             z-index: 10;
         }
-  
+
     </style>
 </head>
 <body class="font-sans">
     {{-- Start Header section --}}
-    <header id="page-top" class="bg-white sm:border border-judy">
+    <header id="page-top" class="bg-white  sm:border border-judy">
         {{-- Start nav section --}}
         <nav class="w-11/12 mx-auto h-24 flex justify-between items-center">
-            <div class="flex items-center justify-center gap-12">
-                <div class="w-40">
-                    <img class="" src="{{asset('images/3.jpg')}}" alt="">
+            {{-- Logo and Links --}}
+            <div class="flex items-center gap-6">
+                <div class="sm:w-90">
+                    <h1 class="text-[15px] font-medium text-black sm:text-[35px] ">THE ACADEMIC TIMES</h1>
                 </div>
 
+                {{-- Desktop Navigation --}}
                 <div class="hidden sm:block sm:ml-10">
-                    <ul class="font-semibold text-xl flex gap-x-14">
-                        <li class="text-slate-500 hover:text-slate-300"><a href="{{url('/')}}">Home</a></li>
-                        <li class="text-slate-500 hover:text-slate-300"><a href="{{route('career')}}">Career</a></li>
-                        <li class="text-slate-500 hover:text-slate-300"><a href="">About Us</a></li>
+                    <ul class="font-semibold text-xl flex gap-x-10 text-slate-600">
+                        <li><a href="{{ url('/') }}" class="hover:text-indigo-600">Home</a></li>
+                        <li><a href="{{ route('career') }}" class="hover:text-indigo-600">Career</a></li>
+                        <li><a href="#" class="hover:text-indigo-600">About Us</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="flex items-center">
-                @if (Route::has('login'))
-                    @auth
-                        <x-app-layout></x-app-layout>
-                    @else
-                        <a href="{{route('login')}}">
-                            <button class="text-fuchsia-950 bg-white py-1 px-6 rounded-lg border-2 border-fuchsia-400 font-semibold text-xl">Log in</button>
-                        </a>
-                        <a href="{{route('register')}}" class="ml-4">
-                            <button class="text-white bg-sky-500 py-1 px-6 rounded-lg border-2 border-blue-500 font-semibold text-xl">Sign up</button>
-                        </a>
-                    @endauth
-                @endif
+            {{-- Auth Buttons - Desktop --}}
+            <div class="hidden sm:flex items-center gap-4">
+                @auth
+                    <x-app-layout />
+                @else
+                    <a href="{{ route('login') }}">
+                        <button class="text-fuchsia-950 bg-white py-1 px-5 rounded-lg border-2 border-fuchsia-400 font-semibold text-lg hover:bg-fuchsia-50 transition">
+                            Sign in
+                        </button>
+                    </a>
+                    <a href="{{ route('register') }}">
+                        <button class="text-white bg-sky-500 py-1 px-5 rounded-lg border-2 border-blue-500 font-semibold text-lg hover:bg-sky-600 transition">
+                            Sign up
+                        </button>
+                    </a>
+                @endauth
+            </div>
+
+            {{-- Hamburger - Mobile --}}
+            <div class="sm:hidden">
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <svg class="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
             </div>
         </nav>
+
+        {{-- Mobile Menu --}}
+        <div id="mobile-menu" class="sm:hidden hidden px-6 pb-4">
+            <ul class="flex flex-col gap-4 font-semibold text-lg text-slate-700">
+                <li><a href="{{ url('/') }}" class="block hover:text-indigo-600">Home</a></li>
+                <li><a href="{{ route('career') }}" class="block hover:text-indigo-600">Career</a></li>
+                <li><a href="#" class="block hover:text-indigo-600">About Us</a></li>
+
+                @auth
+                    <li>
+                        <x-app-layout />
+                    </li>
+                @else
+                    <li><a href="{{ route('login') }}" class="block text-slate-600 hover:text-indigo-600">Sign in</a></li>
+                    <li>
+                        <a href="{{ route('register') }}" class="block bg-sky-500 text-white px-4 py-2 text-center rounded-md hover:bg-sky-600 transition">
+                            Sign Up
+                        </a>
+                    </li>
+                @endauth
+            </ul>
+        </div>
         {{-- End nav section --}}
     </header>
+
     {{-- End Header section --}}
 
     @yield('content')

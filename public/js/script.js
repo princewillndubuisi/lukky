@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function smoothScroll(targetPosition) {
         if (isScrolling) return;
         isScrolling = true;
-        
+
         const startPosition = carousel.scrollLeft;
         const distance = targetPosition - startPosition;
         const duration = Math.min(800, 300 + Math.abs(distance) * 0.3); // Dynamic duration
@@ -34,9 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
             const easedProgress = easeOutQuad(progress);
-            
+
             carousel.scrollLeft = startPosition + distance * easedProgress;
-            
+
             if (progress < 1) {
                 animationId = requestAnimationFrame(animateScroll);
             } else {
@@ -54,13 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const buffer = 10; // Small buffer to prevent flickering
         const atStart = carousel.scrollLeft <= buffer;
         const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - buffer;
-        
+
         leftButton.style.transition = 'opacity 0.3s ease';
         rightButton.style.transition = 'opacity 0.3s ease';
-        
+
         leftButton.style.opacity = atStart ? "0" : "1";
         rightButton.style.opacity = atEnd ? "0" : "1";
-        
+
         leftButton.style.pointerEvents = atStart ? "none" : "auto";
         rightButton.style.pointerEvents = atEnd ? "none" : "auto";
     }
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         clearInterval(autoScroll);
         autoScroll = setInterval(() => {
             if (isDragging || isScrolling) return;
-            
+
             if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
                 smoothScroll(0); // Loop back to start
             } else {
@@ -82,17 +82,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle button clicks
     function handleButtonClick(direction) {
         if (isScrolling) return;
-        
+
         const currentScroll = carousel.scrollLeft;
         const scrollAmount = getScrollAmount();
         let targetPosition;
-        
+
         if (direction === 'right') {
             targetPosition = Math.min(currentScroll + scrollAmount, carousel.scrollWidth - carousel.clientWidth);
         } else {
             targetPosition = Math.max(currentScroll - scrollAmount, 0);
         }
-        
+
         smoothScroll(targetPosition);
         resetAutoScroll();
     }
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
     carousel.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
         e.preventDefault();
-        
+
         const x = e.pageX - carousel.offsetLeft;
         const walk = (x - startX) * 2.5; // Increased sensitivity
         carousel.scrollLeft = scrollLeft - walk;
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     carousel.addEventListener("touchmove", (e) => {
         if (!isDragging) return;
         e.preventDefault();
-        
+
         const x = e.touches[0].pageX - carousel.offsetLeft;
         const walk = (x - startX) * 2.5;
         carousel.scrollLeft = scrollLeft - walk;
@@ -177,4 +177,12 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", handleResize);
     updateButtonVisibility();
     startAutoScroll();
+});
+
+
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+
+menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
 });
