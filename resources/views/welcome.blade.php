@@ -13,7 +13,7 @@
                 <marquee class="text-[10px] ml-8 text-dark font-semibold sm:text-xl" behavior="" direction="">
                     @foreach($marq as $marqs)
                         <a href="{{route('read.post', $marqs->id)}}">
-                            <strong class="mr-8 underline">
+                            <strong class="mr-8 hover:underline transition-all duration-300 ease-in-out">
                                 {{$marqs->title}}
                             </strong>  
                         </a>
@@ -25,7 +25,7 @@
         {{-- Start Trending news section --}}
         <div class="flex justify-evenly items-center sm:flex sm:justify-between sm:items-center w-11/12 mx-auto mt-12">
             <div>
-                <h6 class="text-[13px] font-medium text-black sm:text-4xl sm:text-black">Trending News</h6>
+                <h6 class="text-[13px] font-medium text-black sm:text-4xl sm:text-black">Latest News</h6>
             </div>
             
 
