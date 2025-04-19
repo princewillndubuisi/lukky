@@ -290,29 +290,29 @@
                     <input
                         x-model="query"
                         type="text"
-                        class="border px-2 py-1 rounded w-48 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                        class="border px-4 py-3 text-xl rounded w-48 focus:outline-none focus:ring-1 focus:ring-gray-400"
                         placeholder="Search..."
                     >
                     <button
-                        class="border px-2 py-1 rounded bg-gray-400 border-gray-400 text-white"
+                        class="border px-4 py-3 text-xl rounded bg-gray-400 border-gray-400 text-white"
                         x-on:click="$dispatch('search', { search: query })"
                     >
                         GO
                     </button>
                 </div>
     
-                <li><a href="{{ url('/') }}" class="block hover:text-indigo-600">Home</a></li>
-                <li><a href="{{ route('career') }}" class="block hover:text-indigo-600">Career</a></li>
-                <li><a href="#" class="block hover:text-indigo-600">About Us</a></li>
+                <li><a href="{{ url('/') }}" class="text-2xl block hover:text-indigo-600">Home</a></li>
+                <li><a href="{{ route('career') }}" class="text-2xl block hover:text-indigo-600">Career</a></li>
+                <li><a href="#" class="text-2xl block hover:text-indigo-600">About Us</a></li>
     
                 @auth
                     <li>
                         <x-app-layout />
                     </li>
                 @else
-                    <li><a href="{{ route('login') }}" class="block text-slate-600 hover:text-indigo-600">Sign in</a></li>
+                    <li><a href="{{ route('login') }}" class="text-2xl block text-slate-600 hover:text-indigo-600">Sign in</a></li>
                     <li>
-                        <a href="{{ route('register') }}" class="block bg-sky-500 text-white px-4 py-2 text-center rounded-md hover:bg-sky-600 transition">
+                        <a href="{{ route('register') }}" class="text-2xl block bg-sky-500 text-white px-4 py-2 text-center rounded-md hover:bg-sky-600 transition">
                             Sign Up
                         </a>
                     </li>
