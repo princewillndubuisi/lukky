@@ -4,19 +4,21 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Livewire\Component;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
+use Livewire\Attributes\Computed;
 
 class PostBlog extends Component
 {
     use WithPagination;
 
-    public $search = '';
 
     #[Url()]
     public $CheckCategories = [];
+
+    #[Url()]
+    public $search = '';
 
     #[Computed()]
     public function post() {
@@ -31,16 +33,23 @@ class PostBlog extends Component
             ->paginate(3);
     }
 
-    #[On('searchUpdated')]
+
+    #[On('search')]
     public function updateSearch($search) {
         $this->search = $search;
         $this->resetPage();
+
+        // Force refresh if the input is cleared
+        if (trim($search) === '') {
+            $this->dispatch('$refresh');
+        }
     }
+
 
     #[On('categoriesUpdate')]
     public function updatedCategories($CheckCategories) {
         $this->CheckCategories = $CheckCategories;
-        $this->resetPage(); 
+        $this->resetPage();
     }
 
     public function render()

@@ -6,8 +6,8 @@
 
 @section('content')
     {{-- Start main section --}}
-    <main class="bg-prince h-full">
-        <div class="my-2 h-12 flex justify-center items-center">
+    <main class="bg-prince h-full mt-10 sm:mt-0">
+        {{-- <div class="my-2 h-12 flex justify-center items-center">
             <div class="w-11/12 mx-auto flex justify-center items-center">
                 <p class="w-[92px] h-[28px] text-[12px] rounded-xl bg-red-500 flex justify-center items-center text-white sm:w-32 sm:rounded-lg sm:py-1 font-semibold sm:text-xl ">Live News</p>
                 <marquee class="text-[10px] ml-8 text-dark font-semibold sm:text-xl" behavior="" direction="">
@@ -15,21 +15,18 @@
                         <a href="{{route('read.post', $marqs->id)}}">
                             <strong class="mr-8 hover:underline transition-all duration-300 ease-in-out">
                                 {{$marqs->title}}
-                            </strong>  
+                            </strong>
                         </a>
                     @endforeach
                 </marquee>
             </div>
-        </div>
+        </div> --}}
 
         {{-- Start Trending news section --}}
-        <div class="flex justify-evenly items-center sm:flex sm:justify-between sm:items-center w-11/12 mx-auto mt-12">
+        <div class="w-11/12 flex justify-between items-center -mt-8 mx-auto sm:mt-12">
             <div>
-                <h6 class="text-[13px] font-medium text-black sm:text-4xl sm:text-black">Latest News</h6>
+                <h6 class="text-4xl font-medium text-black sm:text-4xl sm:text-black">Latest News</h6>
             </div>
-            
-
-            <livewire:search-box />
 
             <div class="sm:hidden">
                 <div id="category-toggle-btn" class="w-[44px] h-[37px] border border-black flex items-center justify-center rounded-lg">
@@ -78,7 +75,7 @@
                     </div>
                 @endforeach
             </div>
-        
+
             <!-- Navigation Buttons - Modified to not block links -->
             <div class="absolute inset-0 flex items-center justify-between  p-6 pointer-events-none z-[10]">
                 <button id="leftButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white pointer-events-auto">
@@ -89,11 +86,11 @@
                 </button>
             </div>
         </div>
-        
+
         {{--End Trending news section --}}
 
         {{-- Start Your timeline section --}}
-        <div class="w-11/12 mx-auto mt-20 sm:w-11/12">
+        <div class="w-11/12 mx-auto mt-6 sm:mt-20 sm:w-11/12">
             <div>
                 <h6 class="text-4xl font-medium">Your Timeline</h6>
             </div>
@@ -157,7 +154,7 @@
                             </div>
                         @endif
                     </div>
-                    
+
                     <div class="flex justify-end items-center mt-4">
                         <a class="flex" href="#page-top">
                             <i class="fa-solid fa-angle-up text-black mt-1.5"></i>

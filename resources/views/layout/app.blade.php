@@ -9,15 +9,26 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #D3D9D4; /* Soft neutral background */
-            color: #212A31; /* Dark blue-black text */
+             /* Soft neutral background */
+             /* Dark blue-black text */
         }
+
+        .lobster-regular {
+            font-family: "Lobster", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Inter', sans-serif;
@@ -182,60 +193,118 @@
 </head>
 <body class="font-sans">
     {{-- Start Header section --}}
-    <header id="page-top" class="bg-white  sm:border border-judy">
+    <header id="page-top" class="bg-white">
         {{-- Start nav section --}}
-        <nav class="w-11/12 mx-auto h-24 flex justify-between items-center">
-            {{-- Logo and Links --}}
-            <div class="flex items-center gap-6">
-                <div class="sm:w-90">
-                    <h1 class="text-[15px] font-medium text-black sm:font-medium sm:text-[35px] ">THE ACADEMIC TIMES</h1>
+        <nav class="w-11/12 mx-auto h-auto sm:h-40 sm:border-b-2 sm:border-black sm:mt-2">
+    
+            {{-- Desktop Search and Auth --}}
+            <div class="hidden sm:flex sm:justify-between sm:items-center">
+                <div x-data="{ showSearch: false, query: '' }" class="sm:relative sm:flex sm:items-center sm:gap-2">
+                    <button
+                        class="rounded-md px-2 py-1 transition-all duration-300 ease-in-out hover:bg-slate-50 hover:scale-105"
+                        x-on:click="showSearch = !showSearch"
+                    >
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                
+                    <div
+                        class="flex items-center ml-2 transition-all duration-300"
+                        :class="{ 'opacity-100 visible': showSearch, 'opacity-0 invisible': !showSearch }"
+                    >
+                        <input
+                            x-model="query"
+                            type="text"
+                            class="border px-2 py-1 rounded w-48 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                            placeholder="Search..."
+                        >
+                        <button
+                            class="ml-2 border px-2 py-1 rounded bg-gray-400 border-gray-400 text-white"
+                            x-on:click="$dispatch('search', { search: query })"
+                        >
+                            GO
+                        </button>
+                    </div>
                 </div>
-
-                {{-- Desktop Navigation --}}
-                <div class="hidden sm:block sm:ml-10">
-                    <ul class="font-semibold text-xl flex gap-x-10 text-slate-600">
-                        <li><a href="{{ url('/') }}" class="hover:text-indigo-600">Home</a></li>
-                        <li><a href="{{ route('career') }}" class="hover:text-indigo-600">Career</a></li>
-                        <li><a href="#" class="hover:text-indigo-600">About Us</a></li>
-                    </ul>
+    
+                {{-- Auth Buttons - Desktop --}}
+                <div class="hidden sm:flex items-center gap-4">
+                    @auth
+                        <x-app-layout />
+                    @else
+                        <a href="{{ route('login') }}">
+                            <button class="text-white bg-gray-500 py-1 px-2 rounded border border-gray-600 font-bold text-sm transition-all duration-300 ease-in-out hover:bg-gray-600">
+                                SIGN IN
+                            </button>
+                        </a>
+                        <a href="{{ route('register') }}">
+                            <button class="text-white bg-gray-500 py-1 px-2 rounded border border-gray-600 font-bold text-sm transition-all duration-300 ease-in-out hover:bg-gray-600">
+                                SIGN UP
+                            </button>
+                        </a>
+                    @endauth
                 </div>
             </div>
-
-            {{-- Auth Buttons - Desktop --}}
-            <div class="hidden sm:flex items-center gap-4">
-                @auth
-                    <x-app-layout />
-                @else
-                    <a href="{{ route('login') }}">
-                        <button class="text-fuchsia-950 bg-white py-1 px-5 rounded-lg border-2 border-fuchsia-400 font-semibold text-lg hover:bg-fuchsia-50 transition">
-                            Sign in
-                        </button>
-                    </a>
-                    <a href="{{ route('register') }}">
-                        <button class="text-white bg-sky-500 py-1 px-5 rounded-lg border-2 border-blue-500 font-semibold text-lg hover:bg-sky-600 transition">
-                            Sign up
-                        </button>
-                    </a>
-                @endauth
+    
+            <div class="hidden sm:block sm:text-center">
+                <h1 class="sm:text-[50px] lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">
+                    THE ACADEMIC TIMES
+                </h1>
             </div>
 
-            {{-- Hamburger - Mobile --}}
-            <div class="sm:hidden">
-                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+
+            {{-- Heading and Hamburger - Mobile --}}
+            <div class="sm:hidden flex items-center justify-between px-4 py-4 w-full mx-auto">
+                <!-- Hamburger -->
+                <button class="rounded-md px-2 py-1 transition-all duration-300 ease-in-out hover:bg-slate-50 hover:scale-105" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                     <svg class="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
+
+                <!-- Heading -->
+                <h1 class="text-[25px] lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">
+                    THE ACADEMIC TIMES
+                </h1>
+            </div>
+    
+            {{-- Desktop Navigation --}}
+            <div class="hidden sm:block sm:ml-10 mt-2">
+                <ul class="font-semibold text-xl flex justify-center gap-x-10 text-slate-600">
+                    <li><a href="{{ url('/') }}" class="hover:text-slate-800">Home</a></li>
+                    <li><a href="{{ route('career') }}" class="hover:text-slate-800">Career</a></li>
+                    <li><a href="#" class="hover:text-indigo-600">About Us</a></li>
+                </ul>
             </div>
         </nav>
-
+    
+        <hr class="hidden sm:block sm:mt-[0.5px] sm:w-11/12 sm:mx-auto sm:border-black sm:border-t-2">
+    
         {{-- Mobile Menu --}}
-        <div id="mobile-menu" class="sm:hidden hidden px-6 pb-4">
-            <ul class="flex flex-col gap-4 font-semibold text-lg text-slate-700">
+        <div x-data="{ query: '' }" id="mobile-menu" class="sm:hidden hidden px-4 pb-4 w-11/12 mx-auto">
+            <ul class="flex flex-col gap-4 font-semibold text-xl text-slate-700">
+                {{-- Mobile Search --}}
+                <div
+                    class="flex items-center gap-2 transition-all duration-300"
+                    :class="{ 'opacity-100 visible': showSearch, 'opacity-0 invisible': !showSearch }"
+                >
+                    <input
+                        x-model="query"
+                        type="text"
+                        class="border px-2 py-1 rounded w-48 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                        placeholder="Search..."
+                    >
+                    <button
+                        class="border px-2 py-1 rounded bg-gray-400 border-gray-400 text-white"
+                        x-on:click="$dispatch('search', { search: query })"
+                    >
+                        GO
+                    </button>
+                </div>
+    
                 <li><a href="{{ url('/') }}" class="block hover:text-indigo-600">Home</a></li>
                 <li><a href="{{ route('career') }}" class="block hover:text-indigo-600">Career</a></li>
                 <li><a href="#" class="block hover:text-indigo-600">About Us</a></li>
-
+    
                 @auth
                     <li>
                         <x-app-layout />
@@ -252,6 +321,7 @@
         </div>
         {{-- End nav section --}}
     </header>
+    
 
     {{-- End Header section --}}
 
@@ -276,6 +346,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <script type="module" src="https://unpkg.com/@material-tailwind/html@latest/scripts/popover.js"></script>
     <script src="{{ asset('js/script.js') }}"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('script')
 
 </body>

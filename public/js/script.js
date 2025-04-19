@@ -179,10 +179,17 @@ document.addEventListener("DOMContentLoaded", function () {
     startAutoScroll();
 });
 
-
+// Mobile navbar
 const menuToggle = document.getElementById('menu-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
 
 menuToggle.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
 });
+
+// Search
+function toggleSearch() {
+    const input = document.getElementById('searchInput');
+    input.classList.toggle('hidden');
+    input.focus();
+}
