@@ -45,52 +45,64 @@
 
         </div>
 
-        <div class="w-11/12 mx-auto relative sm:w-11/12 sm:mx-auto">
-            <!-- Slider Container (unchanged) -->
-            <div class="slider h-[323px] mt-12 overflow-hidden grid grid-flow-col auto-cols-[80%] xs:gap-x-6 sm:h-[400px] sm:mt-0 sm:auto-cols-[25%] sm:gap-x-6 sm:items-center sm:overflow-hidden">
-                @foreach ($ten as $tens)
-                    <div class="w-[267px] h-inherit sm:w-80 sm:h-80">
-                        <a href="{{route('read.post', $tens->id)}}" class="relative z-[5]">
-                            <div class="w-[267px] h-[256px] sm:h-full sm:w-full">
-                                @if ($tens->image)
-                                    <img class="block w-full h-full object-cover rounded-[1rem] sm:h-full sm:w-full sm:rounded-[1rem]" src="{{$tens->image}}" alt="">
-                                @elseif ($tens->video)
-                                    <video class="h-full w-full rounded-[1rem] object-cover sm:rounded-[1rem]" autoplay muted loop>
-                                        <source src="{{$tens->video}}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                @endif
-                            </div>
-                        </a>
-                        <div class="mt-2">
-                            <a class="font-medium text-[12px] hover:text-sky-400 hover:text-[14px] sm:font-medium sm:text-lg sm:hover:text-sky-400 sm:hover:text-xl" href="{{route('read.post', $tens->id)}}">
-                                {{$tens->title}}
-                            </a>
+        <!-- Slider Container (unchanged) -->
+        <div class="w-11/12 mx-auto mt-12 grid grid-cols-1 sm:grid-cols-4 gap-4 sm:mt-6 ">
+            @foreach ($category as $categorys)
+            @php
+                // Get the first post that has either an image or a video
+                $mediaPost = $categorys->posts->firstWhere(function ($post) {
+                    return $post->image || $post->video;
+                });
+            @endphp
+        
+            <div class="w-full h-[300px] relative rounded-[1rem] overflow-hidden">
+                <a href="{{ route('category.post', $categorys->id) }}" class="block w-full h-full">
+                    @if ($mediaPost && $mediaPost->image)
+                        <div
+                            class="w-full h-full bg-cover bg-center"
+                            style="background-image: url('{{ $mediaPost->image }}')"
+                        ></div>
+                    @elseif ($mediaPost && $mediaPost->video)
+                        <video
+                            class="absolute inset-0 w-full h-full object-cover"
+                            autoplay
+                            muted
+                            loop
+                        >
+                            <source src="{{ $mediaPost->video }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    @else
+                        <div class="w-full h-full bg-gray-300 flex items-center justify-center text-sm text-gray-600">
+                            No Preview Available
                         </div>
-                        <div class="w-[41px] h-[16px] ml-[155px] -mt-[259px] sm:w-24 sm:-mt-[335px] sm:ml-48">
-                            @if($tens->category)
-                                <a class="text-[12px] font-medium rounded-full px-14 py-3 bg-white sm:rounded-full sm:text-[15px] sm:font-medium sm:px-6 sm:py-1" href="">{{$tens->category->title}}</a>
-                            @endif
-                        </div>
+                    @endif
+        
+                    <div class="absolute top-0 text-end w-full font-bold bg-black/80 text-2xl p-2 text-white sm:bg-black/40 sm:text-sm">
+                        {{ Str::upper($categorys->title) }}
                     </div>
-                @endforeach
+                </a>
             </div>
+            @endforeach
+        
+        </div>
+        
 
             <!-- Navigation Buttons - Modified to not block links -->
-            <div class="absolute inset-0 flex items-center justify-between  p-6 pointer-events-none z-[10]">
+            {{-- <div class="absolute inset-0 flex items-center justify-between  p-6 pointer-events-none z-[10]">
                 <button id="leftButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white pointer-events-auto">
                     <i class='bx bxs-chevron-left'></i>
                 </button>
                 <button id="rightButton" class="w-12 h-12 p-1 text-[16px] rounded-full bg-black text-white pointer-events-auto">
                     <i class='bx bxs-chevron-right'></i>
                 </button>
-            </div>
-        </div>
+            </div> --}}
+        
 
         {{--End Trending news section --}}
 
         {{-- Start Your timeline section --}}
-        <div class="w-11/12 mx-auto mt-6 sm:mt-20 sm:w-11/12">
+        <div class="w-11/12 mx-auto mt-16 sm:w-11/12">
             <div>
                 <h6 class="text-4xl font-medium">Your Timeline</h6>
             </div>

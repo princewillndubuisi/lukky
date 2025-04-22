@@ -29,6 +29,7 @@ Route::post('career/apply/store', [BlogController::class, 'save_application'])->
 
 // User Routes
 Route::get('read_post/{id}', [BlogController::class, 'read_post'])->name('read.post');
+Route::get('category_post/{id}', [BlogController::class, 'category_post'])->name('category.post');
 Route::get('home', [BlogController::class, 'home'])->middleware('auth')->name('home');
 Route::get('create_post', [BlogController::class, 'create_post'])->middleware('auth')->name('create.post');
 Route::post('/upload_user_image', [AdminController::class, 'upload_image'])->name('upload.user.image');

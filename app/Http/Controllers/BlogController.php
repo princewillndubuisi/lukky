@@ -30,7 +30,7 @@ class BlogController extends Controller
 
             $category = Category::all();
 
-            $ten = Post::where('post_status', '=', 'active')->latest()->take(8)->get();
+            $ten = Post::where('post_status', '=', 'active')->latest()->take(4)->get();
 
             $adverts = Advert::where('is_active', true)->get();
 
@@ -68,6 +68,19 @@ class BlogController extends Controller
         return view('read_post',compact('post', 'otherPosts'));
     }
 
+    // Category post
+    public function category_post($id) {
+        $category = Category::with('posts')->findOrFail($id); // eager load posts
+
+        $post = $category->posts()
+        ->where('post_status', 'active')
+        ->orderBy('created_at', 'DESC')
+        ->paginate(4);
+    
+        return view('category_post', compact('category', 'post'));
+    }
+    
+
     // User profile
     public function profiles() {
         $user = Auth::user();
@@ -95,7 +108,7 @@ class BlogController extends Controller
 
         $adverts = Advert::where('is_active', true)->get();
 
-        $ten = Post::where('post_status', '=', 'active')->latest()->take(8)->get();
+        $ten = Post::where('post_status', '=', 'active')->latest()->take(4)->get();
 
         return view('welcome', compact('post', 'category', 'ten', 'adverts', 'marq'));
     }
