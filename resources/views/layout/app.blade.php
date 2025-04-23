@@ -253,7 +253,8 @@
 
 
             {{-- Heading and Hamburger - Mobile --}}
-            <div class="sm:hidden ">
+            <div class="sm:hidden pt-4">
+                
                 <div class="flex items-center justify-between px-4 w-full mx-auto">
                     <!-- Hamburger -->
                     <button class="rounded-md px-2 py-1 transition-all duration-300 ease-in-out hover:bg-slate-50 hover:scale-105" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
@@ -262,18 +263,22 @@
                         </svg>
                     </button>
                     
-                    @auth
-                        <li>
+                    <div class="flex items-center gap-4 sm:hidden">
+                        @auth
                             <x-app-layout />
-                        </li>
-                    @else
-                        <li><a href="{{ route('login') }}" class="text-2xl block text-slate-600 hover:text-indigo-600">Sign in</a></li>
-                        <li>
-                            <a href="{{ route('register') }}" class="text-2xl block bg-sky-500 text-white px-4 py-2 text-center rounded-md hover:bg-sky-600 transition">
-                                Sign Up
+                        @else
+                            <a href="{{ route('login') }}">
+                                <button class="text-white bg-gray-500 py-1 px-2 rounded border border-gray-600 font-bold text-sm transition-all duration-300 ease-in-out hover:bg-gray-600">
+                                    SIGN IN
+                                </button>
                             </a>
-                        </li>
-                    @endauth
+                            <a href="{{ route('register') }}">
+                                <button class="text-white bg-gray-500 py-1 px-2 rounded border border-gray-600 font-bold text-sm transition-all duration-300 ease-in-out hover:bg-gray-600">
+                                    SIGN UP
+                                </button>
+                            </a>
+                        @endauth
+                    </div>
                 </div>
                 <!-- Heading -->
                 <h1 class="text-[25px] my-8 text-center lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">

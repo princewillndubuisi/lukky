@@ -124319,3 +124319,7 @@
 [stacktrace]
 #0 {main}
 "} 
+[2025-04-23 23:32:44] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Maximum execution time of 60 seconds exceeded at C:\\Users\\hp\\Desktop\\Personal_Work\\blog\\storage\\framework\\views\\eba46508eae669df74294d86b98a01aa.php:1)
+[stacktrace]
+#0 {main}
+"} 
