@@ -23,7 +23,7 @@
         </div> --}}
 
         {{-- Start Trending news section --}}
-        <div class="w-11/12 flex justify-between items-center -mt-8 mx-auto sm:mt-12">
+        <div class="w-11/12 flex justify-between items-center -mt-4 mx-auto sm:mt-12">
             <div>
                 <h6 class="text-4xl font-medium text-black sm:text-4xl sm:text-black">Latest News</h6>
             </div>
