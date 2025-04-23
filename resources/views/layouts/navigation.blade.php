@@ -1,7 +1,7 @@
 <nav x-data="{ open: false }" class="-ms-5">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="flex justify-between h-16 border border-yellow-700">
+        <div class="flex justify-between">
             {{-- User --}}
             @if (Auth::user()->usertype == 'user')
                 <div class="flex items-center">

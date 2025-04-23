@@ -32,7 +32,7 @@
         @endphp
 
         <div class="fade-in-up group transition-transform duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg 
-                    flex flex-col sm:flex-row gap-4 bg-white border border-gray-100 rounded-2xl mb-6 overflow-hidden">
+                    flex flex-col sm:flex-row gap-4 bg-white border border-gray-100 rounded-2xl  overflow-hidden">
             
             {{-- Media --}}
             <div class="w-full sm:w-5/12 h-48 sm:h-40 flex-shrink-0">
@@ -56,14 +56,14 @@
                 <div class="flex items-start justify-between mb-2">
                     <div class="flex items-center gap-2">
                         <img src="{{ Auth::user() ? asset('storage/' . Auth::user()->photo) : asset('images/user.jpg') }}"
-                             class="w-9 h-9 rounded-full border object-cover" alt="User">
-                        <div class="text-sm">
-                            <p class="font-semibold text-gray-800">{{ $posts->name }}</p>
-                            <span class="text-xs text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</span>
+                             class="w-14 h-14 sm:w-10 sm:h-10  rounded-full border object-cover" alt="User">
+                        <div class="text-[10px] font-medium sm:text-sm">
+                            <p class=" text-gray-800">{{ $posts->name }}</p>
+                            <span class="text-[10px] font-medium sm:text-sm text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</span>
                         </div>
                     </div>
                     {{-- Tags --}}
-                    <div class="hidden sm:flex flex-wrap gap-1">
+                    <div class="flex sm:flex flex-wrap gap-1">
                         <span class="bg-sky-100 text-sky-700 text-[10px] px-2 py-0.5 rounded-full">Tech</span>
                         <span class="bg-gray-100 text-gray-700 text-[10px] px-2 py-0.5 rounded-full">{{ $posts->category->title }}</span>
                     </div>
@@ -73,25 +73,25 @@
                 <a href="{{ route('read.post', $posts->id) }}"
                     class="group block hover:bg-gray-50 transition-all duration-300 rounded-lg px-2 py-1">
                  
-                     <h2 class="text-base sm:text-lg font-semibold text-gray-900 leading-snug mb-1 relative inline-block
+                     <h2 class="text-2xl font-semibold sm:text-xl text-gray-900 leading-snug mb-1 relative inline-block
                                 after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sky-500
                                 after:transition-all after:duration-300 group-hover:after:w-full">
                          {{ \Illuminate\Support\Str::limit($posts->title, 80) }}
                      </h2>
                  
-                     <p class="text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                     <p class=" text-gray-600 group-hover:text-gray-800 transition-colors duration-300 text-[12px] font-medium sm:text-sm md:text-lg">
                          {{ \Illuminate\Support\Str::limit(strip_tags($posts->description), 140) }}
                      </p>
                 </a>
                  
 
                 {{-- Actions --}}
-                <div class="flex items-center justify-between mt-4 text-xs text-gray-500">
-                    <div class="flex items-center gap-4">
+                <div class="flex items-center justify-between mt-4 text-gray-500">
+                    <div class="flex items-center gap-4 text-[10px] sm:text-xs">
                         <livewire:like-button :key="$posts->id" :posts="$posts" />
                         <div class="flex items-center gap-1">
                             <i class="fa-solid fa-thumbs-down"></i>
-                            <span>10K</span>
+                            <span class="">10K</span>
                         </div>
                         <div class="flex items-center gap-1">
                             <i class="fa-solid fa-comments"></i>
@@ -105,7 +105,10 @@
                 </div>
             </div>
         </div>
+        <hr class="my-6 w-4 border border-slate-400 mx-auto">
     @endforeach
+
+    <hr class="w-fullborder my-8 border-slate-400 sm:w-full">
 
     {{-- Pagination --}}
     <div class="flex justify-center my-8">

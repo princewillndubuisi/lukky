@@ -253,26 +253,41 @@
 
 
             {{-- Heading and Hamburger - Mobile --}}
-            <div class="sm:hidden flex items-center justify-between px-4 py-4 w-full mx-auto">
-                <!-- Hamburger -->
-                <button class="rounded-md px-2 py-1 transition-all duration-300 ease-in-out hover:bg-slate-50 hover:scale-105" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                    <svg class="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-
+            <div class="sm:hidden ">
+                <div class="flex items-center justify-between px-4 w-full mx-auto">
+                    <!-- Hamburger -->
+                    <button class="rounded-md px-2 py-1 transition-all duration-300 ease-in-out hover:bg-slate-50 hover:scale-105" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <svg class="w-8 h-8 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    
+                    @auth
+                        <li>
+                            <x-app-layout />
+                        </li>
+                    @else
+                        <li><a href="{{ route('login') }}" class="text-2xl block text-slate-600 hover:text-indigo-600">Sign in</a></li>
+                        <li>
+                            <a href="{{ route('register') }}" class="text-2xl block bg-sky-500 text-white px-4 py-2 text-center rounded-md hover:bg-sky-600 transition">
+                                Sign Up
+                            </a>
+                        </li>
+                    @endauth
+                </div>
                 <!-- Heading -->
-                <h1 class="text-[25px] lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">
+                <h1 class="text-[25px] my-8 text-center lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">
                     THE ACADEMIC TIMES
-                </h1>
+                </h1>    
             </div>
+
     
             {{-- Desktop Navigation --}}
             <div class="hidden sm:block sm:ml-10 mt-2">
                 <ul class="font-semibold text-xl flex justify-center gap-x-10 text-slate-600">
                     <li><a href="{{ url('/') }}" class="hover:text-slate-800">Home</a></li>
                     <li><a href="{{ route('career') }}" class="hover:text-slate-800">Career</a></li>
-                    <li><a href="#" class="hover:text-indigo-600">About Us</a></li>
+                    <li><a href="#" class="hover:text-slate-800">About Us</a></li>
                 </ul>
             </div>
         </nav>
@@ -305,18 +320,7 @@
                 <li><a href="{{ route('career') }}" class="text-2xl block hover:text-indigo-600">Career</a></li>
                 <li><a href="#" class="text-2xl block hover:text-indigo-600">About Us</a></li>
     
-                @auth
-                    <li>
-                        <x-app-layout />
-                    </li>
-                @else
-                    <li><a href="{{ route('login') }}" class="text-2xl block text-slate-600 hover:text-indigo-600">Sign in</a></li>
-                    <li>
-                        <a href="{{ route('register') }}" class="text-2xl block bg-sky-500 text-white px-4 py-2 text-center rounded-md hover:bg-sky-600 transition">
-                            Sign Up
-                        </a>
-                    </li>
-                @endauth
+
             </ul>
         </div>
         {{-- End nav section --}}
@@ -349,5 +353,47 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('script')
 
+    <script>
+        ClassicEditor
+            .create(document.getElementById('editor'), {
+                toolbar: {
+                    items: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'strikethrough', '|',
+                        'bulletedList', 'numberedList', 'alignment', '|',
+                        'link', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
+                        'imageUpload', '|',  // Add image upload button
+                        'undo', 'redo'
+                    ]
+                },
+                image: {
+                    toolbar: [
+                        'imageTextAlternative', '|',
+                        'imageStyle:inline', 
+                        'imageStyle:block', 
+                        'imageStyle:side', '|',
+                        'toggleImageCaption'
+                    ],
+                    styles: [
+                        'inline',
+                        'block',
+                        'side'
+                    ]
+                },
+                ckfinder: {
+                    uploadUrl: "{{ route('upload.image') }}?_token={{ csrf_token() }}",
+                    // Optional: Add headers if needed
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    }
+                }
+            })
+            .then(editor => {
+                console.log('Editor ready');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
 </body>
 </html>

@@ -29,8 +29,8 @@
             </div>
 
             <div class="sm:hidden">
-                <div id="category-toggle-btn" class="w-[44px] h-[37px] border border-black flex items-center justify-center rounded-lg">
-                    <button  class="text-[13px] text-black" data-dropdown-toggle="category-menu" ><i class='bx bx-menu-alt-left' ></i> </button>
+                <div id="category-toggle-btn" class="w-[44px] h-[37px] border border-slate-700 flex items-center justify-center rounded-lg">
+                    <button  class="text-[13px] text-slate-700" data-dropdown-toggle="category-menu" ><i class='bx bx-menu-alt-left' ></i> </button>
                 </div>
 
                 <div class="z-50 hidden w-[165px] h-[162px] overflow-y-auto max-h-[200px] border bg-white justify-between px-6 py-8" id="category-menu" style="scrollbar-width: none; -ms-overflow-style: none;">
@@ -48,41 +48,41 @@
         <!-- Slider Container (unchanged) -->
         <div class="w-11/12 mx-auto mt-12 grid grid-cols-1 sm:grid-cols-4 gap-4 sm:mt-6 ">
             @foreach ($category as $categorys)
-            @php
-                // Get the first post that has either an image or a video
-                $mediaPost = $categorys->posts->firstWhere(function ($post) {
-                    return $post->image || $post->video;
-                });
-            @endphp
+                @php
+                    // Get the first post that has either an image or a video
+                    $mediaPost = $categorys->posts->firstWhere(function ($post) {
+                        return $post->image || $post->video;
+                    });
+                @endphp
         
-            <div class="w-full h-[300px] relative rounded-[1rem] overflow-hidden">
-                <a href="{{ route('category.post', $categorys->id) }}" class="block w-full h-full">
-                    @if ($mediaPost && $mediaPost->image)
-                        <div
-                            class="w-full h-full bg-cover bg-center"
-                            style="background-image: url('{{ $mediaPost->image }}')"
-                        ></div>
-                    @elseif ($mediaPost && $mediaPost->video)
-                        <video
-                            class="absolute inset-0 w-full h-full object-cover"
-                            autoplay
-                            muted
-                            loop
-                        >
-                            <source src="{{ $mediaPost->video }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    @else
-                        <div class="w-full h-full bg-gray-300 flex items-center justify-center text-sm text-gray-600">
-                            No Preview Available
+                <div class="w-full h-[300px] mb-4 sm:mb-0 relative rounded-[1rem] overflow-hidden fade-in-up group transition-transform duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+                    <a href="{{ route('category.post', $categorys->id) }}" class="block w-full h-full">
+                        @if ($mediaPost && $mediaPost->image)
+                            <div
+                                class="w-full h-full bg-cover bg-center"
+                                style="background-image: url('{{ $mediaPost->image }}')"
+                            ></div>
+                        @elseif ($mediaPost && $mediaPost->video)
+                            <video
+                                class="absolute inset-0 w-full h-full object-cover"
+                                autoplay
+                                muted
+                                loop
+                            >
+                                <source src="{{ $mediaPost->video }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        @else
+                            <div class="w-full h-full bg-gray-300 flex items-center justify-center text-sm text-gray-600">
+                                No Preview Available
+                            </div>
+                        @endif
+            
+                        <div class="absolute top-0 text-end w-full pr-4 font-bold bg-black/80 text-2xl p-2 text-white sm:bg-black/40 sm:text-sm">
+                            {{ Str::upper($categorys->title) }}
                         </div>
-                    @endif
-        
-                    <div class="absolute top-0 text-end w-full font-bold bg-black/80 text-2xl p-2 text-white sm:bg-black/40 sm:text-sm">
-                        {{ Str::upper($categorys->title) }}
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
             @endforeach
         
         </div>
