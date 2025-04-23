@@ -268,12 +268,12 @@
                             <x-app-layout />
                         @else
                             <a href="{{ route('login') }}">
-                                <button class="text-white bg-gray-500 py-1 px-2 rounded border border-gray-600 font-bold text-sm transition-all duration-300 ease-in-out hover:bg-gray-600">
+                                <button class="text-white bg-gray-500 text-md py-2 px-3 sm:py-1 sm:px-2 rounded border border-gray-600 font-bold sm:text-sm transition-all duration-300 ease-in-out hover:bg-gray-600">
                                     SIGN IN
                                 </button>
                             </a>
                             <a href="{{ route('register') }}">
-                                <button class="text-white bg-gray-500 py-1 px-2 rounded border border-gray-600 font-bold text-sm transition-all duration-300 ease-in-out hover:bg-gray-600">
+                                <button class="text-white bg-gray-500 text-md py-2 px-3 sm:py-1 sm:px-2 rounded border border-gray-600 font-bold sm:text-sm transition-all duration-300 ease-in-out hover:bg-gray-600">
                                     SIGN UP
                                 </button>
                             </a>
