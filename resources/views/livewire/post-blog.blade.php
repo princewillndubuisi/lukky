@@ -19,7 +19,7 @@
                 <div class="w-full h-[180px] sm:w-[70%] sm:h-full ">
                     <div class=" h-[48px] flex items-center">
 
-                        <div class="w-[48px] h-[48px] mr-4 mt-4 sm:mt-0">
+                        <div class="w-[48px] h-[48px] mr-4">
                             @if (Auth::user())
                                 <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                             @else
@@ -27,7 +27,7 @@
                             @endif
                         </div>
 
-                        <div class="h-[48px]">
+                        <div class="h-[48px] -mt-4 sm:mt-0">
                             <div class="sm:h-[20px] flex items-center font-medium gap-2 text-gray-500">
                                 <p class="text-[12px] font-medium sm:text-base">{{$posts->name}}</p>
                                 <p class="hidden sm:block font-medium mb-4 text-2xl">.</p>

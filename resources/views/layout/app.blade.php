@@ -306,7 +306,7 @@
         <hr class="hidden sm:block sm:mt-[0.5px] sm:w-11/12 sm:mx-auto sm:border-black sm:border-t-2">
 
         {{-- Mobile Menu --}}
-        <div x-data="{ query: '' }" id="mobile-menu" class="sm:hidden hidden px-4 pb-4 w-11/12 mx-auto">
+        <div x-data="{ query: '' }" id="mobile-menu" class="sm:hidden hidden px-4 pb-4 w-11/12 mx-auto border border-yellow-400">
             <ul class="flex flex-col gap-4 font-semibold text-xl text-slate-700">
                 {{-- Mobile Search --}}
                 <div
