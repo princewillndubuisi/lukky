@@ -145,7 +145,23 @@
                         </div>
                     </x-responsive-nav-link>
                 @endif
-{{-- 
+
+                <!-- Change Picture Form (Visible only as the "Change Picture" link) -->
+                <form method="POST" action="{{ route('update.picture') }}" enctype="multipart/form-data" style="display:none;" id="change-picture-form">
+                    @csrf
+                    <input type="file" id="profile-picture-input" name="photo" accept="image/*" onchange="document.getElementById('change-picture-form').submit();">
+                </form>
+
+                <!-- Change Picture Link -->
+                <x-dropdown-link href="#" onclick="document.getElementById('profile-picture-input').click(); return false;">
+                    <div class="flex gap-4 items-center font-medium text-[10px]">
+                        <i class='bx bx-user text-gray-400'></i>
+                        {{ __('Picture') }}
+                    </div>
+                </x-dropdown-link>
+
+
+{{--
                 <form method="POST" action="{{ route('update.picture') }}" enctype="multipart/form-data" style="display:none;" id="change-picture-form">
                     @csrf
                     <input type="file" id="profile-picture-input" name="photo" accept="image/*" onchange="document.getElementById('change-picture-form').submit();">

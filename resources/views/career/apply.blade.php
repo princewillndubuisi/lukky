@@ -35,8 +35,8 @@
         @endif --}}
     </div>
 
-    <section class="mb-6 border w-full h-[400px] sm:h-svh mx-auto shadow-lg my-auto">
-        <form class="max-w-xl mx-auto my-auto" action="{{ route('career.save') }}" method="POST" enctype="multipart/form-data">
+    <section class="mb-6 border w-full h-[400px] sm:h-svh mx-auto my-auto mt-8">
+        <form class="max-w-xl mx-auto my-auto mt-8" action="{{ route('career.save') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="flex justify-between  ">
