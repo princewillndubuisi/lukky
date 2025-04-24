@@ -94,7 +94,7 @@
                 <span class="gradient-text">{{ $category->title ?? 'All Posts' }}</span>
             </h1>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Discover the latest stories, ideas and knowledge in this {{$category->title}}
+                Discover the latest stories, ideas and knowledge in {{$category->title}}
             </p>
             <div class="mt-6 flex justify-center">
                 <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
