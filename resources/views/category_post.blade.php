@@ -93,7 +93,7 @@
             <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 <span class="gradient-text">{{ $category->title ?? 'All Posts' }}</span>
             </h1>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p class="text-xl sm:text-lg text-gray-600 max-w-2xl mx-auto">
                 Discover the latest stories, ideas and knowledge in {{$category->title}}
             </p>
             <div class="mt-6 flex justify-center">
@@ -143,14 +143,14 @@
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center space-x-3">
                                         <img src="{{ Auth::user() ? asset('storage/' . Auth::user()->photo) : asset('images/user.jpg') }}"
-                                            class="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover" alt="User">
+                                            class="w-12 h-12 sm:w-10 sm:h-10 rounded-full border-2 border-white shadow-sm object-cover" alt="User">
                                         <div>
-                                            <p class="text-sm font-medium text-gray-900">{{ $posts->name }}</p>
-                                            <p class="text-xs text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</p>
+                                            <p class="text-md sm:text-sm font-medium text-gray-900">{{ $posts->name }}</p>
+                                            <p class="text-sm sm:text-xs text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</p>
                                         </div>
                                     </div>
                                     <div class="flex space-x-2">
-                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        <span class="px-2.5 py-0.5 rounded-full text-sm sm:text-xs font-medium bg-blue-100 text-blue-800">
                                             {{ $posts->category->title }}
                                         </span>
                                     </div>
@@ -161,7 +161,7 @@
                                     <h3 class="text-2xl font-bold text-gray-900 mb-3 title-underline inline-block">
                                         {{ \Illuminate\Support\Str::limit($posts->title, 80) }}
                                     </h3>
-                                    <p class="text-gray-600 mb-4 leading-relaxed">
+                                    <p class="text-gray-600 mb-4 leading-relaxed text-xl sm:text-lg">
                                         {{ \Illuminate\Support\Str::limit(strip_tags($posts->description), 140) }}
                                     </p>
                                 </a>
