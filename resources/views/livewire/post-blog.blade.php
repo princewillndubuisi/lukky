@@ -52,7 +52,7 @@
                         <p class="text-[13px] font-medium sm:text-base md:text-lg text-gray-500 tracking-wide leading-relaxed sm:ml-0 transition-all duration-300 ease-in-out hover:text-gray-400">
                             {{$posts->description}}
                         </p>
-                    </a>                    
+                    </a>
                 </div>
 
 
@@ -72,11 +72,13 @@
                             <a href="#" onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ asset('storage/' . $posts->image) }}')">
                                 <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
                             </a>
-                        </div>                       
+                        </div>
                     </div>
                 </div>
             </div>
-            <hr class="my-8 w-4 border border-slate-400 mx-auto sm:my-4">
+            @if(!$loop->last)
+                <div class="divider my-6"></div>
+            @endif
 
         @elseif ($posts->video)
             <div class="flex border bg-white h-90 px-6 py-8">
@@ -128,7 +130,9 @@
                     </div>
                 </div>
             </div>
-            <hr class="my-4 w-4 border border-slate-400 mx-auto">
+            @if(!$loop->last)
+                <div class="divider my-6"></div>
+            @endif
 
         @else
             <div class="flex border bg-white h-80 px-6 py-8">
@@ -176,14 +180,14 @@
                     </div>
                 </div>
             </div>
-            <hr class="my-4 w-4 border-slate-400 border mx-auto">
+            @if(!$loop->last)
+                <div class="divider my-6"></div>
+            @endif
         @endif
     @endforeach
 
-    <hr class="w-fullborder my-8 border-slate-400 sm:w-full">
-
     {{-- Pagination --}}
-    <div class="w-fullsm:w-full h-10 mb-20">
+    <div class="w-fullsm:w-full h-10 my-10 ">
         <div class="pagination ">
             {{ $this->post->onEachSide(1)->links() }}
         </div>
@@ -193,7 +197,7 @@
 <script>
     function sharePost(postId, postTitle, postImage) {
         const postUrl = "{{ url('/read_post') }}/" + postId;
-        
+
         if (navigator.share) {
             navigator.share({
                 title: postTitle,

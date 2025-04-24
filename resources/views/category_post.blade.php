@@ -205,13 +205,7 @@
             {{ $post->onEachSide(1)->links('pagination::tailwind') }}
         </div>
     </div>
-
-    <!-- Floating Action Button -->
-    <div class="fixed bottom-8 right-8">
-        <button class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all transform hover:scale-110">
-            <i class="fas fa-plus text-xl"></i>
-        </button>
-    </div>
+    
 
     <script>
         // Simple share function

@@ -189,6 +189,12 @@
             z-index: 10;
         }
 
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.3) 50%, transparent 100%);
+        }
+
     </style>
 </head>
 <body class="font-sans">
@@ -196,7 +202,7 @@
     <header id="page-top" class="bg-white">
         {{-- Start nav section --}}
         <nav class="w-11/12 mx-auto h-auto sm:h-40 sm:border-b-2 sm:border-black sm:mt-2">
-    
+
             {{-- Desktop Search and Auth --}}
             <div class="hidden sm:flex sm:justify-between sm:items-center">
                 <div x-data="{ showSearch: false, query: '' }" class="sm:relative sm:flex sm:items-center sm:gap-2">
@@ -206,7 +212,7 @@
                     >
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-                
+
                     <div
                         class="flex items-center ml-2 transition-all duration-300"
                         :class="{ 'opacity-100 visible': showSearch, 'opacity-0 invisible': !showSearch }"
@@ -225,7 +231,7 @@
                         </button>
                     </div>
                 </div>
-    
+
                 {{-- Auth Buttons - Desktop --}}
                 <div class="hidden sm:flex items-center gap-4">
                     @auth
@@ -244,7 +250,7 @@
                     @endauth
                 </div>
             </div>
-    
+
             <div class="hidden sm:block sm:text-center">
                 <h1 class="sm:text-[50px] lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">
                     THE ACADEMIC TIMES
@@ -254,7 +260,7 @@
 
             {{-- Heading and Hamburger - Mobile --}}
             <div class="sm:hidden pt-4">
-                
+
                 <div class="flex items-center justify-between px-4 w-full mx-auto">
                     <!-- Hamburger -->
                     <button class="rounded-md px-2 py-1 transition-all duration-300 ease-in-out hover:bg-slate-50 hover:scale-105" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
@@ -262,7 +268,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    
+
                     <div class="flex items-center gap-4 sm:hidden">
                         @auth
                             <x-app-layout />
@@ -283,10 +289,10 @@
                 <!-- Heading -->
                 <h1 class="text-[25px] my-8 text-center lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">
                     THE ACADEMIC TIMES
-                </h1>    
+                </h1>
             </div>
 
-    
+
             {{-- Desktop Navigation --}}
             <div class="hidden sm:block sm:ml-10 mt-2">
                 <ul class="font-semibold text-xl flex justify-center gap-x-10 text-slate-600">
@@ -296,9 +302,9 @@
                 </ul>
             </div>
         </nav>
-    
+
         <hr class="hidden sm:block sm:mt-[0.5px] sm:w-11/12 sm:mx-auto sm:border-black sm:border-t-2">
-    
+
         {{-- Mobile Menu --}}
         <div x-data="{ query: '' }" id="mobile-menu" class="sm:hidden hidden px-4 pb-4 w-11/12 mx-auto">
             <ul class="flex flex-col gap-4 font-semibold text-xl text-slate-700">
@@ -320,24 +326,31 @@
                         GO
                     </button>
                 </div>
-    
+
                 <li><a href="{{ url('/') }}" class="text-2xl block hover:text-indigo-600">Home</a></li>
                 <li><a href="{{ route('career') }}" class="text-2xl block hover:text-indigo-600">Career</a></li>
                 <li><a href="#" class="text-2xl block hover:text-indigo-600">About Us</a></li>
-    
+
 
             </ul>
         </div>
         {{-- End nav section --}}
     </header>
-    
+
 
     {{-- End Header section --}}
 
     @yield('content')
 
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-8 right-8 z-10">
+        <a href="{{route('career.apply')}}" class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all transform hover:scale-110">
+            <i class="fas fa-plus text-xl"></i>
+        </a>
+    </div>
+
     {{-- Start Footer section --}}
-    <div class="border bg-black h-24 mb-8">
+    <div class="border bg-black h-24 ">
         <div class="text-white font-medium text-3xl w-[70%] mx-auto mt-6 gap-4 flex items-center justify-center">
             <p>© 2025</p>
             <a href=""><i class="fa-brands fa-square-facebook"></i></a>
@@ -374,8 +387,8 @@
                 image: {
                     toolbar: [
                         'imageTextAlternative', '|',
-                        'imageStyle:inline', 
-                        'imageStyle:block', 
+                        'imageStyle:inline',
+                        'imageStyle:block',
                         'imageStyle:side', '|',
                         'toggleImageCaption'
                     ],
