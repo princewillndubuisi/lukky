@@ -342,12 +342,34 @@
 
     @yield('content')
 
-    <!-- Floating Action Button -->
-    <div class="fixed bottom-8 right-8 z-10">
-        <a href="{{route('career.apply')}}" class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all transform hover:scale-110">
-            <i class="fas fa-plus text-xl"></i>
-        </a>
-    </div>
+
+    @guest
+        <div class="fixed bottom-8 right-8 z-10">
+            <a href="{{ route('login') }}" class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-blue-500 shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all transform hover:scale-110">
+                <i class="fas fa-plus text-xl"></i>
+            </a>
+        </div>
+    @endguest
+
+    @auth
+        @if (Auth::user()->usertype == 'user')
+                <!-- Floating Action Button for users -->
+                <div class="fixed bottom-8 right-8 z-10">
+                    <a href="{{ route('career.apply') }}" class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all transform hover:scale-110">
+                        <i class="fas fa-plus text-xl"></i>
+                    </a>
+                </div>
+
+        @elseif (Auth::user()->usertype == 'editor')
+                <!-- Floating Action Button for editors -->
+                <div class="fixed bottom-8 right-8 z-10">
+                    <a href="{{ route('create.post') }}" class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all transform hover:scale-110">
+                        <i class="fas fa-plus text-xl"></i>
+                    </a>
+                </div>
+        @endif
+    @endauth
+
 
     {{-- Start Footer section --}}
     <div class="border bg-black h-24 ">
