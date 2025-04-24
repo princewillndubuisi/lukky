@@ -180,13 +180,10 @@
                                         <span>10K</span>
                                     </span>
                                 </div>
-                                <div class="flex space-x-3">
+                                <div class="">
                                     <button onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ asset('storage/' . $posts->image) }}')"
                                     class="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-blue-500">
                                         <i class="fas fa-share-alt"></i>
-                                    </button>
-                                    <button class="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-red-500">
-                                        <i class="far fa-bookmark"></i>
                                     </button>
                                 </div>
                             </div>
@@ -205,7 +202,7 @@
             {{ $post->onEachSide(1)->links('pagination::tailwind') }}
         </div>
     </div>
-    
+
 
     <script>
         // Simple share function

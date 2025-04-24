@@ -19,7 +19,7 @@
                 <div class="w-full h-[180px] sm:w-[70%] sm:h-full ">
                     <div class=" h-[48px] flex items-center">
 
-                        <div class="w-[48px] h-[48px] mr-4">
+                        <div class="w-[48px] h-[48px] mr-4 mt-4 sm:mt-0">
                             @if (Auth::user())
                                 <img class="w-full h-full sm:w-12 sm:h-12 rounded-full" src="{{ asset('storage/' . Auth::user()->photo) }}" alt="">
                             @else
@@ -65,12 +65,13 @@
                             <p class="text-slate-500 text-[10px] sm:text-xs ml-2">10K</p>
                         </div>
                         <div class="flex items-center">
-                            <i class="fa-solid fa-comments text-[10px] sm:text-xs text-slate-500"></i>
+                            <i class="far fa-comment text-[10px] sm:text-xs text-slate-500"></i>
                             <p class="text-slate-500 text-[10px] sm:text-xs ml-2">{{$posts->comments()->count()}}</p>
                         </div>
                          <div class="flex items-center">
                             <a href="#" onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ asset('storage/' . $posts->image) }}')">
-                                <i class="fa-solid fa-share-nodes text-[10px] sm:text-xs text-slate-500"></i>
+                                <i class="fas fa-share-alt text-[10px] sm:text-xs text-slate-500 "></i>
+
                             </a>
                         </div>
                     </div>
