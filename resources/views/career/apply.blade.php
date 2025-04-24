@@ -35,7 +35,7 @@
         @endif --}}
     </div>
 
-    <section class="mb-6 border w-full border-yellow-700 h-[400px] sm:h-svh mx-auto shadow-lg my-auto">
+    <section class="mb-6 border w-full h-[400px] sm:h-svh mx-auto shadow-lg my-auto">
         <form class="max-w-xl mx-auto my-auto" action="{{ route('career.save') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
