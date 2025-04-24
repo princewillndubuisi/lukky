@@ -11,7 +11,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                 </svg>
-                <span class="ml-3 text-xl">Laravel Job Board</span>
+                <span class="ml-3 text-xl">TAT Job Board</span>
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
                 <a href="{{ route('login') }}" class="mr-5 hover:text-gray-900">Employers</a>
@@ -35,16 +35,16 @@
         @endif --}}
     </div>
 
-    <section class=" mb-6 border w-[800px] mx-auto shadow-lg py-4">
-        <form class="max-w-xl mx-auto" action="{{ route('career.save') }}" method="POST" enctype="multipart/form-data">
+    <section class="mb-6 border w-full border-yellow-700 h-[400px] sm:h-svh mx-auto shadow-lg my-auto">
+        <form class="max-w-xl mx-auto my-auto" action="{{ route('career.save') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="flex justify-between  gap-x-20">
-                <div class="relative z-0 w-[300px] mb-5 group">
+            <div class="flex justify-between  ">
+                <div class="relative z-0 w-[w-full] mb-5 group">
                     <input type="text" name="name" id="name" class="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                     <label for="name" class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
                 </div>
-                <div class="relative z-0 w-[300px] mb-5 group">
+                <div class="relative z-0 w-[w-full] mb-5 group">
                     <input type="text" name="phone" id="phone" class="block py-2.5 px-0 w-full text-lg text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                     <label for="phone" class="peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number</label>
                 </div>
@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class=" mx-auto w-[300px] ">
+            <div class=" mx-auto w-full mt-8 ">
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg w-full sm:w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
             </div>
         </form>
