@@ -1,118 +1,233 @@
 @extends('layout.app')
 
 @section('title')
-    Category
+    Category | {{ $category->title ?? 'Posts' }}
 @endsection
 
 @section('content')
-<style>
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.98);
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
         }
-    }
 
-    .fade-in-up {
-        animation: fadeInUp 0.5s ease-out both;
-    }
-</style>
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
 
-<div class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-    @foreach ($post as $posts)
-        @php
-            $date = \Carbon\Carbon::parse($posts->created_at);
-            $isToday = $date->isToday();
-            $formattedDate = $isToday ? 'Today' : $date->format('jS M, Y');
-            $relativeTime = $date->diffForHumans();
-        @endphp
+        .post-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        }
 
-        <div class="fade-in-up group transition-transform duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg 
-                    flex flex-col sm:flex-row gap-4 bg-white border border-gray-100 rounded-2xl  overflow-hidden">
-            
-            {{-- Media --}}
-            <div class="w-full sm:w-5/12 h-48 sm:h-40 flex-shrink-0">
-                @if ($posts->image)
-                    <img src="{{ $posts->image }}" alt="{{ $posts->title }}"
-                         class="w-full h-full object-cover object-center rounded-t-xl sm:rounded-t-none sm:rounded-l-xl">
-                @elseif ($posts->video)
-                    <video class="w-full h-full object-cover rounded-t-xl sm:rounded-t-none sm:rounded-l-xl" autoplay muted loop>
-                        <source src="{{ $posts->video }}" type="video/mp4">
-                    </video>
-                @else
-                    <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
-                        No media
-                    </div>
-                @endif
-            </div>
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.04), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
 
-            {{-- Content --}}
-            <div class="w-full sm:w-7/12 py-4 px-5 flex flex-col justify-between">
-                {{-- Header Info --}}
-                <div class="flex items-start justify-between mb-2">
-                    <div class="flex items-center gap-2">
-                        <img src="{{ Auth::user() ? asset('storage/' . Auth::user()->photo) : asset('images/user.jpg') }}"
-                             class="w-14 h-14 sm:w-10 sm:h-10  rounded-full border object-cover" alt="User">
-                        <div class="text-[10px] font-medium sm:text-sm">
-                            <p class=" text-gray-800">{{ $posts->name }}</p>
-                            <span class="text-[10px] font-medium sm:text-sm text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</span>
-                        </div>
-                    </div>
-                    {{-- Tags --}}
-                    <div class="flex sm:flex flex-wrap gap-1">
-                        <span class="bg-sky-100 text-sky-700 text-[10px] px-2 py-0.5 rounded-full">Tech</span>
-                        <span class="bg-gray-100 text-gray-700 text-[10px] px-2 py-0.5 rounded-full">{{ $posts->category->title }}</span>
-                    </div>
-                </div>
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
 
-                {{-- Title + Description --}}
-                <a href="{{ route('read.post', $posts->id) }}"
-                    class="group block hover:bg-gray-50 transition-all duration-300 rounded-lg px-2 py-1">
-                 
-                     <h2 class="text-2xl font-semibold sm:text-xl text-gray-900 leading-snug mb-1 relative inline-block
-                                after:block after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-sky-500
-                                after:transition-all after:duration-300 group-hover:after:w-full">
-                         {{ \Illuminate\Support\Str::limit($posts->title, 80) }}
-                     </h2>
-                 
-                     <p class=" text-gray-600 group-hover:text-gray-800 transition-colors duration-300 text-[12px] font-medium sm:text-sm md:text-lg">
-                         {{ \Illuminate\Support\Str::limit(strip_tags($posts->description), 140) }}
-                     </p>
-                </a>
-                 
+        .title-underline {
+            position: relative;
+        }
 
-                {{-- Actions --}}
-                <div class="flex items-center justify-between mt-4 text-gray-500">
-                    <div class="flex items-center gap-4 text-[10px] sm:text-xs">
-                        <livewire:like-button :key="$posts->id" :posts="$posts" />
-                        <div class="flex items-center gap-1">
-                            <i class="fa-solid fa-thumbs-down"></i>
-                            <span class="">10K</span>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <i class="fa-solid fa-comments"></i>
-                            <span>{{ $posts->comments()->count() }}</span>
-                        </div>
-                    </div>
-                    <a href="#" onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ asset('storage/' . $posts->image) }}')"
-                       class="hover:text-sky-500 transition">
-                        <i class="fa-solid fa-share-nodes"></i>
-                    </a>
-                </div>
+        .title-underline:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            margin-top: 2px;
+            right: 0;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            transition: width 0.4s ease;
+        }
+
+        .title-underline:hover:after {
+            width: 100%;
+            left: 0;
+        }
+
+        .pagination .page-item.active .page-link {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-color: transparent;
+        }
+
+        .pagination .page-link {
+            color: #3b82f6;
+            border: 1px solid #e2e8f0;
+            margin: 0 4px;
+            border-radius: 8px !important;
+            transition: all 0.3s ease;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #f1f5f9;
+        }
+
+        .media-placeholder {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.3) 50%, transparent 100%);
+        }
+    </style>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Category Header -->
+        <div class="text-center mb-16 animate-fade-in">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                <span class="gradient-text">{{ $category->title ?? 'All Posts' }}</span>
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Discover the latest stories, ideas and knowledge in this {{$category->title}}
+            </p>
+            <div class="mt-6 flex justify-center">
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
             </div>
         </div>
-        <hr class="my-6 w-4 border border-slate-400 mx-auto">
-    @endforeach
 
-    <hr class="w-fullborder my-8 border-slate-400 sm:w-full">
+        <!-- Posts Grid -->
+        <div class="grid grid-cols-1 gap-8 md:gap-10">
+            @foreach ($post as $posts)
+                @php
+                    $date = \Carbon\Carbon::parse($posts->created_at);
+                    $isToday = $date->isToday();
+                    $formattedDate = $isToday ? 'Today' : $date->format('jS M, Y');
+                    $relativeTime = $date->diffForHumans();
+                @endphp
 
-    {{-- Pagination --}}
-    <div class="flex justify-center my-8">
-        {{ $post->onEachSide(1)->links() }}
+                <div class="post-card rounded-2xl overflow-hidden border border-gray-100 hover:border-transparent"
+                    style="animation: fadeIn 0.6s ease-out {{ $loop->index * 0.1 }}s both;">
+
+                    <!-- Media + Content Container -->
+                    <div class="flex flex-col md:flex-row">
+                        <!-- Media Section -->
+                        <div class="w-full md:w-2/5 h-64 relative overflow-hidden">
+                            @if ($posts->image)
+                                <img src="{{ $posts->image }}" alt="{{ $posts->title }}"
+                                    class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                            @elseif ($posts->video)
+                                <video class="w-full h-full object-cover" autoplay muted loop>
+                                    <source src="{{ $posts->video }}" type="video/mp4">
+                                </video>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                            @else
+                                <div class="media-placeholder w-full h-full flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-gray-400 animate-float" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Content Section -->
+                        <div class="w-full md:w-3/5 p-6 md:p-8 flex flex-col justify-between">
+                            <!-- Header Info -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="{{ Auth::user() ? asset('storage/' . Auth::user()->photo) : asset('images/user.jpg') }}"
+                                            class="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover" alt="User">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900">{{ $posts->name }}</p>
+                                            <p class="text-xs text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            {{ $posts->category->title }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Title + Description -->
+                                <a href="{{ route('read.post', $posts->id) }}" class="block group">
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-3 title-underline inline-block">
+                                        {{ \Illuminate\Support\Str::limit($posts->title, 80) }}
+                                    </h3>
+                                    <p class="text-gray-600 mb-4 leading-relaxed">
+                                        {{ \Illuminate\Support\Str::limit(strip_tags($posts->description), 140) }}
+                                    </p>
+                                </a>
+                            </div>
+
+                            <!-- Footer Actions -->
+                            <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                                <div class="flex space-x-4 text-sm text-gray-500">
+                                    <livewire:like-button :key="$posts->id" :posts="$posts" />
+                                    <span class="flex items-center space-x-1 hover:text-blue-500 transition-colors">
+                                        <i class="far fa-comment"></i>
+                                        <span>{{ $posts->comments()->count() }}</span>
+                                    </span>
+                                    <span class="flex items-center space-x-1 hover:text-red-500 transition-colors">
+                                        <i class="far fa-thumbs-down"></i>
+                                        <span>10K</span>
+                                    </span>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <button onclick="sharePost('{{ $posts->id }}', '{{ $posts->title }}', '{{ asset('storage/' . $posts->image) }}')"
+                                    class="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-blue-500">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-red-500">
+                                        <i class="far fa-bookmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if(!$loop->last)
+                    <div class="divider my-2"></div>
+                @endif
+            @endforeach
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-16 flex justify-center">
+            {{ $post->onEachSide(1)->links('pagination::tailwind') }}
+        </div>
     </div>
-</div>
+
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-8 right-8">
+        <button class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg flex items-center justify-center text-white hover:shadow-xl transition-all transform hover:scale-110">
+            <i class="fas fa-plus text-xl"></i>
+        </button>
+    </div>
+
+    <script>
+        // Simple share function
+        function sharePost(postId, title, image) {
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: 'Check out this interesting post!',
+                    url: window.location.origin + '/read/post/' + postId,
+                })
+                .catch(error => console.log('Error sharing:', error));
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const shareUrl = window.location.origin + '/read/post/' + postId;
+                alert(`Share this post: ${title}\n${shareUrl}`);
+            }
+        }
+    </script>
 @endsection
