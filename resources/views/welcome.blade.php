@@ -25,12 +25,12 @@
         {{-- Start Trending news section --}}
         <div class="w-11/12 flex justify-between items-center -mt-4 mx-auto sm:mt-12">
             <div>
-                <h6 class="text-4xl font-medium text-black sm:text-4xl sm:text-black">Latest News</h6>
+                <h6 class="text-4xl font-medium text-black sm:text-4xl ">Latest News</h6>
             </div>
 
             <div class="sm:hidden">
                 <div id="category-toggle-btn" class="w-[44px] h-[37px] border border-slate-700 flex items-center justify-center rounded-lg">
-                    <button  class="text-[13px] text-slate-700" data-dropdown-toggle="category-menu" ><i class='bx bx-menu-alt-left' ></i> </button>
+                    <button  class="text-[13px] text-slate-700" data-dropdown-toggle="category-menu" ><i class='bx bx-menu-alt-left text-slate-700' ></i> </button>
                 </div>
 
                 <div class="z-50 hidden w-[165px] h-[162px] overflow-y-auto max-h-[200px] border bg-white justify-between px-6 py-8" id="category-menu" style="scrollbar-width: none; -ms-overflow-style: none;">
