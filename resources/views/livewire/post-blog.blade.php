@@ -57,7 +57,7 @@
 
 
                 <div class="w-full h-[280px] sm:mt-4 sm:w-[40%] sm:h-52 bg-slate-50 mt-1">
-                    <img class="w-full h-[280px] sm:mt- rounded-md sm:rounded-md sm:w-full sm:h-full" src="{{$posts->image}}" alt="">
+                    <img class="w-full h-[280px] object-cover rounded-md sm:rounded-md sm:w-full sm:h-full" src="{{$posts->image}}" alt="">
                     <div class="flex my-4 items-center justify-around sm:my-3">
                        <livewire:like-button  :key="$posts->id" :posts="$posts"  />
                         <div class="flex items-center">

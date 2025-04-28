@@ -49,39 +49,72 @@
         <div class="w-11/12 mx-auto mt-12 grid grid-cols-1 sm:grid-cols-4 gap-4 sm:mt-6 ">
             @foreach ($category as $categorys)
                 @php
-                    // Get the first post that has either an image or a video
-                    $mediaPost = $categorys->posts->firstWhere(function ($post) {
-                        return $post->image || $post->video;
-                    });
+                    $mediaPosts = $categorys->posts
+                        ->filter(function ($post) {
+                            return $post->image || $post->video;
+                        })
+                        ->map(function ($post) {
+                            return [
+                                'type' => $post->image ? 'image' : 'video',
+                                'url' => $post->image ?? $post->video,
+                            ];
+                        })
+                        ->take(5)
+                        ->values(); // Take first 5 media items to rotate
                 @endphp
         
-                <div class="w-full h-[300px] mb-4 sm:mb-0 relative rounded-[1rem] overflow-hidden fade-in-up group transition-transform duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
-                    <a href="{{ route('category.post', $categorys->id) }}" class="block w-full h-full">
-                        @if ($mediaPost && $mediaPost->image)
-                            <div
-                                class="w-full h-full bg-cover bg-center"
-                                style="background-image: url('{{ $mediaPost->image }}')"
-                            ></div>
-                        @elseif ($mediaPost && $mediaPost->video)
-                            <video
-                                class="absolute inset-0 w-full h-full object-cover"
-                                autoplay
-                                muted
-                                loop
-                            >
-                                <source src="{{ $mediaPost->video }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        @else
-                            <div class="w-full h-full bg-gray-300 flex items-center justify-center text-sm text-gray-600">
-                                No Preview Available
-                            </div>
-                        @endif
+        
+                <div 
+                x-data="{
+                    medias: @js($mediaPosts),
+                    current: 0,
+                    init() {
+                        setInterval(() => {
+                            this.current = (this.current + 1) % this.medias.length;
+                        }, 8000); // Change every 4 seconds
+                    }
+                }"
+                class="w-full h-[300px] mb-4 sm:mb-0 relative rounded-[1rem] overflow-hidden fade-in-up group transition-transform duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+            >
+                <a href="{{ route('category.post', $categorys->id) }}" class="block w-full h-full relative">
             
-                        <div class="absolute top-0 text-end w-full pr-4 font-bold bg-black/80 text-2xl p-2 text-white sm:bg-black/40 sm:text-sm">
-                            {{ Str::upper($categorys->title) }}
+                    <template x-for="(media, index) in medias" :key="index">
+                        <div
+                            x-show="current === index"
+                            x-transition:enter="transition-opacity duration-1000"
+                            x-transition:enter-start="opacity-0"
+                            x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition-opacity duration-1000"
+                            x-transition:leave-start="opacity-100"
+                            x-transition:leave-end="opacity-0"
+                            class="absolute inset-0 w-full h-full"
+                        >
+                            <template x-if="media.type === 'image'">
+                                <div
+                                    class="w-full h-full bg-cover bg-center"
+                                    :style="`background-image: url('${media.url}')`"
+                                ></div>
+                            </template>
+            
+                            <template x-if="media.type === 'video'">
+                                <video
+                                    class="w-full h-full object-cover"
+                                    autoplay
+                                    muted
+                                    loop
+                                    playsinline
+                                >
+                                    <source :src="media.url" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </template>
                         </div>
-                    </a>
+                    </template>
+            
+                    <div class="absolute top-0 text-end w-full pr-4 font-bold bg-black/80 text-2xl p-2 text-white sm:bg-black/40 sm:text-sm">
+                        {{ Str::upper($categorys->title) }}
+                    </div>
+                </a>
                 </div>
             @endforeach
         

@@ -316,7 +316,7 @@
                 {{-- Mobile Search --}}
                 <div
                     class="flex items-center gap-2 transition-all duration-300"
-                    :class="{ 'opacity-100 visible': showSearch, 'opacity-0 invisible': !showSearch }"
+                    
                 >
                     <input
                         x-model="query"
