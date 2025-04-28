@@ -47,7 +47,7 @@ class BlogController extends Controller
                     return view('welcome', compact('post', 'category', 'ten', 'adverts', 'marq'));
                 case 'admin':
                     return view('admin.admin', compact('user','users', 'blogs'));
-                case 'editor':
+                case    'editor':
                     return view('welcome', compact('post', 'category', 'ten', 'adverts', 'marq'));
                 default:
                     return redirect()->back();
@@ -76,10 +76,10 @@ class BlogController extends Controller
         ->where('post_status', 'active')
         ->orderBy('created_at', 'DESC')
         ->paginate(4);
-    
+
         return view('category_post', compact('category', 'post'));
     }
-    
+
 
     // User profile
     public function profiles() {
@@ -124,43 +124,43 @@ class BlogController extends Controller
     {
         if ($request->hasFile('upload')) {
             $file = $request->file('upload');
-    
+
             // Validation
             $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             $maxFileSize = 2 * 1024 * 1024; // 2MB
-    
+
             $mimeType = $file->getMimeType();
             $extension = strtolower($file->getClientOriginalExtension());
-    
+
             if (!in_array($mimeType, $allowedMimeTypes) || !in_array($extension, $allowedExtensions)) {
                 return response()->json([
                     'uploaded' => 0,
                     'error' => ['message' => 'Only image files are allowed.']
                 ]);
             }
-    
+
             if ($file->getSize() > $maxFileSize) {
                 return response()->json([
                     'uploaded' => 0,
                     'error' => ['message' => 'Image size must be less than 2MB.']
                 ]);
             }
-    
+
             // Store in `storage/app/public/uploads`
             $filename = time() . '_' . Str::random(10) . '.' . $extension;
             $path = $file->storeAs('public/uploads', $filename); // saves in storage/app/public/uploads
-    
+
             // Access URL via storage link (public/storage/uploads/...)
             $url = asset('storage/uploads/' . $filename);
-    
+
             return response()->json([
                 'uploaded' => 1,
                 'fileName' => $filename,
                 'url' => $url
             ]);
         }
-    
+
         return response()->json([
             'uploaded' => 0,
             'error' => ['message' => 'No image file was uploaded.']

@@ -23,12 +23,17 @@
              /* Dark blue-black text */
         }
 
-        .lobster-regular {
-            font-family: "Lobster", sans-serif;
-            font-weight: 400;
+        .font-cheltenham {
+  font-family: 'Cheltenham Pro', serif;
+}
+
+
+        @font-face {
+            font-family: 'Cheltenham Pro';
+            src: url('/fonts/cheltenham-pro.otf') format('opentype');
+            font-weight: normal;
             font-style: normal;
         }
-
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Inter', sans-serif;
@@ -252,7 +257,7 @@
             </div>
 
             <div class="hidden sm:block sm:text-center">
-                <h1 class="sm:text-[50px] lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">
+                <h1 class="sm:text-[50px] font-medium text-black font-cheltenham">
                     THE ACADEMIC TIMES
                 </h1>
             </div>
@@ -287,7 +292,7 @@
                     </div>
                 </div>
                 <!-- Heading -->
-                <h1 class="text-[25px] my-8 text-center lobster-regular font-medium text-black font-['Libre_Baskerville',serif]">
+                <h1 class="text-[25px] my-8 text-center font-medium text-black font-cheltenham">
                     THE ACADEMIC TIMES
                 </h1>
             </div>
