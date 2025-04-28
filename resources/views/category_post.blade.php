@@ -143,14 +143,14 @@
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center space-x-3">
                                         <img src="{{ Auth::user() ? asset('storage/' . Auth::user()->photo) : asset('images/user.jpg') }}"
-                                            class="w-12 h-12 sm:w-10 sm:h-10 rounded-full border-2 border-white shadow-sm object-cover" alt="User">
+                                            class="w-14 h-14 sm:w-10 sm:h-10 rounded-full border-2 border-white shadow-sm object-cover" alt="User">
                                         <div>
-                                            <p class="text-md sm:text-sm font-medium text-gray-900">{{ $posts->name }}</p>
-                                            <p class="text-sm sm:text-xs text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</p>
+                                            <p class="text-lg sm:text-sm font-medium text-gray-900">{{ $posts->name }}</p>
+                                            <p class="text-md sm:text-xs text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</p>
                                         </div>
                                     </div>
                                     <div class="flex space-x-2">
-                                        <span class="px-2.5 py-0.5 rounded-full text-sm sm:text-xs font-medium bg-blue-100 text-blue-800">
+                                        <span class="px-4 py-1 rounded-full text-md sm:text-xs font-medium bg-blue-100 text-blue-800">
                                             {{ $posts->category->title }}
                                         </span>
                                     </div>
@@ -158,10 +158,10 @@
 
                                 <!-- Title + Description -->
                                 <a href="{{ route('read.post', $posts->id) }}" class="block group">
-                                    <h3 class="text-2xl font-bold text-gray-900 mb-3 title-underline inline-block">
+                                    <h3 class="text-3xl font-bold text-gray-900 mb-3 title-underline inline-block">
                                         {{ \Illuminate\Support\Str::limit($posts->title, 80) }}
                                     </h3>
-                                    <p class="text-gray-600 mb-4 leading-relaxed text-xl sm:text-lg">
+                                    <p class="text-gray-600 mb-4 leading-relaxed text-2xl sm:text-lg">
                                         {{ \Illuminate\Support\Str::limit(strip_tags($posts->description), 140) }}
                                     </p>
                                 </a>
@@ -170,7 +170,9 @@
                             <!-- Footer Actions -->
                             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
                                 <div class="flex space-x-4 text-sm text-gray-500">
-                                    <livewire:like-button :key="$posts->id" :posts="$posts" />
+                                    <span class="flex items-center space-x-1 hover:text-blue-500 transition-colors">
+                                        <livewire:like-button :key="$posts->id" :posts="$posts" />
+                                    </span>
                                     <span class="flex items-center space-x-1 hover:text-blue-500 transition-colors">
                                         <i class="far fa-comment"></i>
                                         <span>{{ $posts->comments()->count() }}</span>
