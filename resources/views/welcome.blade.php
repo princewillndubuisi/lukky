@@ -30,7 +30,7 @@
 
             <div class="sm:hidden">
                 <div id="category-toggle-btn" class="w-[44px] h-[37px] border border-slate-500 flex items-center justify-center rounded-lg">
-                    <button  class="text-[13px] text-slate-500" data-dropdown-toggle="category-menu" ><i class='bx bx-menu-alt-left' ></i> </button>
+                    <button  class="text-[13px] " data-dropdown-toggle="category-menu" ><i class='bx bx-menu-alt-left text-slate-500' ></i> </button>
                 </div>
 
                 <div class="z-50 hidden w-[165px] h-[162px] overflow-y-auto max-h-[200px] border bg-white justify-between px-6 py-8" id="category-menu" style="scrollbar-width: none; -ms-overflow-style: none;">
