@@ -143,7 +143,7 @@
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center space-x-3">
                                         <img src="{{ Auth::user() ? asset('storage/' . Auth::user()->photo) : asset('images/user.jpg') }}"
-                                            class="w-14 h-14 sm:w-10 sm:h-10 rounded-full border-2 border-white shadow-sm object-cover" alt="User">
+                                            class="w-12 h-12 sm:w-10 sm:h-10 rounded-full border-2 border-white shadow-sm object-cover" alt="User">
                                         <div>
                                             <p class="text-lg sm:text-sm font-medium text-gray-900">{{ $posts->name }}</p>
                                             <p class="text-md sm:text-xs text-gray-500">{{ $formattedDate }} • {{ $relativeTime }}</p>
