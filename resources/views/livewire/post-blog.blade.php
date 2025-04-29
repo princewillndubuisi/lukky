@@ -45,7 +45,7 @@
 
                     <a class="sm:ml-16" href="{{route('read.post', $posts->id)}}">
                         <div class="mt-6 mb-2 sm:mt-0">
-                            <h1 class="text-3xl font-semibold sm:text-2xl transition-all duration-300 ease-in-out hover:text-sky-400 hover:text-2xl sm:hover:text-2xl">
+                            <h1 class="title-underline text-3xl inline-block font-semibold sm:text-2xl transition-all duration-300 ease-in-out hover:text-sky-400 hover:text-2xl sm:hover:text-2xl">
                                 {{$posts->title}}
                             </h1>
                         </div>

@@ -200,6 +200,27 @@
             background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.3) 50%, transparent 100%);
         }
 
+                .title-underline {
+            position: relative;
+        }
+
+        .title-underline:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            display: block;
+            margin-top: 2px;
+            right: 0;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            transition: width 0.4s ease;
+        }
+
+        .title-underline:hover:after {
+            width: 100%;
+            left: 0;
+        }
+
     </style>
 </head>
 <body class="font-sans">
@@ -316,7 +337,7 @@
                 {{-- Mobile Search --}}
                 <div
                     class="flex items-center gap-2 transition-all duration-300"
-                    
+
                 >
                     <input
                         x-model="query"
