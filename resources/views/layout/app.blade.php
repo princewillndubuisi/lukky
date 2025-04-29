@@ -24,8 +24,8 @@
         }
 
         .font-cheltenham {
-  font-family: 'Cheltenham Pro', serif;
-}
+            font-family: 'Cheltenham Pro', serif;
+        }
 
 
         @font-face {
@@ -41,7 +41,7 @@
              /* Deep Teal for headings */
         }
 
-        /* 🔵 Navigation */
+        /* Navigation */
         .header {
             background-color: #212A31; /* Dark navy */
         }
@@ -53,7 +53,7 @@
             color: #124E66;
         }
 
-        /* ✨ Buttons */
+        /* Buttons */
         .btn-login {
             color: #124E66;
             border: 2px solid #2E3944;
