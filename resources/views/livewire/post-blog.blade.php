@@ -14,6 +14,7 @@
         @endphp --}}
 
         @if ($posts->image)
+            
             <div class="w-full h-[520px] rounded-md py-10 flex flex-col border sm:flex sm:flex-row sm:justify-center bg-white sm:w-full sm:h-80 px-6 sm:py-10 sm:gap-x-4">
 
                 <div class="w-full h-[180px] sm:w-[70%] sm:h-full ">
@@ -82,6 +83,7 @@
             @endif
 
         @elseif ($posts->video)
+
             <div class="flex border bg-white h-90 px-6 py-8">
                 <div class="flex flex-col items-center w-[9%]">
                     @if (Auth::user())
@@ -136,6 +138,7 @@
             @endif
 
         @else
+
             <div class="flex border bg-white h-80 px-6 py-8">
                 <div class="flex flex-col items-center w-[9%]">
                     @if (Auth::user())

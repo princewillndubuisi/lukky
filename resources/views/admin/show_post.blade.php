@@ -73,19 +73,34 @@
                                         @if (Str::startsWith($post->image, 'http'))
                                             <img src="{{ $post->image }}" alt="Image" width="100">
                                         @else
-                                            <img src="/postimage/{{$post->image}}" alt="Image" width="100">
+                                            <p>No Image</p>
                                         @endif
                                     </td>
 
                                     <td class="" style="width: 10px;">
                                         @if($post->video)
                                             @foreach(explode(',', $post->video) as $videoUrl)
-                                                <iframe width="100" height="50" src="{{ $videoUrl }}" frameborder="0" allowfullscreen></iframe>
+                                                @php
+                                                    $videoUrl = trim($videoUrl);
+                                                    if (str_contains($videoUrl, 'youtu.be')) {
+                                                        // Convert short URL to embed
+                                                        $videoId = basename(parse_url($videoUrl, PHP_URL_PATH));
+                                                        $embedUrl = 'https://www.youtube.com/embed/' . $videoId;
+                                                    } elseif (str_contains($videoUrl, 'youtube.com/watch')) {
+                                                        // Convert watch URL to embed
+                                                        parse_str(parse_url($videoUrl, PHP_URL_QUERY), $query);
+                                                        $embedUrl = 'https://www.youtube.com/embed/' . ($query['v'] ?? '');
+                                                    } else {
+                                                        $embedUrl = $videoUrl;
+                                                    }
+                                                @endphp
+                                                <iframe width="100" height="50" src="{{ $embedUrl }}" frameborder="0" allowfullscreen></iframe>
                                             @endforeach
                                         @else
                                             <p>No Video</p>
                                         @endif
                                     </td>
+
                                     <td>
                                         <a href="{{route('delete.post', $post->id)}}" onclick="confirmation(event)" class="btn btn-danger">Delete</a>
                                     </td>

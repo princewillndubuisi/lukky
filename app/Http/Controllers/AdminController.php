@@ -38,49 +38,49 @@ class AdminController extends Controller
     {
         if ($request->hasFile('upload')) {
             $file = $request->file('upload');
-    
+
             // Validation
             $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             $maxFileSize = 2 * 1024 * 1024; // 2MB
-    
+
             $mimeType = $file->getMimeType();
             $extension = strtolower($file->getClientOriginalExtension());
-    
+
             if (!in_array($mimeType, $allowedMimeTypes) || !in_array($extension, $allowedExtensions)) {
                 return response()->json([
                     'uploaded' => 0,
                     'error' => ['message' => 'Only image files are allowed.']
                 ]);
             }
-    
+
             if ($file->getSize() > $maxFileSize) {
                 return response()->json([
                     'uploaded' => 0,
                     'error' => ['message' => 'Image size must be less than 2MB.']
                 ]);
             }
-    
+
             // Store in `storage/app/public/uploads`
             $filename = time() . '_' . Str::random(10) . '.' . $extension;
             $path = $file->storeAs('public/uploads', $filename); // saves in storage/app/public/uploads
-    
+
             // Access URL via storage link (public/storage/uploads/...)
             $url = asset('storage/uploads/' . $filename);
-    
+
             return response()->json([
                 'uploaded' => 1,
                 'fileName' => $filename,
                 'url' => $url
             ]);
         }
-    
+
         return response()->json([
             'uploaded' => 0,
             'error' => ['message' => 'No image file was uploaded.']
         ]);
     }
-    
+
 
     // Add Post
     public function add_post(Request $request) {
@@ -134,7 +134,13 @@ class AdminController extends Controller
                 if (!empty($videoSrc)) {
                     // Convert YouTube URL to Embed Format
                     if (strpos($videoSrc, 'youtube.com/watch?v=') !== false) {
-                        $videoSrc = str_replace("watch?v=", "embed/", $videoSrc);
+                        $videoId = explode('v=', parse_url($videoSrc, PHP_URL_QUERY))[1];
+                        $videoId = explode('&', $videoId)[0]; // Remove any extra params
+                        $videoSrc = 'https://www.youtube.com/embed/' . $videoId;
+                    } elseif (strpos($videoSrc, 'youtu.be/') !== false) {
+                        $path = parse_url($videoSrc, PHP_URL_PATH); // gets /IKKzTJT8dQM
+                        $videoId = ltrim($path, '/');
+                        $videoSrc = 'https://www.youtube.com/embed/' . $videoId;
                     }
                     $videoArray[] = $videoSrc;
                 }
@@ -187,7 +193,8 @@ class AdminController extends Controller
     }
 
     // Update post
-    public function update_post(Request $request, $id) {
+    public function update_post(Request $request, $id)
+    {
         $validate = $request->validate([
             'title' => ['required'],
             'description' => ['required'],
@@ -201,13 +208,13 @@ class AdminController extends Controller
         $post->body = $request->body;
         $post->category_id = $request->category_id;
 
-        // Extract Images and Update `post.image`
+        // Extract Images
         $dom = new DOMDocument();
         @$dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $images = $dom->getElementsByTagName('img');
 
-        $imageArray = []; // Store multiple images
-        foreach ($images as $img) {
+        // Images
+        $imageArray = [];
+        foreach ($dom->getElementsByTagName('img') as $img) {
             if ($img instanceof DOMElement) {
                 $src = $img->getAttribute('src');
                 if (strpos($src, 'storage/uploads/') !== false) {
@@ -217,23 +224,32 @@ class AdminController extends Controller
         }
         $post->image = !empty($imageArray) ? implode(',', $imageArray) : null;
 
-        // Extract Videos and Update `post.video`
-        $videos = $dom->getElementsByTagName('iframe'); // Assuming YouTube/Vimeo embeds
-        $videoArray = []; // Store multiple videos
-        foreach ($videos as $video) {
+        // Videos (support both iframe and oembed)
+        $videoArray = [];
+
+        // <iframe> videos
+        foreach ($dom->getElementsByTagName('iframe') as $video) {
             if ($video instanceof DOMElement) {
-                $videoSrc = $video->getAttribute('src');
-                if (strpos($videoSrc, 'uploads/') !== false) {
-                    $videoArray[] = $videoSrc;
-                }
+                $src = $video->getAttribute('src');
+                $videoArray[] = $src;
             }
         }
+
+        // <oembed> videos (like from YouTube)
+        foreach ($dom->getElementsByTagName('oembed') as $embed) {
+            if ($embed instanceof DOMElement) {
+                $url = $embed->getAttribute('url');
+                $videoArray[] = $url;
+            }
+        }
+
         $post->video = !empty($videoArray) ? implode(',', $videoArray) : null;
 
         $post->save();
 
         return redirect()->route('show.post')->with('success', 'Post Updated Successfully');
     }
+
 
 
     // Delete post
