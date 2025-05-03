@@ -20,7 +20,7 @@
         <!-- Body-->
         <div class="page-header">
             <div class="container-fluid">
-                <h2 class="h5 no-margin-bottom">All Post</h2>
+                <h2 class="h5 no-margin-bottom">All Posts</h2>
             </div>
         </div>
 
